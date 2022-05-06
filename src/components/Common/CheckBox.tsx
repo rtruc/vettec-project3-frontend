@@ -1,8 +1,5 @@
 import styled from "styled-components";
-import { theme } from "../../util/theme";
-import { ButtonClickEventProp } from "../TaskBox/DeleteButton";
-import { TaskBoxProps } from "../TaskBox/TaskBox";
-
+import { theme } from "../../css/theme";
 
 const CheckBoxDiv = styled.input.attrs({ type: 'checkbox' })`
     /* Add if not using autoprefixer */
@@ -58,13 +55,10 @@ const CheckBoxDiv = styled.input.attrs({ type: 'checkbox' })`
 `
 
 interface CheckBoxProps {
-    isComplete: boolean;
+    isComplete?: boolean;
     clickEvent: () => {};
 }
-// const props = [TaskBoxProps]
-// export const CheckBox: React.FC<TaskBoxProps> = ({task, clickEvent}) => {
-// export const CheckBox: React.FC<TaskBoxProps> = ({task}) => {
-// export const CheckBox = (props: TaskBoxProps, clickEvent: ButtonClickEventProp) => {
+
 export const CheckBox: React.FC<CheckBoxProps> = ({isComplete, clickEvent}) => {
 
     return (

@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { theme } from "../../util/theme";
+import { theme } from "../../css/theme";
 
 
 export const DeleteButtonDiv = styled.button`
@@ -36,12 +36,11 @@ export const DeleteButtonDiv = styled.button`
     }
 `
 
-export interface ButtonClickEventProp {
+export interface DeleteButtonProp {
     clickEvent: () => {};
 }
 
-
-export const DeleteButton: React.FC<ButtonClickEventProp> = ({clickEvent}) => {
+export const DeleteButton: React.FC<DeleteButtonProp> = ({clickEvent}) => {
 
     return (
         <>

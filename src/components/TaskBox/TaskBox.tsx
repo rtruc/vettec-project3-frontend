@@ -3,8 +3,8 @@ import { useDispatch } from "react-redux";
 import styled, { StyledComponent } from "styled-components";
 import { deleteTask, editDate, toggleCompletionStatus } from "../../redux/actions/actions";
 import { convertDateToJSONCompliantString, discardTime } from "../../util/data";
-import { Task } from "../../util/task";
-import { theme } from "../../util/theme";
+import { Task } from "../../model/task";
+import { theme } from "../../css/theme";
 import { CheckBox } from "../Common/CheckBox";
 // import { CheckBox } from "../Common/CheckBox";
 import { DueDate } from "./Date";
@@ -63,16 +63,11 @@ const CompletedTask = styled(NormalTask)`
         }
 `
 
-export interface TaskBoxProps {
+export interface TaskProps {
     task: Task;
-    currentDate?: string;
 }
 
-// export const TaskBox: React.FC<TaskBoxProps> = ({task}) => {
-// export const TaskBox: React.FC<TaskBoxProps> = ({task}) => {
-// export const TaskBox = (task: Task) => {
-export const TaskBox = (props: TaskBoxProps) => {
-    const {task} = props;
+export const TaskBox: React.FC<TaskProps> = ({task}) => {
     
     let currentDate = convertDateToJSONCompliantString(new Date());
     let TaskRowDiv: StyledComponent<"div", {}>;
@@ -92,24 +87,18 @@ export const TaskBox = (props: TaskBoxProps) => {
     // CHANGED TASK EVENTS
     const    clickedCompletionBox  = ()        => dispatch(toggleCompletionStatus(task._id));
     const    clickedDeleteButton   = ()        => dispatch(deleteTask(task._id))
-    const    changeDueDate         = (newDate: string) => dispatch(editDate(task._id, newDate ))
-    
-//     function changedDueDate(_id) {
-//        return function(date) {
-//            return dispatch(editDate(_id, date));
-//        }
-//    }
+    const    changedDueDate         = (newDate: string) => dispatch(editDate(task._id, newDate ))
 
     return (
         <TaskRowDiv>
 
-            {/* <CheckBox task={task} clickEvent={clickedCompletionBox} /> */}
             <CheckBox isComplete={task.isComplete} clickEvent={clickedCompletionBox}  />
             <DeleteButton clickEvent={clickedDeleteButton} />
 
             <TaskColumn>
                 <Title task={task} />
-                <DueDate task={task} currentDate={currentDate}  />
+                <DueDate task={task} currentDate={currentDate} 
+                         changedDueDate={changedDueDate} />
 
             </TaskColumn>
         </TaskRowDiv>

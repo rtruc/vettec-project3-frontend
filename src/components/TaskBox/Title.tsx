@@ -1,8 +1,8 @@
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { editTitle } from "../../redux/actions/actions";
-import { theme } from "../../util/theme";
-import { TaskBoxProps } from "./TaskBox";
+import { theme } from "../../css/theme";
+import { TaskProps } from "./TaskBox";
 
 
 const DefaultTitleDiv = styled.input.attrs({type: 'text'})`
@@ -27,9 +27,8 @@ const NewTitleDiv = styled(DefaultTitleDiv)`
 `
 
 
-export const Title: React.FC<TaskBoxProps> = ({task}) => {
+export const Title: React.FC<TaskProps> = ({task}) => {
 
-    // console.log(currentDate);
     const {title, _id} = task;
 
     const dispatch = useDispatch();
@@ -43,8 +42,7 @@ export const Title: React.FC<TaskBoxProps> = ({task}) => {
 
     return (
         <TitleDiv defaultValue={title} 
-        onBlur={e => dispatch(editTitle(_id, e.target.value))} 
-        // onChange={e => dispatch(editTitle(_id, e.target.value))} 
+                onBlur={e => dispatch(editTitle(_id, e.target.value))} 
         />
     )
 }

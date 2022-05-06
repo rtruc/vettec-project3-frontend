@@ -1,4 +1,4 @@
-import { Task } from "./task";
+import { Task } from "../model/task";
 
 export interface Filter {
     (task: Task): boolean;

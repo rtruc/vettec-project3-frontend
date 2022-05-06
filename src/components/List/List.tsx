@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { State } from "../../redux/state";
 import { Filter } from "../../util/filters";
-import { Task } from "../../util/task";
+import { Task } from "../../model/task";
 import { TaskBox } from "../TaskBox/TaskBox";
 
 const ListDiv = styled.div`
@@ -18,11 +18,8 @@ const ListDiv = styled.div`
 export const List: React.FC = () => {
 
     const { tasks, filters } = useSelector((state: State) => state);    
-    
-    console.log("Tasks: ", tasks);
 
-
-    let workingSet: Task[]  = tasks;
+    let workingSet:  Task[] = tasks;
     let filteredSet: Task[] = [];
 
     filters.forEach((filter: Filter) => {
@@ -31,14 +28,6 @@ export const List: React.FC = () => {
         workingSet = filteredSet;
 
     } )
-
-    // for (const f in filters) {
-    //     filteredSet = [];
-    //     const filter = filters.get(f);
-    //     filteredSet.push(...workingSet.filter(task => filter(task)));
-    //     workingSet = filteredSet;
-    // }
-
 
     return (
         <ListDiv>

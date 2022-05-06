@@ -2,8 +2,8 @@ import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { editDate } from "../../redux/actions/actions";
 import { convertDateToHTMLCompliantString, convertDateToJSONCompliantString, discardTime } from "../../util/data";
-import { theme } from "../../util/theme";
-import { TaskBoxProps } from "./TaskBox";
+import { Task } from "../../model/task";
+import { theme } from "../../css/theme";
 
 const StandardDueDateDiv = styled.input.attrs({type: 'date'})`
     background-color: inherit;
@@ -32,17 +32,19 @@ const OverdueDateDiv = styled(StandardDueDateDiv)`
     color: ${theme.task_TextColor_Overdue};
 `
 
-export const DueDate: React.FC<TaskBoxProps> = ({task, currentDate}) => {
+interface DueDateProps {
+    task: Task;
+    currentDate: string;
+    changedDueDate: (newDate:string) => {};
+}
+
+export const DueDate: React.FC<DueDateProps> = ({task, currentDate, changedDueDate}) => {
 
     const {date, isComplete, _id} = task;
-    const currentDateUnwrapped = currentDate || "";
-    const dispatch = useDispatch();
-
-
     let DueDateDiv;
 
     // STYLE TEXT BASED UPON DUE TIME STATUS
-    if(isComplete === false && discardTime(currentDateUnwrapped) > discardTime(date)) {
+    if(isComplete === false && discardTime(currentDate) > discardTime(date)) {
         DueDateDiv = OverdueDateDiv;
     } else {
         DueDateDiv = StandardDueDateDiv;
@@ -50,7 +52,7 @@ export const DueDate: React.FC<TaskBoxProps> = ({task, currentDate}) => {
 
     return (
             <DueDateDiv required defaultValue={convertDateToHTMLCompliantString(date)} 
-                        onBlur={e => dispatch(editDate(_id, e.target.value))}
+                        onBlur={e => changedDueDate(e.target.value)}
             />
     )
 }

@@ -1,5 +1,5 @@
 // TEST DATA
-import { Task } from "./task";
+import { Task } from "../model/task";
 
 const taskData = [
     {

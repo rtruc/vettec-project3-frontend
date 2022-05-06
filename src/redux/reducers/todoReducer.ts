@@ -1,7 +1,7 @@
 import { AnyAction } from "redux";
 import { convertDateToHTMLCompliantString, generateID } from "../../util/data";
 import { dateFilter, textFilter } from "../../util/filters";
-import { Task } from "../../util/task";
+import { Task } from "../../model/task";
 import { initialState } from "../state";
 
 

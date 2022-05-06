@@ -1,10 +1,3 @@
-// interface Task {
-//     title: String;
-//     date: String;
-//     isComplete: boolean;
-//     _id: String;
-// }
-
 export class Task {
     title: string;
     date: string;
