@@ -1,7 +1,6 @@
 import { dateFilter, Filter, todoFilter } from "../util/filters";
 import { Task } from "../model/task";
 
-// TODO: Define tasks and filters
 
 // export type State = {
 export interface State {
