@@ -70,7 +70,7 @@ export function getTasks(): Task[] {
         if(task._id === "") {
             task._id = generateID();
         }
-        // task.date = generateDate();
+        task.date = generateDateString();
         tasks.push(new Task(task.title, task.date, task.isComplete, task._id));
     }
     return tasks;
@@ -86,10 +86,14 @@ export function discardTime(dateString: string): string {
     return dateString.substring(0, 10);
 }
 
+function generateDateString(): string {
+    return convertDateToJSONCompliantString(generateDate());
+}
+
 function generateDate(): Date {
     let date = new Date();
-    let dayOffset = Math.random() * 10;
-    dayOffset = (Math.random() * 10) > 3 ? (dayOffset * -1) : dayOffset;
+    let dayOffset = Math.trunc(Math.random() * 10);
+    dayOffset = (Math.random() * 10) > 5 ? (dayOffset * -1) : dayOffset;
     date.setDate(date.getDate() + dayOffset);
     return date;
 }
@@ -100,13 +104,10 @@ export function generateID(): string {
     let _id = "";
 
     for (let i = 0; i < 33; i++) {
-        // let rand = parseInt((lookupString.length * Math.random()).toFixed());
         let rand = Math.trunc(lookupString.length * Math.random());
-        // console.log(rand);
         _id += lookupString[rand];
     }
 
-    // console.log("id: ", _id );
     return _id;
 }
 

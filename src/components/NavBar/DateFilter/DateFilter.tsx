@@ -35,7 +35,6 @@ export const DateFilter = () => {
                 <DateFilterPicker required defaultValue={earlier}
                     onChange={(e) => dispatch(updateDateFilter(e.target.value, 'earlier'))} />
             </DateFilterPickerColumn>
-            {/* <DateFilterToggle onClick={() => dispatch(toggleDateFilter())} /> */}
             <CheckBox clickEvent={() => dispatch(toggleDateFilter())} />
         </DateFilterDiv>
 

@@ -32,9 +32,9 @@ const NavBarDiv = styled.div`
 export const NavBar = () => {
     
     const navEntries = [
-        { url: "/vettec-project2/", name: "ToDo" },
-        { url: "/vettec-project2/completed", name: "Completed" },
-        { url: "/vettec-project2/all", name: "All" },
+        { url: "/vettec-project2-typescript/", name: "ToDo" },
+        { url: "/vettec-project2-typescript/completed", name: "Completed" },
+        { url: "/vettec-project2-typescript/all", name: "All" },
     ]
     
     const dispatch = useDispatch();
