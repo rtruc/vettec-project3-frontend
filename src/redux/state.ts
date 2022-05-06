@@ -7,7 +7,6 @@ import { Task } from "../model/task";
 export interface State {
     tasks: Task[];
     filters: Map<string, Filter>;
-    // dateRange: String[];
     dateRange: {earlier: string, later: string};
 }
 

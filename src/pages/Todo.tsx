@@ -6,7 +6,6 @@ import {todoFilter} from "../util/filters"
 
 export const Todo = () => {
 
-    // const filters = useSelector(state => state.filters);    
     const filters = useSelector((state: State) => state.filters);    
     filters.set("pageFilter", todoFilter);
     

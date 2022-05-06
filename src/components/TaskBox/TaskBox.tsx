@@ -41,7 +41,7 @@ const NormalTask = styled.div`
     &:hover, &:focus{
         /* filter: saturate(1.95); */
         box-shadow: 0 0 0 1.75pt ${theme.task_BorderShadowColor_HoverFocus};
-        transform: scale(1.025);
+        /* transform: scale(1.025); */
     }
 `
 
@@ -58,17 +58,18 @@ const OverdueTask = styled(NormalTask)`
 const CompletedTask = styled(NormalTask)`
     opacity: 40%;
     &:hover{
-        opacity: 80%;
-            filter: contrast(1.05);
-        }
+        opacity: 70%;
+        box-shadow: 0 0 0 0pt ${theme.task_BorderShadowColor_HoverFocus};
+        filter: contrast(1.05);
+    }
 `
 
 export interface TaskProps {
     task: Task;
 }
 
-export const TaskBox: React.FC<TaskProps> = ({task}) => {
-    
+export const TaskBox: React.FC<TaskProps> = ({ task }) => {
+
     let currentDate = convertDateToJSONCompliantString(new Date());
     let TaskRowDiv: StyledComponent<"div", {}>;
 
@@ -85,20 +86,20 @@ export const TaskBox: React.FC<TaskProps> = ({task}) => {
     const dispatch = useDispatch();
 
     // CHANGED TASK EVENTS
-    const    clickedCompletionBox  = ()        => dispatch(toggleCompletionStatus(task._id));
-    const    clickedDeleteButton   = ()        => dispatch(deleteTask(task._id))
-    const    changedDueDate         = (newDate: string) => dispatch(editDate(task._id, newDate ))
+    const clickedCompletionBox = () => dispatch(toggleCompletionStatus(task._id));
+    const clickedDeleteButton = () => dispatch(deleteTask(task._id))
+    const changedDueDate = (newDate: string) => dispatch(editDate(task._id, newDate))
 
     return (
         <TaskRowDiv>
 
-            <CheckBox isComplete={task.isComplete} clickEvent={clickedCompletionBox}  />
+            <CheckBox isComplete={task.isComplete} clickEvent={clickedCompletionBox} />
             <DeleteButton clickEvent={clickedDeleteButton} />
 
             <TaskColumn>
                 <Title task={task} />
-                <DueDate task={task} currentDate={currentDate} 
-                         changedDueDate={changedDueDate} />
+                <DueDate task={task} currentDate={currentDate}
+                    changedDueDate={changedDueDate} />
 
             </TaskColumn>
         </TaskRowDiv>
