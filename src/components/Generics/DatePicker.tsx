@@ -38,7 +38,7 @@ interface DueDateProps {
     changedDueDate: (newDate:string) => {};
 }
 
-export const DueDate: React.FC<DueDateProps> = ({task, currentDate, changedDueDate}) => {
+export const DatePicker: React.FC<DueDateProps> = ({task, currentDate, changedDueDate}) => {
 
     const {date, isComplete, _id} = task;
     let DueDateDiv;

@@ -9,9 +9,11 @@ const SearchFormDiv = styled.div`
         display:flex;
         align-items:center;
 
-        position: absolute;
-        right: 5px;
-        top: 9px;
+        margin-right: 10px
+        /* position: absolute; */
+        /* left: 10px; */
+        /* right: 5px; */
+        /* top: 9px; */
 `
 
 const SearchField = styled.input`
@@ -40,7 +42,7 @@ const SearchField = styled.input`
     &:focus {
         background-image: none;
         color: ${theme.navbar_Text};
-        background-color: ${theme.hover_Color_Alt};
+        background-color: ${theme.focus_color};
         outline: none;
     }
 

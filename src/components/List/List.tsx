@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { State } from "../../redux/state";
 import { Filter } from "../../util/filters";
 import { Task } from "../../model/task";
-import { TaskBox } from "../TaskBox/TaskBox";
+import { TaskBox } from "../InventoryItem/InventoryItem";
 
 const ListDiv = styled.div`
     display: flex;

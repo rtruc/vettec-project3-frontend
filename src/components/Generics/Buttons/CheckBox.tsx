@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { theme } from "../../css/theme";
+import { theme } from "../../../css/theme";
 
 const CheckBoxDiv = styled.input.attrs({ type: 'checkbox' })`
     /* Add if not using autoprefixer */
@@ -18,6 +18,8 @@ const CheckBoxDiv = styled.input.attrs({ type: 'checkbox' })`
     border: 0.075em solid grey;
     border-radius: 0.3em;
     transform: translateY(-0.075em);
+
+    cursor:pointer;
 
     display: grid;
     place-content: center;

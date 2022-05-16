@@ -1,8 +1,8 @@
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { editTitle } from "../../redux/actions/actions";
-import { theme } from "../../css/theme";
-import { TaskProps } from "./TaskBox";
+import { editTitle } from "../../../../redux/actions/actions";
+import { theme } from "../../../../css/theme";
+import { TaskProps } from "../../../InventoryItem/InventoryItem";
 
 
 const DefaultTitleDiv = styled.input.attrs({type: 'text'})`
@@ -27,7 +27,7 @@ const NewTitleDiv = styled(DefaultTitleDiv)`
 `
 
 
-export const Title: React.FC<TaskProps> = ({task}) => {
+export const EditableText: React.FC<TaskProps> = ({task}) => {
 
     const {title, _id} = task;
 

@@ -5,11 +5,11 @@ import { deleteTask, editDate, toggleCompletionStatus } from "../../redux/action
 import { convertDateToJSONCompliantString, discardTime } from "../../util/data";
 import { Task } from "../../model/task";
 import { theme } from "../../css/theme";
-import { CheckBox } from "../Common/CheckBox";
+import { CheckBox } from "../Generics/Buttons/CheckBox";
 // import { CheckBox } from "../Common/CheckBox";
-import { DueDate } from "./Date";
-import { DeleteButton } from "./DeleteButton";
-import { Title } from "./Title";
+import { DatePicker } from "../Generics/DatePicker";
+import { DeleteButton } from "../Generics/Buttons/DeleteButton";
+import { EditableText } from "../Generics/Text/Editable/EditableText";
 
 const TaskColumn = styled.div`
     display: flex;
@@ -97,8 +97,8 @@ export const TaskBox: React.FC<TaskProps> = ({ task }) => {
             <DeleteButton clickEvent={clickedDeleteButton} />
 
             <TaskColumn>
-                <Title task={task} />
-                <DueDate task={task} currentDate={currentDate}
+                <EditableText task={task} />
+                <DatePicker task={task} currentDate={currentDate}
                     changedDueDate={changedDueDate} />
 
             </TaskColumn>

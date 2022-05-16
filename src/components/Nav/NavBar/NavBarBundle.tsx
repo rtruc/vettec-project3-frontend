@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-export const IconBundle = styled.div`
+export const NavBarBundle = styled.div`
     display: flex;
     flex-direction: row;
 
@@ -8,6 +8,4 @@ export const IconBundle = styled.div`
 
     height: 100%;
 
-
-    /* flex-direction: column; */
 `
