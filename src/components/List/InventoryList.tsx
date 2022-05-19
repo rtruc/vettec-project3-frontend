@@ -23,7 +23,7 @@ const ListDiv = styled.div`
     padding-bottom: 60px;
 `
 
-export const List_Alt: React.FC = () => {
+export const InventoryList: React.FC = () => {
 
     let { inventory, filters } = useSelector((state: State) => state);
 

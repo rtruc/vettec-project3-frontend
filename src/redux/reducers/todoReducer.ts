@@ -4,6 +4,7 @@ import { textFilter } from "../../util/inventoryFilters";
 import { Task } from "../../model/task";
 import { initialState, State } from "../state";
 import { Inventory } from "../../model/inventory";
+import { stat } from "fs";
 
 
 
@@ -13,89 +14,86 @@ export const todoReducer = (state = initialState, action: AnyAction) => {
 
         case "UPDATE_INVENTORY": {
             state.inventory = action.inventory;
+            console.log()
+            // state.currentlySelectedWarehouse = state.inventory[0].warehouse;
             return {...state};
         }
 
         case "CLEAR_LOCAL_INVENTORY": {
-            state.inventory = []
+            state.inventory = [];
+            state.currentWarehouse = initialState.currentWarehouse;
             return {...state}
         }
 
         case "UPDATE_WAREHOUSES": {
             state.warehouses = action.warehouses;
-            console.log("UPDATING WAREHOUSE");
-            console.log(action.warehouses)
+            // console.log("UPDATING WAREHOUSE");
+            // console.log(action.warehouses);
             return {...state};
+        }
+
+        case "UPDATE_SELECTED_WAREHOUSE": {
+            state.currentWarehouse = 
+                            state.warehouses.find(warehouse => warehouse.warehouseID === action.warehouseID) 
+                            || null;
+            return {...state};
+
         }
 
 
         case "SORT_INV_ASC": {
-            console.log("Everyday I'm Sortaling");
             state.inventory.sort((i1, i2) => sortInventoryByProperty(i1, i2, "inventoryID"))
             return {...state};
         }
         case "SORT_INV_DES": {
-            console.log("Everyday I'm Sortaling");
             state.inventory.sort((i1, i2) => sortInventoryByProperty(i2, i1, "inventoryID"))
             return {...state};
         }
         case "SORT_AMT_ASC": {
-            console.log("Everyday I'm Sortaling");
             state.inventory.sort((i1, i2) => sortInventoryByProperty(i1, i2, "quantity"))
             return {...state};
         }
         case "SORT_AMT_DES": {
-            console.log("Everyday I'm Sortaling");
             state.inventory.sort((i1, i2) => sortInventoryByProperty(i2, i1, "quantity"))
             return {...state};
         }
         case "SORT_SPACE_ASC": {
-            console.log("Everyday I'm Sortaling");
             state.inventory.sort((i1, i2) => sortInventoryByTotalSpace(i1, i2))
             return {...state};
         }
         case "SORT_SPACE_DES": {
-            console.log("Everyday I'm Sortaling");
             state.inventory.sort((i1, i2) => sortInventoryByTotalSpace(i2, i1))
             return {...state};
         }
         case "SORT_TITLE_ASC": {
-            console.log("Everyday I'm Sortaling");
             state.inventory.sort((i1, i2) => sortInventoryByItemProperty(i1, i2, "itemName"))
             return {...state};
         }
         case "SORT_TITLE_DES": {
-            console.log("Everyday I'm Sortaling");
             state.inventory.sort((i1, i2) => sortInventoryByItemProperty(i2, i1, "itemName"))
             return {...state};
         }
         case "SORT_TYPE_ASC": {
-            console.log("Everyday I'm Sortaling");
             state.inventory.sort((i1, i2) => sortInventoryByItemProperty(i1, i2, "itemType"))
             return {...state};
         }
         case "SORT_TYPE_DES": {
-            console.log("Everyday I'm Sortaling");
             state.inventory.sort((i1, i2) => sortInventoryByItemProperty(i2, i1, "itemType"))
             return {...state};
         }
         case "SORT_SIZE_ASC": {
-            console.log("Everyday I'm Sortaling");
             state.inventory.sort((i1, i2) => sortInventoryByItemProperty(i1, i2, "unitVolume"))
             return {...state};
         }
         case "SORT_SIZE_DES": {
-            console.log("Everyday I'm Sortaling");
             state.inventory.sort((i1, i2) => sortInventoryByItemProperty(i2, i1, "unitVolume"))
             return {...state};
         }
         case "SORT_BRAND_ASC": {
-            console.log("Everyday I'm Sortaling");
             state.inventory.sort((i1, i2) => sortInventoryByItemBrandProperty(i1, i2, "brandName"))
             return {...state};
         }
         case "SORT_BRAND_DES": {
-            console.log("Everyday I'm Sortaling");
             state.inventory.sort((i1, i2) => sortInventoryByItemBrandProperty(i2, i1, "brandName"))
             return {...state};
         }

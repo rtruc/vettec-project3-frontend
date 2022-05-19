@@ -16,10 +16,10 @@ const SidebarDiv = styled.div`
 
     z-index: 5;
     
-    margin-top: 40px;
+    margin-top: 50px;
     padding-top: 5px;
 
-    margin-bottom: 40px;
+    margin-bottom: 50px;
     padding-bottom: 10px;
 
     background-color: ${theme.sidebar_BackgroundColor};

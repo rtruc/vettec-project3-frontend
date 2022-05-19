@@ -1,3 +1,3 @@
-import { Inventory } from "./Inventory";
+import { InventoryPage } from "./InventoryPage";
 
-export {Inventory};
+export {InventoryPage as Inventory};
