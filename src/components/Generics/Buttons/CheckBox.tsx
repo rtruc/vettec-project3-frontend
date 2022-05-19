@@ -58,7 +58,7 @@ const CheckBoxDiv = styled.input.attrs({ type: 'checkbox' })`
 
 interface CheckBoxProps {
     isComplete?: boolean;
-    clickEvent: () => {};
+    clickEvent?: () => {};
 }
 
 export const CheckBox: React.FC<CheckBoxProps> = ({isComplete, clickEvent}) => {

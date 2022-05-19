@@ -1,67 +1,40 @@
-import { useDispatch } from "react-redux";
-import { useLocation } from "react-router-dom";
-import { addTask } from "../../../redux/actions/actions";
-import { DateFilter } from "../../Generics/DateFilter/DateFilter";
+import { useSelector } from "react-redux";
+import { State } from "../../../redux/state";
+import { SortMenu } from "../../Generics/DropDownMenus/SortMenu";
+import { WarehouseMenu } from "../../Generics/DropDownMenus/WarehouseMenu";
 import { SearchForm } from "../../Generics/SearchForm";
+import { Title } from "../../Generics/Text/Static/Title";
 import { NavBarButton } from "../../_archived/Header/NavBarButton"
-import { NavItem } from "../../_archived/Header/NavItem";
-import { ActiveNavLink, NavLink } from "../../_archived/Header/NavLink";
 import { NavBar } from "./NavBar";
 import { NavBarBundle } from "./NavBarBundle";
 
 
-const navEntries = [
-    { url: "/", name: "ToDo" },
-    { url: "/completed", name: "Completed" },
-    { url: "/all", name: "All" },
-]
-
 export const TopBar = () => {
-
-
-    const dispatch = useDispatch();
-    let pathname = useLocation().pathname;
-
-    // const children = <>
-    //     <DateFilter />
-    //     {navEntries.map((entry, index) => {
-    //         return (
-    //             <NavItem key={index}>
-    //                 {entry.url === pathname ? <ActiveNavLink to={entry.url}>{entry.name}</ActiveNavLink> :
-    //                     <NavLink to={entry.url}>{entry.name}</NavLink>}
-    //             </NavItem>
-    //         );
-    //     })}
-    //     <NavBarButton onClick={() => dispatch(addTask(pathname))}>+</NavBarButton>
-
-    //     <SearchForm />
-    // </>
-
-
+    const { warehouses } = useSelector((state: State) => state);
 
     return (
         <>
+            <NavBar position="top">
 
-            {/* <NavBar children={children} /> */}
+                {/* //TODO: WIRE BUTTON TO REVEAL/DISMISS SIDEBAR */}
+                <NavBarButton> ≡ </NavBarButton>
 
-            {/* <NavBar>
-                {children}
-            </NavBar> */}
-
-            <NavBar additionalStyle="top: 0">
-                <DateFilter />
-                
                 <NavBarBundle>
-                {navEntries.map((entry, index) => {
-                    return (
-                        <NavItem key={index}>
-                            {entry.url === pathname ? <ActiveNavLink to={entry.url}>{entry.name}</ActiveNavLink> :
-                                <NavLink to={entry.url}>{entry.name}</NavLink>}
-                        </NavItem>
-                    );
-                })}
+                    <Title>Warehouse:</Title>
+                    <WarehouseMenu>
+                        {warehouses.map((warehouse) => {
+                            return (
+                                < option key={warehouse.warehouseID} 
+                                         value={warehouse.warehouseID}>
+                                             {warehouse.warehouseName}</option>
+                            )
+                        })}
+                    </WarehouseMenu>
+                </NavBarBundle>
 
-                <NavBarButton onClick={() => dispatch(addTask(pathname))}>+</NavBarButton>
+                <NavBarBundle>
+                    <Title>Sort:</Title>
+                    <SortMenu />
                 </NavBarBundle>
 
                 <SearchForm />

@@ -1,5 +1,3 @@
-import { Todo } from "./Todo";
-import { Completed } from "./Completed";
-import { All } from "./All";
+import { Inventory } from "./Inventory";
 
-export {Todo, Completed, All};
+export {Inventory};

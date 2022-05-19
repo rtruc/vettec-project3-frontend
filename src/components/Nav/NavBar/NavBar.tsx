@@ -7,6 +7,7 @@ const NavBarBaseStyle = styled.div`
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-between;
+    align-items: center;
 
     /* height: 200 px; */
     min-height:200;
@@ -24,17 +25,23 @@ const NavBarBaseStyle = styled.div`
     z-index: 10;
 `
 
+const TopNavBarStyle = styled(NavBarBaseStyle)`
+    top: 0;
+`
+
+const BottomNavBarStyle = styled(NavBarBaseStyle)`
+    bottom: 0;
+    /* height: 50px; */
+`
+
 export interface NavBarProps {
-    additionalStyle?: string;
+    position?: string;
     children?: React.ReactNode;
 }
 
-export const NavBar: React.FC<NavBarProps> = ({additionalStyle, children}) => {
-    
-    const NavBarDiv = styled(NavBarBaseStyle)`
-        /* bottom: 0; */
-        ${additionalStyle}
-        `
+export const NavBar: React.FC<NavBarProps> = ({position, children}) => {
+
+    const NavBarDiv = position === 'top' ? TopNavBarStyle : BottomNavBarStyle;
 
     return (
         <>

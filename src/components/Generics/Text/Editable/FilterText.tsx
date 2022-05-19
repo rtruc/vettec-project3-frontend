@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { editTitle } from "../../../../redux/actions/actions";
 import { theme } from "../../../../css/theme";
-import { TaskProps } from "../../../InventoryItem/InventoryItem";
+import { TaskProps } from "../../../_archived/Todo/TodoItem";
 
 
 const DefaultTitleDiv = styled.input.attrs({type: 'text'})`

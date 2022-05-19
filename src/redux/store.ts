@@ -1,19 +1,26 @@
+import axios from "axios";
+import { useDispatch } from "react-redux";
 import { createStore } from "redux";
-import { convertDateToHTMLCompliantString, getTasks } from "../util/data";
+import { testInventory } from "../util/inventoryTestData";
+import { warehouseInit } from "../util/warehouseInitData";
+import { updateWarehouses } from "./actions/actions";
 import { todoReducer } from "./reducers/todoReducer";
 import { initialState } from "./state";
 
-let date          = new Date();
-let todayString   = convertDateToHTMLCompliantString(date);
-date.setDate(date.getDate() - 7);
-let weekAgoString = convertDateToHTMLCompliantString(date);
-
-
 const initState = initialState;
-initState.tasks             = getTasks();
-initState.dateRange.earlier = weekAgoString;
-initState.dateRange.later   = todayString;
 
+// const dispatch = useDispatch();
+
+// axios.get(`http://localhost:8080/inventories`)
+//     .then(({data}) => initState.inventory = data as Inventory[])
+// axios.get(`http://localhost:8080/warehouses`)
+//      .then(({data}) => dispatch(updateWarehouses(data)))
+    //  .then(({data}) => console.log(data))
+     
+
+initState.inventory = JSON.parse(JSON.stringify(testInventory));
+// initState.warehouses = JSON.parse(JSON.stringify(warehouseInit))
+// console.log(initState.inventory);
 
 export const store = createStore(todoReducer, initState);
 // export const store = createStore(todoReducer);

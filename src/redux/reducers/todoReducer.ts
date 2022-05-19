@@ -1,37 +1,112 @@
 import { AnyAction } from "redux";
-import { convertDateToHTMLCompliantString, generateID } from "../../util/data";
-import { dateFilter, textFilter } from "../../util/filters";
+import { convertDateToHTMLCompliantString, generateID } from "../../util/taskData";
+import { textFilter } from "../../util/inventoryFilters";
 import { Task } from "../../model/task";
-import { initialState } from "../state";
+import { initialState, State } from "../state";
+import { Inventory } from "../../model/inventory";
+
 
 
 export const todoReducer = (state = initialState, action: AnyAction) => {
-    
-    switch(action.type) {
-        case 'SORT_ALPHA_UP': {
-            state.tasks.sort((t1, t2) => sortByTitle(t1, t2));            
+
+    switch (action.type) {
+
+        case "UPDATE_INVENTORY": {
+            state.inventory = action.inventory;
             return {...state};
         }
 
-        case 'SORT_ALPHA_DOWN': {
-            state.tasks.sort((t1, t2) => sortByTitle(t2, t1));            
+        case "CLEAR_LOCAL_INVENTORY": {
+            state.inventory = []
+            return {...state}
+        }
+
+        case "UPDATE_WAREHOUSES": {
+            state.warehouses = action.warehouses;
+            console.log("UPDATING WAREHOUSE");
+            console.log(action.warehouses)
             return {...state};
         }
 
-        case 'SORT_DATE_UP': {
-            state.tasks.sort((t1, t2) => sortByDate(t1, t2));            
+
+        case "SORT_INV_ASC": {
+            console.log("Everyday I'm Sortaling");
+            state.inventory.sort((i1, i2) => sortInventoryByProperty(i1, i2, "inventoryID"))
+            return {...state};
+        }
+        case "SORT_INV_DES": {
+            console.log("Everyday I'm Sortaling");
+            state.inventory.sort((i1, i2) => sortInventoryByProperty(i2, i1, "inventoryID"))
+            return {...state};
+        }
+        case "SORT_AMT_ASC": {
+            console.log("Everyday I'm Sortaling");
+            state.inventory.sort((i1, i2) => sortInventoryByProperty(i1, i2, "quantity"))
+            return {...state};
+        }
+        case "SORT_AMT_DES": {
+            console.log("Everyday I'm Sortaling");
+            state.inventory.sort((i1, i2) => sortInventoryByProperty(i2, i1, "quantity"))
+            return {...state};
+        }
+        case "SORT_SPACE_ASC": {
+            console.log("Everyday I'm Sortaling");
+            state.inventory.sort((i1, i2) => sortInventoryByTotalSpace(i1, i2))
+            return {...state};
+        }
+        case "SORT_SPACE_DES": {
+            console.log("Everyday I'm Sortaling");
+            state.inventory.sort((i1, i2) => sortInventoryByTotalSpace(i2, i1))
+            return {...state};
+        }
+        case "SORT_TITLE_ASC": {
+            console.log("Everyday I'm Sortaling");
+            state.inventory.sort((i1, i2) => sortInventoryByItemProperty(i1, i2, "itemName"))
+            return {...state};
+        }
+        case "SORT_TITLE_DES": {
+            console.log("Everyday I'm Sortaling");
+            state.inventory.sort((i1, i2) => sortInventoryByItemProperty(i2, i1, "itemName"))
+            return {...state};
+        }
+        case "SORT_TYPE_ASC": {
+            console.log("Everyday I'm Sortaling");
+            state.inventory.sort((i1, i2) => sortInventoryByItemProperty(i1, i2, "itemType"))
+            return {...state};
+        }
+        case "SORT_TYPE_DES": {
+            console.log("Everyday I'm Sortaling");
+            state.inventory.sort((i1, i2) => sortInventoryByItemProperty(i2, i1, "itemType"))
+            return {...state};
+        }
+        case "SORT_SIZE_ASC": {
+            console.log("Everyday I'm Sortaling");
+            state.inventory.sort((i1, i2) => sortInventoryByItemProperty(i1, i2, "unitVolume"))
+            return {...state};
+        }
+        case "SORT_SIZE_DES": {
+            console.log("Everyday I'm Sortaling");
+            state.inventory.sort((i1, i2) => sortInventoryByItemProperty(i2, i1, "unitVolume"))
+            return {...state};
+        }
+        case "SORT_BRAND_ASC": {
+            console.log("Everyday I'm Sortaling");
+            state.inventory.sort((i1, i2) => sortInventoryByItemBrandProperty(i1, i2, "brandName"))
+            return {...state};
+        }
+        case "SORT_BRAND_DES": {
+            console.log("Everyday I'm Sortaling");
+            state.inventory.sort((i1, i2) => sortInventoryByItemBrandProperty(i2, i1, "brandName"))
             return {...state};
         }
 
-        case 'SORT_DATE_DOWN': {
-            state.tasks.sort((t1, t2) => sortByDate(t2, t1));            
-            return {...state};
-        }
+
+
 
         case 'ADD_TASK': {
-            const date       = convertDateToHTMLCompliantString(new Date());
+            const date = convertDateToHTMLCompliantString(new Date());
             const isComplete = action.pathName === "/completed" ? true : false;
-            
+
             const newTask = new Task("New Task", date, isComplete, generateID());
             // const newTask = {title     : "New Task", 
             //                  date      : date,
@@ -39,69 +114,69 @@ export const todoReducer = (state = initialState, action: AnyAction) => {
             //                  _id        : generateID()};
 
             // FRONT OR BACK FOR NEW TASKS?
-            state.tasks.push(newTask);
+            // state.tasks.push(newTask);
             // state.tasks.unshift(newTask);
-            return {...state};
+            return { ...state };
         }
 
         case 'CHECKBOX_CLICKED': {
-            const tasks = state.tasks;
+            // const tasks = state.tasks;
 
-            const index = findTaskNumberIndexByID(tasks, action._id);
-            tasks[index].isComplete = !(tasks[index].isComplete);
+            // const index = findTaskNumberIndexByID(tasks, action._id);
+            // tasks[index].isComplete = !(tasks[index].isComplete);
 
-            return {...state};
+            return { ...state };
         }
 
-        case 'EDIT_TITLE': {            
-            const index = findTaskNumberIndexByID(state.tasks, action._id);
-            state.tasks[index].title = action.textUpdate;
+        case 'EDIT_TITLE': {
+            // const index = findTaskNumberIndexByID(state.tasks, action._id);
+            // state.tasks[index].title = action.textUpdate;
 
             return state;
         }
 
         case 'EDIT_DATE': {
-            const tasks = state.tasks;
+            // const tasks = state.tasks;
 
-            const index = findTaskNumberIndexByID(tasks, action._id);
-            tasks[index].date = action.dateUpdate;
+            // const index = findTaskNumberIndexByID(tasks, action._id);
+            // tasks[index].date = action.dateUpdate;
 
-            return {...state};
+            return { ...state };
         }
 
         case 'DELETE_TASK': {
-            const tasks = state.tasks;
-            const index = findTaskNumberIndexByID(tasks, action._id);
+            // const tasks = state.tasks;
+            // const index = findTaskNumberIndexByID(tasks, action._id);
 
-            tasks.splice(index, 1);
+            // tasks.splice(index, 1);
 
-            return {...state};
+            return { ...state };
         }
 
-        case 'SEARCH_TITLES': {
-            if(action.searchText.length > 0) {
+        case 'SEARCH_TEXT': {
+            if (action.searchText.length > 0) {
                 // state.filters.searchFilter = textFilter(action.searchText);
-                state.filters.set("textFilter", textFilter(action.searchText));
-                return {...state};
+                state.filters.set("textFilter", textFilter(action.searchText.toLowerCase()));
+                return { ...state };
             } else {
                 // delete state.filters.searchFilter;    
-                state.filters.delete("textFilter");    
-                return {...state};
+                state.filters.delete("textFilter");
+                return { ...state };
             }
         }
 
         case 'UPDATE_DATE_FILTER': {
             // state.dateRange[action.dateType] = action.newDate;
-            action.dateType === 'earlier' ? state.dateRange.earlier = action.newDate :
-                                            state.dateRange.later   = action.newDate;
+            // action.dateType === 'earlier' ? state.dateRange.earlier = action.newDate :
+            // state.dateRange.later   = action.newDate;
 
             // FORCE STATE UPDATE IF DATE FILTER IS IN USE
             // if(state.filters.dateFilter) {
-            if(state.filters.has("dateFilter")) {
-                const earlier = state.dateRange.earlier;
-                const later   = state.dateRange.later;
-                state.filters.set("dateFilter", dateFilter(earlier, later));
-                return {...state};
+            if (state.filters.has("dateFilter")) {
+                // const earlier = state.dateRange.earlier;
+                // const later   = state.dateRange.later;
+                // state.filters.set("dateFilter", dateFilter(earlier, later));
+                return { ...state };
             }
 
             return state;
@@ -109,15 +184,15 @@ export const todoReducer = (state = initialState, action: AnyAction) => {
 
         case 'TOGGLE_DATE_FILTER': {
 
-            if(state.filters.has("dateFilter")) {
+            if (state.filters.has("dateFilter")) {
                 state.filters.delete("dateFilter");
             } else {
-                const earlier = state.dateRange.earlier;
-                const later = state.dateRange.later;
-                state.filters.set("dateFilter", dateFilter(earlier, later));
+                // const earlier = state.dateRange.earlier;
+                // const later = state.dateRange.later;
+                // state.filters.set("dateFilter", dateFilter(earlier, later));
             }
 
-            return {...state};
+            return { ...state };
         }
 
         default:
@@ -125,38 +200,49 @@ export const todoReducer = (state = initialState, action: AnyAction) => {
     }
 }
 
-// TODO: OBJECT INDEX BY STRING VAR IN TYPESCRIPT?
-// function sortByProperty(t1: Task, t2: Task, property: string) {
-//     if (t1[property] < t2.title) {
-//         return -1;
-//     }
-//     if (t1.title > t2.title) {
-//         return 1;
-//     }
-//     return 0;
-// }
-function sortByTitle(t1: Task, t2: Task) {
-    if (t1.title < t2.title) {
+
+function sortInventoryByProperty(i1: Inventory, i2: Inventory, property: string) {
+    if (i1[property] < i2[property]) {
         return -1;
     }
-    if (t1.title > t2.title) {
+    if (i1[property] > i2[property]) {
         return 1;
     }
     return 0;
 }
-function sortByDate(t1: Task, t2: Task) {
-    if (t1.date < t2.date) {
+function sortInventoryByItemProperty(i1: Inventory, i2: Inventory, property: string) {
+    if (i1.item[property] < i2.item[property]) {
         return -1;
     }
-    if (t1.date > t2.date) {
+    if (i1.item[property] > i2.item[property]) {
+        return 1;
+    }
+    return 0;
+}
+function sortInventoryByItemBrandProperty(i1: Inventory, i2: Inventory, property: string) {
+    if (i1.item.brand[property] < i2.item.brand[property]) {
+        return -1;
+    }
+    if (i1.item.brand[property] > i2.item.brand[property]) {
+        return 1;
+    }
+    return 0;
+}
+function sortInventoryByTotalSpace(i1: Inventory, i2: Inventory) {
+    if (i1.quantity * i1.item.unitVolume < i2.quantity * i2.item.unitVolume ) {
+        return -1;
+    }
+    if (i1.quantity * i1.item.unitVolume > i2.quantity * i2.item.unitVolume) {
         return 1;
     }
     return 0;
 }
 
-function findTaskNumberIndexByID(tasks: Task[], _id: String) :number {
-    for(let i in tasks) {
-        if(tasks[i]._id === _id) {
+
+
+function findTaskNumberIndexByID(tasks: Task[], _id: String): number {
+    for (let i in tasks) {
+        if (tasks[i]._id === _id) {
             return parseInt(i);
         }
     }

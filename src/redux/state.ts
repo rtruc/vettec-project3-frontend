@@ -1,16 +1,19 @@
-import { dateFilter, Filter, todoFilter } from "../util/filters";
-import { Task } from "../model/task";
-
+import { dateFilter} from "../util/todoFilters";
+import { inventoryFilter} from "../util/inventoryFilters";
+import { Inventory } from "../model/inventory";
+import { Warehouse } from "../model/warehouse";
 
 // export type State = {
 export interface State {
-    tasks: Task[];
-    filters: Map<string, Filter>;
-    dateRange: {earlier: string, later: string};
+    inventory: Inventory[];
+    warehouses: Warehouse[];
+    filters: Map<string, inventoryFilter>;
+    // dateRange: {earlier: string, later: string};
 }
 
 export const initialState: State = {
-    tasks: [],
-    filters: new Map<string, Filter>(),
-    dateRange: {earlier: "earlier", later: "later"}
+    inventory: [], 
+    warehouses: [],
+    filters: new Map<string, inventoryFilter>(),
+    // dateRange: {earlier: "earlier", later: "later"}
 }

@@ -1,7 +1,7 @@
 {
   "name": "vettec-project3-frontend",
   "version": "0.1.0",
-  "homepage": "https://rtruc.github.io/vettec-project3-frontend",
+  "homepage": "https://rtruc.github.io/",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
@@ -11,6 +11,7 @@
     "@types/node": "^16.11.33",
     "@types/react": "^18.0.8",
     "@types/react-dom": "^18.0.3",
+    "axios": "^0.27.2",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-redux": "^8.0.1",

@@ -1,7 +1,5 @@
-export const sortTitlesAscending    = ()                  => ({ type: 'SORT_ALPHA_UP'});
-export const sortTitlesDescending   = ()                  => ({ type: 'SORT_ALPHA_DOWN'});
-export const sortDatesAscending     = ()                  => ({ type: 'SORT_DATE_UP'});
-export const sortDatesDescending    = ()                  => ({ type: 'SORT_DATE_DOWN'});
+import { Inventory } from "../../model/inventory";
+import { Warehouse } from "../../model/warehouse";
 
 export const addTask                = (pathName: string)          => ({ type: 'ADD_TASK', pathName: pathName});
 
@@ -13,4 +11,11 @@ export const editDate               = (_id: string, dateUpdate: string)   => ({ 
 export const toggleDateFilter       = ()                  => ({ type: 'TOGGLE_DATE_FILTER'});
 export const updateDateFilter       = (newDate: string, dateType: string) => ({ type: 'UPDATE_DATE_FILTER', newDate: newDate, dateType: dateType});
 
-export const searchTitles           = (searchText: string)        => ({ type: 'SEARCH_TITLES', searchText: searchText });
+export const searchText           = (searchText: string)        => ({ type: 'SEARCH_TEXT', searchText: searchText });
+
+
+export const updateInventory  = (inventory: Inventory[])       => ({ type: 'UPDATE_INVENTORY', inventory: inventory})
+export const clearInventory   = ()                             => ({ type: 'CLEAR_LOCAL_INVENTORY'})
+export const updateWarehouses = (warehouses: Warehouse[])      => ({ type: 'UPDATE_WAREHOUSES', warehouses: warehouses})
+
+export const sortInventory = (type: string)                    => ({type: type})

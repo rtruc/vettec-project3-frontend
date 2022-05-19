@@ -1,6 +1,6 @@
 import { Task } from "../model/task";
 
-export interface Filter {
+export interface todoFilter {
     (task: Task): boolean;
 }
 
@@ -8,12 +8,12 @@ export interface Filter {
 //     [filterName:string]:Filter
 // }
 
-export const todoFilter: Filter      = (task) => task.isComplete === false;
-export const completedFilter: Filter = (task) => task.isComplete === true;
-export const allFilter: Filter       = (task) => true;
+export const todoFilter: todoFilter      = (task) => task.isComplete === false;
+export const completedFilter: todoFilter = (task) => task.isComplete === true;
+export const allFilter: todoFilter       = (task) => true;
 
-export function textFilter(searchString: string): Filter {
-    const txtFilter: Filter = (task) => 
+export function textFilter(searchString: string): todoFilter {
+    const txtFilter: todoFilter = (task) => 
                                 task.title.toLowerCase().includes(searchString) || 
                                 task.date.includes(searchString);
 
@@ -23,7 +23,7 @@ export function textFilter(searchString: string): Filter {
     // }
 }     
 
-export function dateFilter(earlier: string, later: string): Filter {
+export function dateFilter(earlier: string, later: string): todoFilter {
     
     if (earlier > later) {
         const swapper = later;
@@ -31,7 +31,7 @@ export function dateFilter(earlier: string, later: string): Filter {
         earlier = swapper;
     }
 
-    const dtFilter: Filter = (task) => earlier <= task.date && task.date <= later;
+    const dtFilter: todoFilter = (task) => earlier <= task.date && task.date <= later;
     return dtFilter;
     // return function(task: Task) {
     //     return earlier <= task.date && task.date <= later;

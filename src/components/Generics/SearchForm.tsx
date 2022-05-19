@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { searchIcon } from "../../img/icons";
-import { searchTitles } from "../../redux/actions/actions";
+import { searchText } from "../../redux/actions/actions";
 import { theme } from "../../css/theme";
 
 
@@ -68,7 +68,7 @@ export const SearchForm = () => {
         <SearchFormDiv>
             <SearchIcon src={searchIcon} />
             <SearchField autoComplete="off" placeholder="search"
-                onChange={e => dispatch(searchTitles(e.target.value))} />
+                onChange={e => dispatch(searchText(e.target.value))} />
         </SearchFormDiv>
     )
 };
