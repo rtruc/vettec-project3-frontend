@@ -16,7 +16,7 @@ const SidebarDiv = styled.div`
 
     z-index: 5;
     
-    margin-top: 50px;
+    margin-top: 55px;
     padding-top: 5px;
 
     margin-bottom: 50px;

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { State } from "../../redux/state";
 import { Inventory } from "../../model/inventory";
-import { ItemDisplayCard } from "../InventoryItem/ItemDisplayCard";
+import { MiniItemDisplayCard } from "../InventoryItem/MiniItemDisplayCard";
 import { inventoryFilter } from "../../util/inventoryFilters";
 
 const ListDiv = styled.div`
@@ -13,13 +13,13 @@ const ListDiv = styled.div`
     justify-content: center;
 
     margin-left: 180px;
-    margin-right: 180px;
+    margin-right: 10px;
 
     gap: 10px;
 
     z-index:0;
     
-    padding-top: 60px;
+    padding-top: 65px;
     padding-bottom: 60px;
 `
 
@@ -42,7 +42,7 @@ export const InventoryList: React.FC = () => {
         <ListDiv>
             {workingSet.map((item) => {
                 return (
-                    <ItemDisplayCard key={item.inventoryID} record={item} />
+                    <MiniItemDisplayCard key={item.inventoryID} record={item} />
                 )
             })}
         </ListDiv>

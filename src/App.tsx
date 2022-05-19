@@ -11,7 +11,7 @@ import { updateWarehouses } from "./redux/actions/actions";
 function App() {
 
     const dispatch = useDispatch();
-    axios.get(`http://localhost:8080/warehouses`)
+    axios.get(`${process.env.REACT_APP_REST_URL}/warehouses`)
         .then(({ data }) => dispatch(updateWarehouses(data)))
 
     return (

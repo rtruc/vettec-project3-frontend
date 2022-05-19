@@ -46,7 +46,7 @@ export const NavBar: React.FC<NavBarProps> = ({position, children}) => {
     return (
         <>
             <NavBarDiv>
-                {children === null ? null : children}
+                {children !== null ? children : null}
             </NavBarDiv>
         </>
     );

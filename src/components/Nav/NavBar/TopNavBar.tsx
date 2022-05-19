@@ -16,7 +16,9 @@ import { NavBarBundle } from "./NavBarBundle";
 const ColumnCenterJustified = styled.div`
     display: flex;
     flex-direction: column;
-    margin-left: 10px;
+    margin-left: 20px;
+    margin-top:5px;
+    margin-bottom: 5px;
     text-align: left;
     align-items:center;
     justify-content:center;
@@ -33,7 +35,7 @@ export const TopBar = () => {
             <NavBar position="top">
             <NavBarBundle>
                 {/* //TODO: WIRE BUTTON TO REVEAL/DISMISS SIDEBAR */}
-                <NavBarButton> ≡ </NavBarButton>
+                {/* <NavBarButton> ≡ </NavBarButton> */}
 
             <ColumnCenterJustified>
                     <Title>Amazin' Beers </Title>
