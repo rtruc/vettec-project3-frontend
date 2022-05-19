@@ -19,9 +19,11 @@ const ListDiv = styled.div`
 
     z-index:0;
     
-    padding-top: 50px;
+    padding-top: 60px;
     padding-bottom: 60px;
 `
+
+
 
 export const InventoryList: React.FC = () => {
 

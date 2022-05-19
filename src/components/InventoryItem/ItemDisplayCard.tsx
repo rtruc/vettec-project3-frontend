@@ -86,6 +86,14 @@ const NumberField = styled.input.attrs({ type: 'number' })`
 
 `
 
+const Image = styled.img`
+    max-height:80px;
+    margin-right:10px;
+    border-radius: 10px;
+`
+
+const baseURL = `http://localhost:3000/`
+
 export interface ItemDisplayCardProps {
     record: Inventory;
 }
@@ -95,35 +103,45 @@ export const ItemDisplayCard: React.FC<ItemDisplayCardProps> = ({ record }) => {
     const { item, quantity, inventoryDate } = record;
 
     return (
-       
+
 
         <RecordContainer>
             <Column>
                 <Row>
-                    <Title>{item.itemType === 'book' ? "TITLE: " : "NAME: "} </Title> 
-                    <TextField defaultValue={item.itemName} />
-                </Row>
-                <Row>
-                    <Title>TYPE: </Title> 
-                    <TextField defaultValue={item.itemType} />
-                </Row>
-                <Row>
-                    <Title>{item.itemType === 'book' ? "AUTHOR: " : "BREWERY: "} </Title> 
-                    <TextField defaultValue={item.brand.brandName} />
+                    <Column>
+                        <Image src={baseURL + item.imageURL} />
+                    </Column>
+                    
+                    <Column>
+                        <Row>
+                            <Title>{item.itemType === 'book' ? "TITLE: " : "NAME: "} </Title>
+                            <TextField defaultValue={item.itemName} />
+                        </Row>
+                        <Row>
+                            <Title>TYPE: </Title>
+                            <TextField defaultValue={item.itemType} />
+                        </Row>
+                        <Row>
+                            <Title>{item.itemType === 'book' ? "AUTHOR: " : "BREWERY: "} </Title>
+                            <TextField defaultValue={item.brand.brandName} />
+                        </Row>
+                    </Column>
+
+
                 </Row>
 
                 <Row>
                     <Column>
-                        <Title>AMOUNT: </Title> 
-                        <Title>SIZE: </Title> 
+                        <Title>AMOUNT: </Title>
+                        <Title>SIZE: </Title>
                     </Column>
                     <Column>
                         <NumberField defaultValue={quantity} />
                         <NumberField defaultValue={item.unitVolume} />
                     </Column>
                     <Column>
-                        <Title>{item.itemType === 'book' ? "PUBLISHED: " : "EXPIRATION: "} </Title> 
-                        <Title>TOTAL SPACE: </Title> 
+                        <Title>{item.itemType === 'book' ? "PUBLISHED: " : "EXPIRATION: "} </Title>
+                        <Title>TOTAL SPACE: </Title>
                     </Column>
                     <Column>
                         <DateField date={inventoryDate} />

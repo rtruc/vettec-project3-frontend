@@ -8,6 +8,23 @@ export const DropDownMenuStyle = styled.select`
 
     border-radius: 5px;
 
+    font-family: 'Lato', sans-serif;
+
+    border: none;
+
+    
+    
+    
+    /* width: 100px; */
+    // HIDES DROPDOWN ICON
+    /* -o-appearance: none;
+   -ms-appearance: none;
+   -webkit-appearance: none;
+   -moz-appearance: none;
+   appearance: none; */
+
+    
+
     /* background-color: #c8c8fc; */
 
     &:focus {

@@ -28,6 +28,8 @@ const SearchField = styled.input`
     border-radius: 5px;
     font-family: 'Lato', sans-serif;
 
+    height: 20px;
+
     text-align: center;
         
     transition: 
