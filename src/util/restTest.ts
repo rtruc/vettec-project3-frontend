@@ -20,44 +20,37 @@ export function postInventoryEntry() {
 export function restTestsGET(): void {
 // LOCATIONS
 let locations: Location[];
-// axios.get(`http://localhost:8080/locations`)
 axios.get(`${process.env.REACT_APP_REST_URL}/locations`)
-    // .then(({data}) => testJSONdata(data))
     .then(({data}) => locations = data)
     .then(() => console.log(locations))
 
 // COMPANY
 let companies: Company[];
 axios.get(`${process.env.REACT_APP_REST_URL}/companies`)
-    // .then(({data}) => testJSONdata(data))
     .then(({data}) => companies = data)
     .then(() => console.log(companies))
 
 // WAREHOUSE
 let warehouses: Warehouse[];
 axios.get(`${process.env.REACT_APP_REST_URL}/warehouses`)
-    // .then(({data}) => testJSONdata(data))
     .then(({data}) => warehouses = data)
     .then(() => console.log(warehouses))
 
 // BRAND
 let brands: Brand[];
 axios.get(`${process.env.REACT_APP_REST_URL}/brands`)
-    // .then(({data}) => testJSONdata(data))
     .then(({data}) => brands = data)
     .then(() => console.log(brands))
 
 // ITEM
 let items: Item[];
 axios.get(`${process.env.REACT_APP_REST_URL}/items`)
-    // .then(({data}) => testJSONdata(data))
     .then(({data}) => items = data)
     .then(() => console.log(items))
 
 // INVENTORY
 let inventories: Inventory[];
 axios.get(`${process.env.REACT_APP_REST_URL}/inventories`)
-    // .then(({data}) => testJSONdata(data))
     .then(({data}) => inventories = data)
     .then(() => console.log(inventories))
 }

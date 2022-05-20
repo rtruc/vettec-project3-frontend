@@ -4,8 +4,7 @@ import { State } from "../../../redux/state";
 import { SortMenu } from "../../Generics/DropDownMenus/SortMenu";
 import { WarehouseMenu } from "../../Generics/DropDownMenus/WarehouseMenu";
 import { SearchForm } from "../../Generics/SearchForm";
-import { Title } from "../../Generics/Text/Static/Title";
-import { NavBarButton } from "../../_archived/Header/NavBarButton"
+import { Title } from "../../Generics/Text/Title";
 import { NavBar } from "./NavBar";
 import { NavBarBundle } from "./NavBarBundle";
 

@@ -108,31 +108,6 @@ export interface MiniItemDisplayCardProps {
     record: Inventory;
 }
 
-function zoomInventoryCard(e: React.MouseEvent) {
-    const theClicked = e.currentTarget;
-
-    console.log(theClicked.setAttribute);
-    
-    let screenX = window.innerWidth;
-    let screenY = window.innerHeight;
-
-    let boundingRect = theClicked.getBoundingClientRect();
-    let divX = boundingRect.x;
-    let divY = boundingRect.y;
-    let divHeight = boundingRect.height;
-    let divWidth = boundingRect.width;
-
-    let yTranslate = screenY / 2 - divY - divHeight / 2;
-    let xTranslate = screenX / 2 - divX - divWidth / 2;
-
-    let overScan = 100;
-    let heightMultiplier = (screenY - overScan) / divHeight;
-    let widthMultiplier = (screenX - overScan) / divWidth;
-    let scaleMultiplier = heightMultiplier < widthMultiplier ? heightMultiplier : widthMultiplier;
-
-    // theClicked.
-    // theClicked.style.transform = `translate(${xTranslate}px,${yTranslate}px) scale(${scaleMultiplier}) `;
-}
 
 export const MiniItemDisplayCard: React.FC<MiniItemDisplayCardProps> = ({ record }) => {
 
@@ -149,7 +124,7 @@ export const MiniItemDisplayCard: React.FC<MiniItemDisplayCardProps> = ({ record
 
         <MiniRecordContainer onClick={() => dispatch(displayLargeItemView(record))}>
 
-            <Image src={imageURL} />
+            <Image alt={record.item.itemName} src={imageURL} />
 
             <TextColumn>
                 <TextRow>

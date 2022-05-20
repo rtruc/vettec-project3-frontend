@@ -1,9 +1,10 @@
+import axios from "axios";
 import React from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { theme } from "../../css/theme";
 import { Inventory } from "../../model/inventory";
-import { dismissLargeItemView } from "../../redux/actions/actions";
+import { dismissLargeItemView, updateInventoryQuantity } from "../../redux/actions/actions";
 import { CloseButton } from "./Buttons/CloseButton";
 import { DeleteButton } from "./Buttons/DeleteButton";
 import { DateField } from "./Fields/DatePicker";
@@ -161,10 +162,26 @@ export interface ItemDisplayCard {
 export const ItemDisplayCard: React.FC<MiniItemDisplayCardProps> = ({ record }) => {
 
     const { item, quantity, inventoryDate } = record;
+    let displayedQuantity: number | string = quantity;
     // console.log(record.item.imageURL);
 
     const dispatch = useDispatch();
-    const clickedCloseButton = () => dispatch(dismissLargeItemView())
+
+    const clickedCloseButton = () => {
+        if(displayedQuantity !== quantity) {
+            let duplicate = JSON.parse(JSON.stringify(record));
+            duplicate.quantity = displayedQuantity;
+            console.log(JSON.stringify(duplicate));
+
+            axios.put(`${process.env.REACT_APP_REST_URL}/inventories/${record.inventoryID}`, duplicate)
+                 .then(() => dispatch(updateInventoryQuantity(record.inventoryID, duplicate.quantity)))
+                 .catch(error => console.log("FAILED UPDATING QUANTITY: ", error ))
+                 
+        } else {
+            dispatch(dismissLargeItemView())
+
+        }
+    }
 
 
     const imageURL = item.imageURL !== null ? baseURL + item.imageURL : item.itemType === "book" ? baseURL + "generic_book.jpg" : baseURL + "generic_beer.jpg";
@@ -176,7 +193,7 @@ export const ItemDisplayCard: React.FC<MiniItemDisplayCardProps> = ({ record }) 
                 <CloseButton clickEvent={clickedCloseButton} />
 
                 <ImageColumn>
-                    <Image src={imageURL} />
+                    <Image alt={record.item.itemName} src={imageURL} />
                     <DeleteButton />
                 </ImageColumn>
 
@@ -193,7 +210,8 @@ export const ItemDisplayCard: React.FC<MiniItemDisplayCardProps> = ({ record }) 
 
                     <TextRow>
                         <Title>QUANTITY: </Title>
-                        <NumberInput onChange={() => console.log("CHANGE!")} defaultValue={quantity} />
+                        {/* <NumberInput onChange={(e) => console.log("CHANGE!", e.target.value)} defaultValue={quantity} /> */}
+                        <NumberInput onChange={(e) => displayedQuantity = e.target.value} defaultValue={displayedQuantity} />
                     </TextRow>
 
                     <TextRow>

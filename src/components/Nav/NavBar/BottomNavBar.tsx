@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { NavBar } from "./NavBar";
-import { NavBarButton } from "../../_archived/Header/NavBarButton"
 import { useSelector } from "react-redux";
 import { State } from "../../../redux/state";
+import { NavBarButton } from "./NavBarButton";
 
 const ColumnBundle = styled.div`
     display: flex;

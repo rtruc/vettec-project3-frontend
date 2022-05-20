@@ -41,38 +41,38 @@ export const todoReducer = (state = initialState, action: AnyAction) => {
 
 
         case "DISPLAY_LARGE_ITEM": {
-            // console.log(action.inventory);
-
             state.activeRecord = action.inventory;
-
             return {...state};
         }
 
         case "DISMISS_LARGE_ITEM": {
-            console.log("DISMISSING LARGE ITEM");
-
             if(state.activeRecord) {
                 state.activeRecord = null;
                 return {...state};
             }
-
             return state;
         }
 
-
         case "DELETE_INV_ITEM": {
-            console.log(action.data);
-            // state.inventory.find(record => record.inventoryID === state.activeRecord?.inventoryID);
             if(state.activeRecord){
-                // state.inventory.find(record => record === state.activeRecord);
                 const index = state.inventory.indexOf(state.activeRecord);
-                console.log("DELETING", state.activeRecord);
-                console.log("AT INDEX:", index);
                 state.inventory.splice(index, 1);
                 state.activeRecord = null;
             }
-
             return {...state};
+        }
+
+        case "UPDATE_INV_QUANTITY": {
+            if(state.activeRecord){
+                // const recordUpdate = state.activeRecord;
+                // const index = state.inventory.indexOf(recordUpdate);
+                // state.inventory[index] = recordUpdate;
+
+                const index = state.inventory.indexOf(state.activeRecord);
+                state.inventory[index].quantity = action.quantity;
+                state.activeRecord = null;
+            }
+            return {...state}
         }
 
         case "SORT_INV_ASC": {

@@ -37,7 +37,7 @@ const CloseButtonDiv = styled.button`
 `
 
 export interface CloseButtonProps {
-    clickEvent: () => {};
+    clickEvent: () => void;
 }
 
 export const CloseButton: React.FC<CloseButtonProps> = ({clickEvent}) => {
