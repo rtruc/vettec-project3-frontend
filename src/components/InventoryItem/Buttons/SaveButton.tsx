@@ -3,13 +3,15 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { theme } from "../../../css/theme";
-import { cancelAddItem, deleteCurrentItem } from "../../../redux/actions/actions";
+import { cancelChange, deleteCurrentItem, dismissLargeItemView } from "../../../redux/actions/actions";
 import { State } from "../../../redux/state";
+import { testAddItem } from "../../../util/inventoryTestData";
 
 
 const SaveButtonDiv = styled.button`
-    margin:10px;
-
+    margin-top:10px;
+    margin-left:10px;
+    margin-right:10px;
     cursor: pointer;
 
     background-color: ${theme.deleteButton_BackgroundColor};
@@ -26,19 +28,21 @@ const SaveButtonDiv = styled.button`
     font:inherit;
 `
 
-export interface SaveButtonProps {
 
+
+
+export interface SaveButtonProps {
+    clickEvent: () => void;
 }
 
-export const SaveButton: React.FC<SaveButtonProps> = () => {
+export const SaveButton: React.FC<SaveButtonProps> = ({clickEvent}) => {
 
     // const {activeRecord} = useSelector((state: State) => state);
-    const dispatch = useDispatch();
-
+ 
 
     return (
         <>
-            <SaveButtonDiv onClick={() => dispatch(cancelAddItem())}>SAVE</SaveButtonDiv>
+            <SaveButtonDiv onClick = {clickEvent}>SAVE CHANGE</SaveButtonDiv>
         </>
     )
 }

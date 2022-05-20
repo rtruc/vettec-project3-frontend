@@ -22,6 +22,9 @@ const MiniRecordContainer = styled.div`
     padding: 5px;
     transition: all 0.2s ease;
 
+    font-family: 'Lato', sans-serif;
+    font-size:13px;
+
     cursor: pointer;
     
     // WEBKIT DOESN'T APPLY BORDER-RADIUS TO OUTLINES...

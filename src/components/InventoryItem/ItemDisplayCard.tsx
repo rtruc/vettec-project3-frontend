@@ -4,9 +4,10 @@ import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { theme } from "../../css/theme";
 import { Inventory } from "../../model/inventory";
-import { dismissLargeItemView, updateInventoryQuantity } from "../../redux/actions/actions";
+import { dismissLargeItemView, updateInventory, updateInventoryQuantity } from "../../redux/actions/actions";
 import { CloseButton } from "./Buttons/CloseButton";
 import { DeleteButton } from "./Buttons/DeleteButton";
+import { SaveButton } from "./Buttons/SaveButton";
 import { DateField } from "./Fields/DatePicker";
 import { MiniItemDisplayCardProps } from "./MiniItemDisplayCard";
 
@@ -154,7 +155,7 @@ export const ItemDisplayCard: React.FC<ItemDisplayCardProps> = ({ record }) => {
 
     const dispatch = useDispatch();
 
-    const clickedCloseButton = () => {
+    const clickedSaveButton = () => {
         if(displayedQuantity !== quantity) {
             let duplicate = JSON.parse(JSON.stringify(record));
             duplicate.quantity = displayedQuantity;
@@ -163,6 +164,13 @@ export const ItemDisplayCard: React.FC<ItemDisplayCardProps> = ({ record }) => {
             axios.put(`${process.env.REACT_APP_REST_URL}/inventories/${record.inventoryID}`, duplicate)
                  .then(() => dispatch(updateInventoryQuantity(record.inventoryID, duplicate.quantity)))
                  .catch(error => console.log("FAILED UPDATING QUANTITY: ", error ))
+
+            // axios.put(`${process.env.REACT_APP_REST_URL}/inventories/${record.inventoryID}`, duplicate)
+            //      .then(() => axios.get(`${ process.env.REACT_APP_REST_URL}/warehouses/${record.warehouse.warehouseID}`)
+            //                       .then(({data}) => dispatch(updateInventory(data)))
+            //                       )
+            //      .then(() => dispatch(dismissLargeItemView()))
+            //      .catch(error => console.log("FAILED UPDATING QUANTITY: ", error ))
                  
         } else {
             dispatch(dismissLargeItemView())
@@ -177,10 +185,11 @@ export const ItemDisplayCard: React.FC<ItemDisplayCardProps> = ({ record }) => {
         <ShadowBox>
 
             <RecordContainer>
-                <CloseButton clickEvent={clickedCloseButton} />
+                <CloseButton />
 
                 <ImageColumn>
                     <Image alt={record.item.itemName} src={imageURL} />
+                    <SaveButton clickEvent={clickedSaveButton}  />
                     <DeleteButton />
                 </ImageColumn>
 

@@ -1,3 +1,16 @@
+export const testAddItem =
+{
+    "warehouse": {
+        "warehouseID": 1
+    },
+    "item": {
+        "itemID": 25
+    },
+    "quantity": 69,
+    "inventoryDate": "1999-04-20"
+}
+
+
 export const testInventory = [
     {
         "inventoryID": 1,

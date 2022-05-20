@@ -10,7 +10,7 @@ export const InventoryPage = () => {
     const {filters, inventory, activeRecord, mode} = useSelector((state: State) => state);
     // filters.set("pageFilter", todoFilter);
     
-    console.log("MODE:", mode)
+    // console.log("MODE:", mode)
 
     return (
         <>
@@ -20,7 +20,6 @@ export const InventoryPage = () => {
             {mode === "ADD_RECORD" ? <AddItemDisplayCard /> :  
                             null}
             <InventoryList />
-            {/* {mode === "LIST" ? <InventoryList /> : null } */}
 
         </>
     );

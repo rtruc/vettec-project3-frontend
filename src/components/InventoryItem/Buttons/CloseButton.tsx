@@ -1,5 +1,7 @@
+import { useDispatch } from "react-redux";
 import styled from "styled-components"
 import { theme } from "../../../css/theme";
+import { cancelChange } from "../../../redux/actions/actions";
 
 
 const CloseButtonDiv = styled.button`
@@ -37,14 +39,14 @@ const CloseButtonDiv = styled.button`
 `
 
 export interface CloseButtonProps {
-    clickEvent: () => void;
 }
 
-export const CloseButton: React.FC<CloseButtonProps> = ({clickEvent}) => {
+export const CloseButton: React.FC<CloseButtonProps> = () => {
+    const dispatch = useDispatch();
 
     return (
         <>
-            <CloseButtonDiv onClick = {clickEvent}>X</CloseButtonDiv> 
+            <CloseButtonDiv onClick={() => dispatch(cancelChange())}>X</CloseButtonDiv> 
         </>
     )
 }

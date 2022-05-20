@@ -9,7 +9,7 @@ import { convertDateToHTMLCompliantString } from "../../util/taskData";
 import { CancelButton } from "./Buttons/CancelButton";
 import { CloseButton } from "./Buttons/CloseButton";
 import { DeleteButton } from "./Buttons/DeleteButton";
-import { SaveButton } from "./Buttons/SaveButton";
+import { AddButton } from "./Buttons/AddButton";
 import { DateField } from "./Fields/DatePicker";
 import { MiniItemDisplayCardProps } from "./MiniItemDisplayCard";
 
@@ -146,41 +146,20 @@ const Image = styled.img`
 const baseURL = `${process.env.REACT_APP_PHOTO_URL}/`
 
 export interface AddItemDisplayCard {
-    // record: Inventory;
+
 }
 
 export const AddItemDisplayCard: React.FC<AddItemDisplayCard> = ({ }) => {
 
-    // // const { item, quantity, inventoryDate } = record;
-    // // console.log(record.item.imageURL);
 
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
-    const clickedCloseButton = () => {
-        // if(displayedQuantity !== quantity) {
-        //     let duplicate = JSON.parse(JSON.stringify(record));
-        //     duplicate.quantity = displayedQuantity;
-        //     console.log(JSON.stringify(duplicate));
+    // TODO: READ FORM, VALIDATE DATA, POST, SAVE, UPDATE VIEW
+    const clickedSaveButton = () => {
 
-        //     axios.put(`${process.env.REACT_APP_REST_URL}/inventories/${record.inventoryID}`, duplicate)
-        //     .then(() => dispatch(updateInventoryQuantity(record.inventoryID, duplicate.quantity)))
-        //     .catch(error => console.log("FAILED UPDATING QUANTITY: ", error ))
-
-        // } else {
-        //     dispatch(dismissLargeItemView())
-
-        // }
     }
 
-
-    // const imageURL = item.imageURL !== null   ? baseURL + item.imageURL : 
-    //                  item.itemType === "book" ? baseURL + "generic_book.jpg" : 
-    //                                             baseURL + "generic_beer.jpg";
-
-
     let quantity: number | string;
-    // let
-
 
     return (
         <ShadowBox>
@@ -190,7 +169,7 @@ export const AddItemDisplayCard: React.FC<AddItemDisplayCard> = ({ }) => {
                 <ImageColumn>
                     <Image alt={"BEER"} src={baseURL + "generic_beer.jpg"} />
                     <CancelButton />
-                    <SaveButton />
+                    <AddButton />
                 </ImageColumn>
 
                 <TextColumn>

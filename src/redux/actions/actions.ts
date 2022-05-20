@@ -1,3 +1,4 @@
+import { Company } from "../../model/company";
 import { Inventory } from "../../model/inventory";
 import { Warehouse } from "../../model/warehouse";
 
@@ -8,6 +9,7 @@ export const updateInventory  = (inventory: Inventory[]) => ({ type: 'UPDATE_INV
 export const clearInventory   = () => ({ type: 'CLEAR_LOCAL_INVENTORY'})
 
 export const updateWarehouses = (warehouses: Warehouse[]) => ({ type: 'UPDATE_WAREHOUSES', warehouses: warehouses})
+export const updateCompanies = (companies: Company[]) => ({ type: 'UPDATE_COMPANIES', companies: companies})
 export const updateSelectedWarehouse = (warehouseID: number) => ({ type: 'UPDATE_SELECTED_WAREHOUSE', warehouseID: warehouseID})
 
 export const sortInventory = (type: string) => ({type: type})
@@ -25,6 +27,11 @@ export const updateInventoryQuantity = (inventoryID: number, quantity: number ) 
 
 
 export const displayAddInventoryCard = () => ({type: 'DISPLAY_ADD_ITEM'})
-export const cancelAddItem = () => ({type: 'CANCEL_ADD_ITEM'})
+export const cancelChange = () => ({type: 'CANCEL_CHANGE'})
 export const addInventoryItem = (newItem: Inventory) => (
                                 {type: 'ADD_INV_ITEM', newItem: newItem})
+
+export const updateTypeFilter = (filterType: string, isActive: boolean) => 
+                                ({type: 'UPDATE_TYPE_FILTER', filterType: filterType, isActive: isActive})
+export const updateBrandFilter = (filterType: string, isActive: boolean) => 
+                                   ({type: 'UPDATE_BRAND_FILTER', filterType: filterType, isActive: isActive})

@@ -1,6 +1,6 @@
 import { AnyAction } from "redux";
 import { convertDateToHTMLCompliantString, generateID } from "../../util/taskData";
-import { textFilter } from "../../util/inventoryFilters";
+import { brandFilter, textFilter, typeFilter } from "../../util/inventoryFilters";
 import { Task } from "../../model/task";
 import { initialState, State } from "../state";
 import { Inventory } from "../../model/inventory";
@@ -27,8 +27,10 @@ export const todoReducer = (state = initialState, action: AnyAction) => {
 
         case "UPDATE_WAREHOUSES": {
             state.warehouses = action.warehouses;
-            // console.log("UPDATING WAREHOUSE");
-            // console.log(action.warehouses);
+            return {...state};
+        }
+        case "UPDATE_COMPANIES": {
+            state.brands = action.companies;
             return {...state};
         }
 
@@ -47,12 +49,12 @@ export const todoReducer = (state = initialState, action: AnyAction) => {
         }
 
         case "DISMISS_LARGE_ITEM": {
-            if(state.activeRecord) {
+            // if(state.activeRecord) {
                 state.activeRecord = null;
                 state.mode = "";
                 return {...state};
-            }
-            return state;
+            // }
+            // return state;
         }
 
         case "DISPLAY_ADD_ITEM": {
@@ -60,8 +62,9 @@ export const todoReducer = (state = initialState, action: AnyAction) => {
             return {...state};
         }
 
-        case "CANCEL_ADD_ITEM": {
+        case "CANCEL_CHANGE": {
             state.mode = "";
+            state.activeRecord = null;
             return {...state};
         }
 
@@ -94,6 +97,38 @@ export const todoReducer = (state = initialState, action: AnyAction) => {
             }
             return {...state}
         }
+
+
+        case 'UPDATE_TYPE_FILTER': {
+            if(action.isActive) {
+                state.filters.set(action.filterType, typeFilter(action.filterType));
+            } else {
+                state.filters.delete(action.filterType);
+            }
+            return {...state}
+        }
+        case 'UPDATE_BRAND_FILTER': {
+            if(action.isActive) {
+                state.filters.set(action.filterType, brandFilter(action.filterType));
+            } else {
+                state.filters.delete(action.filterType);
+            }
+            return {...state}
+        }
+
+        case 'SEARCH_TEXT': {
+            if (action.searchText.length > 0) {
+                // state.filters.searchFilter = textFilter(action.searchText);
+                state.filters.set("textFilter", textFilter(action.searchText.toLowerCase()));
+                return { ...state };
+            } else {
+                // delete state.filters.searchFilter;    
+                state.filters.delete("textFilter");
+                return { ...state };
+            }
+        }
+
+
 
         case "SORT_INV_ASC": {
             state.inventory.sort((i1, i2) => sortInventoryByProperty(i1, i2, "inventoryID"))
@@ -152,24 +187,6 @@ export const todoReducer = (state = initialState, action: AnyAction) => {
             return {...state};
         }
 
-
-
-
-
-        case 'SEARCH_TEXT': {
-            if (action.searchText.length > 0) {
-                // state.filters.searchFilter = textFilter(action.searchText);
-                state.filters.set("textFilter", textFilter(action.searchText.toLowerCase()));
-                return { ...state };
-            } else {
-                // delete state.filters.searchFilter;    
-                state.filters.delete("textFilter");
-                return { ...state };
-            }
-        }
-
-
-        
         default:
             console.log("DEFAULT REDUCER TRIGGERED");
             return state;

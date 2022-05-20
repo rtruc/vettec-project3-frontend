@@ -1,6 +1,11 @@
+import { useDispatch, useSelector } from "react-redux"
 import styled from "styled-components"
 import { theme } from "../../../css/theme"
+import { updateTypeFilter } from "../../../redux/actions/actions"
+import { State } from "../../../redux/state"
 import { CheckBox } from "../../Generics/Buttons/CheckBox"
+import { BrandFilterCheckBox } from "../../Generics/Buttons/CompanyFilterCheckBox copy"
+import { TypeFilterCheckBox } from "../../Generics/Buttons/TypeFilterCheckBox"
 import { FilterNumberField } from "./FilterNumberField"
 
 const SidebarDiv = styled.div`
@@ -59,7 +64,26 @@ interface SidebarProps {
     children?: React.ReactNode;
 }
 
+
 export const Sidebar: React.FC<SidebarProps> = () => {
+    
+    let { brands, inventory } = useSelector((state: State) => state);
+    
+    const dispatch = useDispatch();
+
+    let companyNames: string[] = []; 
+    // for(const brand of brands) {
+    //     companyNames.push(brand.brandName)
+    // }
+
+    for(const record of inventory) {
+        if(!companyNames.includes(record.item.brand.brandName)) {
+            companyNames.push(record.item.brand.brandName)
+        }
+    }
+    companyNames.sort()
+    
+    // console.log("COMPANY NAMES: ", companyNames)
 
     return (
         <SidebarDiv>
@@ -69,24 +93,27 @@ export const Sidebar: React.FC<SidebarProps> = () => {
                 <SubHeader>Type</SubHeader>
                 <Row>
                     {/* // TODO: DETERMINE FILTERS PROGRAMMATICALLY BASED UPON DATA SET */}
-                    <CheckBox />
+                    <TypeFilterCheckBox  type="beer"/>
                     <FilterTitle>Beverage</FilterTitle>
                 </Row>
                 <Row>
-                    <CheckBox />
+                    <TypeFilterCheckBox  type="book"/>
                     <FilterTitle>Book</FilterTitle>
                 </Row>
 
-
-                <SubHeader>Company</SubHeader>
-                <Row>
-                    <CheckBox />
-                    <FilterTitle>Miller</FilterTitle>
-                </Row>
-                <Row>
-                    <CheckBox />
-                    <FilterTitle>Ballantine</FilterTitle>
-                </Row>
+                {/* // TODO: DETERMINE FILTERS PROGRAMMATICALLY BASED UPON DATA SET */}
+                <SubHeader>Brand</SubHeader>
+                {
+                    companyNames.map((companyName) => {
+                        return (
+                            <Row key={companyName}>
+                                <BrandFilterCheckBox type={companyName}/>
+                                {/* <FilterTitle>{(companyName.split(" "))[0].substring(0,10)}</FilterTitle> */}
+                                <FilterTitle>{(companyName.substring(0,10))}</FilterTitle>
+                            </Row>
+                        )
+                    })
+                }
 
                 <SubHeader>Quantity</SubHeader>
                 <Row>

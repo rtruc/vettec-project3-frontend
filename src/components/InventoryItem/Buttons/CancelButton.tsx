@@ -3,7 +3,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { theme } from "../../../css/theme";
-import { cancelAddItem, deleteCurrentItem } from "../../../redux/actions/actions";
+import { cancelChange, deleteCurrentItem } from "../../../redux/actions/actions";
 import { State } from "../../../redux/state";
 
 
@@ -41,7 +41,7 @@ export const CancelButton: React.FC<CancelButtonProps> = () => {
 
     return (
         <>
-            <CancelButtonDiv onClick={() => dispatch(cancelAddItem())}>CANCEL</CancelButtonDiv>
+            <CancelButtonDiv onClick={() => dispatch(cancelChange())}>CANCEL</CancelButtonDiv>
         </>
     )
 }
