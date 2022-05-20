@@ -9,7 +9,6 @@ export const updateInventory  = (inventory: Inventory[]) => ({ type: 'UPDATE_INV
 export const clearInventory   = () => ({ type: 'CLEAR_LOCAL_INVENTORY'})
 
 export const updateWarehouses = (warehouses: Warehouse[]) => ({ type: 'UPDATE_WAREHOUSES', warehouses: warehouses})
-export const updateCompanies = (companies: Company[]) => ({ type: 'UPDATE_COMPANIES', companies: companies})
 export const updateSelectedWarehouse = (warehouseID: number) => ({ type: 'UPDATE_SELECTED_WAREHOUSE', warehouseID: warehouseID})
 
 export const sortInventory = (type: string) => ({type: type})

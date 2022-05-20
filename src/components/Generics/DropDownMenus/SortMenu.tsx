@@ -19,6 +19,8 @@ export const SortMenu: React.FC<SortMenuProps> = ({ }) =>{
             <option value="SORT_INV_DES">Inv Order ↓</option>
             <option value="SORT_TITLE_ASC">Title ↑</option>
             <option value="SORT_TITLE_DES">Title ↓</option>
+            <option value="SORT_DATE_ASC">Date ↑</option>
+            <option value="SORT_DATE_DES">Date ↓</option>
             <option value="SORT_TYPE_ASC">Type ↑</option>
             <option value="SORT_TYPE_DES">Type ↓</option>
             <option value="SORT_BRAND_ASC">Company ↑</option>

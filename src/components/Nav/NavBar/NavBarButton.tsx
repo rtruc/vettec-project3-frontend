@@ -27,10 +27,11 @@ export const NavBarButton = styled.button`
     background-color: transparent;
     color: ${theme.navbar_Text};
 
-    transition: background-color .2s ease-out 100ms;
+    transition: all .2s ease-out 100ms;
 
     /* HIGHLIGHTS PLUS SIGN LIKE PAGE LINKS */
     &:hover {
-        background-color: ${theme.hover_Color};
+        /* background-color: ${theme.hover_Color}; */
+        color: ${theme.hover_Color};
     }
 `;

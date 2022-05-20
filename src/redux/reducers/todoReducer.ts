@@ -14,7 +14,7 @@ export const todoReducer = (state = initialState, action: AnyAction) => {
 
         case "UPDATE_INVENTORY": {
             state.inventory = action.inventory;
-            console.log()
+            // state.filters.clear();
             // state.currentlySelectedWarehouse = state.inventory[0].warehouse;
             return {...state};
         }
@@ -27,10 +27,6 @@ export const todoReducer = (state = initialState, action: AnyAction) => {
 
         case "UPDATE_WAREHOUSES": {
             state.warehouses = action.warehouses;
-            return {...state};
-        }
-        case "UPDATE_COMPANIES": {
-            state.brands = action.companies;
             return {...state};
         }
 
@@ -184,6 +180,14 @@ export const todoReducer = (state = initialState, action: AnyAction) => {
         }
         case "SORT_BRAND_DES": {
             state.inventory.sort((i1, i2) => sortInventoryByItemBrandProperty(i2, i1, "brandName"))
+            return {...state};
+        }
+        case "SORT_DATE_ASC": {
+            state.inventory.sort((i1, i2) => sortInventoryByProperty(i1, i2, "inventoryDate"))
+            return {...state};
+        }
+        case "SORT_DATE_DES": {
+            state.inventory.sort((i1, i2) => sortInventoryByProperty(i2, i1, "inventoryDate"))
             return {...state};
         }
 

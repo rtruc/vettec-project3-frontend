@@ -11,6 +11,26 @@ import { Warehouse } from "../model/warehouse";
 // PATCH - UPDATE
 
 
+export function getNullImages() {
+    const printNullImages = (items: Item[]) => {
+        let nullItemsArray: Item[] = []
+
+        for(let item of items) {
+            if(item.imageURL === null) {
+                // if(!(nullItemsArray.includes(item))){
+                    nullItemsArray.push(item);
+                // }
+                // console.log(record.item)
+            }
+            // console.log(nullItemsArray)
+            console.log(JSON.stringify(nullItemsArray))
+
+        }
+    }
+    axios.get(`${process.env.REACT_APP_REST_URL}/items`)
+            .then(({ data }) => printNullImages(data) )
+}
+
 export function postInventoryEntry() {
 
 }

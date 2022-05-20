@@ -66,24 +66,19 @@ interface SidebarProps {
 
 
 export const Sidebar: React.FC<SidebarProps> = () => {
-    
-    let { brands, inventory } = useSelector((state: State) => state);
-    
-    const dispatch = useDispatch();
 
-    let companyNames: string[] = []; 
-    // for(const brand of brands) {
-    //     companyNames.push(brand.brandName)
-    // }
+    let { inventory, currentWarehouse } = useSelector((state: State) => state);
 
-    for(const record of inventory) {
-        if(!companyNames.includes(record.item.brand.brandName)) {
-            companyNames.push(record.item.brand.brandName)
+    // const dispatch = useDispatch();
+
+    let brandNames: string[] = [];
+    for (const record of inventory) {
+        if (!brandNames.includes(record.item.brand.brandName)) {
+            brandNames.push(record.item.brand.brandName)
         }
     }
-    companyNames.sort()
-    
-    // console.log("COMPANY NAMES: ", companyNames)
+    brandNames.sort()
+
 
     return (
         <SidebarDiv>
@@ -91,51 +86,29 @@ export const Sidebar: React.FC<SidebarProps> = () => {
 
             <Column>
                 <SubHeader>Type</SubHeader>
-                <Row>
-                    {/* // TODO: DETERMINE FILTERS PROGRAMMATICALLY BASED UPON DATA SET */}
-                    <TypeFilterCheckBox  type="beer"/>
-                    <FilterTitle>Beverage</FilterTitle>
-                </Row>
-                <Row>
-                    <TypeFilterCheckBox  type="book"/>
-                    <FilterTitle>Book</FilterTitle>
-                </Row>
+                {currentWarehouse ? <>
+                    <Row>
+                        <TypeFilterCheckBox type="beer" />
+                        <FilterTitle>Beverage</FilterTitle>
+                    </Row>
+                    <Row>
+                        <TypeFilterCheckBox type="book" />
+                        <FilterTitle>Book</FilterTitle>
+                    </Row>
+                </> : null}
 
-                {/* // TODO: DETERMINE FILTERS PROGRAMMATICALLY BASED UPON DATA SET */}
                 <SubHeader>Brand</SubHeader>
                 {
-                    companyNames.map((companyName) => {
+                    brandNames.map((companyName) => {
                         return (
                             <Row key={companyName}>
-                                <BrandFilterCheckBox type={companyName}/>
+                                <BrandFilterCheckBox type={companyName} />
                                 {/* <FilterTitle>{(companyName.split(" "))[0].substring(0,10)}</FilterTitle> */}
-                                <FilterTitle>{(companyName.substring(0,10))}</FilterTitle>
+                                <FilterTitle>{(companyName.substring(0, 10))}</FilterTitle>
                             </Row>
                         )
                     })
                 }
-
-                <SubHeader>Quantity</SubHeader>
-                <Row>
-                    <CheckBox />
-                    {/* <DropDownMenu> */}
-                        {/* <option>{">"}</option> */}
-                        {/* <option>=</option> */}
-                        {/* <option>{"<"}</option> */}
-                    {/* </DropDownMenu> */}
-                    <FilterNumberField />
-                </Row>
-
-                <SubHeader>Size</SubHeader>
-                <Row>
-                    <CheckBox />
-                    {/* <DropDownMenu> */}
-                        {/* <option>{">"}</option> */}
-                        {/* <option>=</option> */}
-                        {/* <option>{"<"}</option> */}
-                    {/* </DropDownMenu> */}
-                    <FilterNumberField />
-                </Row>
 
             </Column>
 

@@ -8,9 +8,9 @@ export function typeFilter(type:string): inventoryFilter {
     const typeFilter: inventoryFilter = (record) => {
         return record.item.itemType === type;
     }
-
     return typeFilter;
 }
+
 export function brandFilter(type:string): inventoryFilter {
     const brandFilter: inventoryFilter = (record) => {
         return record.item.brand.brandName === type;
@@ -46,7 +46,4 @@ export function textFilter(searchString: string): inventoryFilter {
 
 //     const dtFilter: todoFilter = (task) => earlier <= task.date && task.date <= later;
 //     return dtFilter;
-//     // return function(task: Task) {
-//     //     return earlier <= task.date && task.date <= later;
-//     // }
 // }

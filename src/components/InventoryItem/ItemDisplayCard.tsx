@@ -179,7 +179,9 @@ export const ItemDisplayCard: React.FC<ItemDisplayCardProps> = ({ record }) => {
     }
 
 
-    const imageURL = item.imageURL !== null ? baseURL + item.imageURL : item.itemType === "book" ? baseURL + "generic_book.jpg" : baseURL + "generic_beer.jpg";
+    const imageURL = item.imageURL !== null ? baseURL + item.imageURL : 
+                     item.itemType === "book" ? baseURL + "generic_book.jpg" : 
+                                                baseURL + "generic_beer.jpg";
 
     return (
         <ShadowBox>
