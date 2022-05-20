@@ -21,6 +21,8 @@ const ListDiv = styled.div`
     
     padding-top: 65px;
     padding-bottom: 60px;
+
+    overflow:hidden;
 `
 
 

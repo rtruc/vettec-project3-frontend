@@ -37,9 +37,43 @@ export const todoReducer = (state = initialState, action: AnyAction) => {
                             state.warehouses.find(warehouse => warehouse.warehouseID === action.warehouseID) 
                             || null;
             return {...state};
-
         }
 
+
+        case "DISPLAY_LARGE_ITEM": {
+            // console.log(action.inventory);
+
+            state.activeRecord = action.inventory;
+
+            return {...state};
+        }
+
+        case "DISMISS_LARGE_ITEM": {
+            console.log("DISMISSING LARGE ITEM");
+
+            if(state.activeRecord) {
+                state.activeRecord = null;
+                return {...state};
+            }
+
+            return state;
+        }
+
+
+        case "DELETE_INV_ITEM": {
+            console.log(action.data);
+            // state.inventory.find(record => record.inventoryID === state.activeRecord?.inventoryID);
+            if(state.activeRecord){
+                // state.inventory.find(record => record === state.activeRecord);
+                const index = state.inventory.indexOf(state.activeRecord);
+                console.log("DELETING", state.activeRecord);
+                console.log("AT INDEX:", index);
+                state.inventory.splice(index, 1);
+                state.activeRecord = null;
+            }
+
+            return {...state};
+        }
 
         case "SORT_INV_ASC": {
             state.inventory.sort((i1, i2) => sortInventoryByProperty(i1, i2, "inventoryID"))
@@ -194,6 +228,7 @@ export const todoReducer = (state = initialState, action: AnyAction) => {
         }
 
         default:
+            console.log("DEFAULT REDUCER TRIGGERED");
             return state;
     }
 }

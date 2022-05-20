@@ -1,10 +1,13 @@
+import React from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { theme } from "../../css/theme";
 import { Inventory } from "../../model/inventory";
+import { displayLargeItemView } from "../../redux/actions/actions";
 import { DateField } from "./Fields/DatePicker";
 
 
-const RecordContainer = styled.div`
+const MiniRecordContainer = styled.div`
     display:flex;
     flex-direction: row;
     align-items:center;
@@ -29,6 +32,10 @@ const RecordContainer = styled.div`
     &:hover, &:focus{
         box-shadow: 0 0 0 1.75pt ${theme.task_BorderShadowColor_HoverFocus};
     }
+`
+
+const LargeRecordContainer = styled(MiniRecordContainer)`
+
 `
 
 const TextColumn = styled.div`
@@ -101,17 +108,46 @@ export interface MiniItemDisplayCardProps {
     record: Inventory;
 }
 
+function zoomInventoryCard(e: React.MouseEvent) {
+    const theClicked = e.currentTarget;
+
+    console.log(theClicked.setAttribute);
+    
+    let screenX = window.innerWidth;
+    let screenY = window.innerHeight;
+
+    let boundingRect = theClicked.getBoundingClientRect();
+    let divX = boundingRect.x;
+    let divY = boundingRect.y;
+    let divHeight = boundingRect.height;
+    let divWidth = boundingRect.width;
+
+    let yTranslate = screenY / 2 - divY - divHeight / 2;
+    let xTranslate = screenX / 2 - divX - divWidth / 2;
+
+    let overScan = 100;
+    let heightMultiplier = (screenY - overScan) / divHeight;
+    let widthMultiplier = (screenX - overScan) / divWidth;
+    let scaleMultiplier = heightMultiplier < widthMultiplier ? heightMultiplier : widthMultiplier;
+
+    // theClicked.
+    // theClicked.style.transform = `translate(${xTranslate}px,${yTranslate}px) scale(${scaleMultiplier}) `;
+}
+
 export const MiniItemDisplayCard: React.FC<MiniItemDisplayCardProps> = ({ record }) => {
 
     const { item, quantity, inventoryDate } = record;
-    console.log(record.item.imageURL);
 
-    const imageURL = item.imageURL !== null ? baseURL + item.imageURL : item.itemType === "book" ? baseURL + "generic_book.jpg" : baseURL + "generic_beer.jpg";
+    const dispatch = useDispatch();
+
+    const imageURL = item.imageURL !== null   ? baseURL + item.imageURL : 
+                     item.itemType === "book" ? baseURL + "generic_book.jpg" : 
+                                                baseURL + "generic_beer.jpg";
 
     return (
 
 
-        <RecordContainer>
+        <MiniRecordContainer onClick={() => dispatch(displayLargeItemView(record))}>
 
             <Image src={imageURL} />
 
@@ -119,38 +155,32 @@ export const MiniItemDisplayCard: React.FC<MiniItemDisplayCardProps> = ({ record
                 <TextRow>
                     <Title>{item.itemType === 'book' ? "TITLE: " : "NAME: "} </Title>
                     <TextInput disabled defaultValue={item.itemName} />
-                    {/* <TextField > {item.itemName} </TextField> */}
                 </TextRow>
 
                 <TextRow>
                     <Title>{item.itemType === 'book' ? "AUTHOR: " : "BREWERY: "} </Title>
                     <TextInput disabled defaultValue={item.brand.brandName} />
-                    {/* <TextField > {item.brand.brandName} </TextField> */}
                 </TextRow>
 
                 <TextRow>
                     <Title>QUANTITY: </Title>
                     <NumberInput disabled defaultValue={quantity} />
-                    {/* <NumberField>{quantity}</NumberField> */}
 
                     <Title>SIZE: </Title>
                     <NumberInput disabled defaultValue={item.unitVolume} />
-                    {/* <NumberField> {item.unitVolume} </NumberField> */}
                 </TextRow>
 
                 <TextRow>
                     <Title>TOTAL SPACE: </Title>
                     <NumberInput disabled defaultValue={item.unitVolume * quantity} />
-                    {/* <NumberField> {item.unitVolume * quantity} </NumberField> */}
                 </TextRow>
 
                 <TextRow>
                     <Title>{item.itemType === 'book' ? "PUBLISHED: " : "EXPIRATION: "} </Title>
                     <DateField isDisabled={true} date={inventoryDate} />
-                    {/* <TextField >{inventoryDate} </TextField> */}
                 </TextRow>
             </TextColumn>
 
-        </RecordContainer>
+        </MiniRecordContainer>
     )
 }

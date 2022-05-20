@@ -8,10 +8,10 @@ import { theme } from "../../../css/theme";
 const DueDateDiv = styled.input.attrs({type: 'date'})`
     background-color: inherit;
     border: none;
-    cursor: pointer;
+    /* cursor: pointer; */
 
     font-family: 'Lato', sans-serif;
-
+    font-size:inherit;
 
     color: ${theme.task_TextColor};
 

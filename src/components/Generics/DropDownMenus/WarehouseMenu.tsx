@@ -24,7 +24,7 @@ export const WarehouseMenu: React.FC<DropDownMenuProps> = ({ children }) => {
                 const warehouseID: number = parseInt(target.value);
                 console.log(warehouseID)
                 dispatch(updateSelectedWarehouse(warehouseID));
-                axios.get(`http://localhost:8080/warehouses/${warehouseID}`)
+                axios.get(`${ process.env.REACT_APP_REST_URL}/warehouses/${warehouseID}`)
                      .then(({data}) => dispatch(updateInventory(data)))
                 //  .then((target.value) => dispatch(updateSelectedWarehouse(value)))
             }

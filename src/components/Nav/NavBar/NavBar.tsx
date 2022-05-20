@@ -22,7 +22,7 @@ const NavBarBaseStyle = styled.div`
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
 
-    z-index: 10;
+    z-index: 5;
 `
 
 const TopNavBarStyle = styled(NavBarBaseStyle)`

@@ -2,7 +2,7 @@ import styled from "styled-components"
 import { theme } from "../../../css/theme";
 
 
-export const DeleteButtonDiv = styled.button`
+const CloseButtonDiv = styled.button`
     cursor: pointer;
 
     position:absolute;
@@ -31,20 +31,20 @@ export const DeleteButtonDiv = styled.button`
     transition-duration: 0.4s;
     
     &:hover {
-        background-color: ${theme.deleteButton_BackgroundColor_Hover};
-        color: ${theme.deleteButton_TextColor_Hover};
+        background-color: ${theme.button_BackgroundColor_Hover};
+        color: ${theme.button_TextColor_Hover};
     }
 `
 
-export interface DeleteButtonProp {
+export interface CloseButtonProps {
     clickEvent: () => {};
 }
 
-export const DeleteButton: React.FC<DeleteButtonProp> = ({clickEvent}) => {
+export const CloseButton: React.FC<CloseButtonProps> = ({clickEvent}) => {
 
     return (
         <>
-            <DeleteButtonDiv onClick = {clickEvent}>X</DeleteButtonDiv> 
+            <CloseButtonDiv onClick = {clickEvent}>X</CloseButtonDiv> 
         </>
     )
 }

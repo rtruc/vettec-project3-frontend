@@ -75,11 +75,13 @@ export const themes = {
         checkBox_AccentColor                     : 'rgba(16, 66, 246, 0.714)',
     
         deleteButton_TextColor                   : 'rgb(232, 230, 227)',
-        deleteButton_BackgroundColor             : 'rgba(0, 44, 204, 0.71)',
+        deleteButton_BackgroundColor             : 'rgba(48, 93, 255, 0.71)',
         deleteButton_TextColor_Hover             : 'rgb(255, 255, 255)',
         deleteButton_BackgroundColor_Hover       : 'rgb(255, 0, 0)',
         deleteButton_BoxShadow                   : 'rgb(3 0 204)',
-    
+        
+        button_TextColor_Hover                   : 'rgb(0, 0, 0)',
+        button_BackgroundColor_Hover             : 'rgb(91, 180, 46)',
 
         task_TextColor                           : '#000000',
         task_TextColor_Overdue                   : 'rgb(255, 1, 0)',        
