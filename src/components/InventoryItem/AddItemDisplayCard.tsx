@@ -5,8 +5,11 @@ import styled from "styled-components";
 import { theme } from "../../css/theme";
 import { Inventory } from "../../model/inventory";
 import { dismissLargeItemView, updateInventoryQuantity } from "../../redux/actions/actions";
+import { convertDateToHTMLCompliantString } from "../../util/taskData";
+import { CancelButton } from "./Buttons/CancelButton";
 import { CloseButton } from "./Buttons/CloseButton";
 import { DeleteButton } from "./Buttons/DeleteButton";
+import { SaveButton } from "./Buttons/SaveButton";
 import { DateField } from "./Fields/DatePicker";
 import { MiniItemDisplayCardProps } from "./MiniItemDisplayCard";
 
@@ -108,7 +111,7 @@ const LargeTextInput = styled.textarea`
     /* display:flex; */
     /* flex-grow: 80; */
     background-color:inherit;
-    border:none;
+    /* border:none; */
     font-family: 'Lato', sans-serif;
     /* font-weight:bolder; */
     font-size:inherit;
@@ -142,80 +145,83 @@ const Image = styled.img`
 `
 const baseURL = `${process.env.REACT_APP_PHOTO_URL}/`
 
-export interface ItemDisplayCardProps {
-    record: Inventory;
+export interface AddItemDisplayCard {
+    // record: Inventory;
 }
 
-export const ItemDisplayCard: React.FC<ItemDisplayCardProps> = ({ record }) => {
+export const AddItemDisplayCard: React.FC<AddItemDisplayCard> = ({ }) => {
 
-    const { item, quantity, inventoryDate } = record;
-    let displayedQuantity: number | string = quantity;
-    // console.log(record.item.imageURL);
+    // // const { item, quantity, inventoryDate } = record;
+    // // console.log(record.item.imageURL);
 
     const dispatch = useDispatch();
 
     const clickedCloseButton = () => {
-        if(displayedQuantity !== quantity) {
-            let duplicate = JSON.parse(JSON.stringify(record));
-            duplicate.quantity = displayedQuantity;
-            console.log(JSON.stringify(duplicate));
+        // if(displayedQuantity !== quantity) {
+        //     let duplicate = JSON.parse(JSON.stringify(record));
+        //     duplicate.quantity = displayedQuantity;
+        //     console.log(JSON.stringify(duplicate));
 
-            axios.put(`${process.env.REACT_APP_REST_URL}/inventories/${record.inventoryID}`, duplicate)
-                 .then(() => dispatch(updateInventoryQuantity(record.inventoryID, duplicate.quantity)))
-                 .catch(error => console.log("FAILED UPDATING QUANTITY: ", error ))
-                 
-        } else {
-            dispatch(dismissLargeItemView())
+        //     axios.put(`${process.env.REACT_APP_REST_URL}/inventories/${record.inventoryID}`, duplicate)
+        //     .then(() => dispatch(updateInventoryQuantity(record.inventoryID, duplicate.quantity)))
+        //     .catch(error => console.log("FAILED UPDATING QUANTITY: ", error ))
 
-        }
+        // } else {
+        //     dispatch(dismissLargeItemView())
+
+        // }
     }
 
 
-    const imageURL = item.imageURL !== null ? baseURL + item.imageURL : item.itemType === "book" ? baseURL + "generic_book.jpg" : baseURL + "generic_beer.jpg";
+    // const imageURL = item.imageURL !== null   ? baseURL + item.imageURL : 
+    //                  item.itemType === "book" ? baseURL + "generic_book.jpg" : 
+    //                                             baseURL + "generic_beer.jpg";
+
+
+    let quantity: number | string;
+    // let
+
 
     return (
         <ShadowBox>
 
             <RecordContainer>
-                <CloseButton clickEvent={clickedCloseButton} />
 
                 <ImageColumn>
-                    <Image alt={record.item.itemName} src={imageURL} />
-                    <DeleteButton />
+                    <Image alt={"BEER"} src={baseURL + "generic_beer.jpg"} />
+                    <CancelButton />
+                    <SaveButton />
                 </ImageColumn>
 
                 <TextColumn>
                     <TextRow>
-                        <Title>{item.itemType === 'book' ? "TITLE: " : "NAME: "} </Title>
-                        <TextInput disabled defaultValue={item.itemName} />
+                        <Title>TITLE:</Title>
+                        <TextInput defaultValue="" />
                     </TextRow>
 
                     <TextRow>
-                        <Title>{item.itemType === 'book' ? "AUTHOR: " : "BREWERY: "} </Title>
-                        <TextInput disabled defaultValue={item.brand.brandName} />
+                        <Title>BREWERY:</Title>
+                        <TextInput defaultValue="" />
                     </TextRow>
 
                     <TextRow>
                         <Title>QUANTITY: </Title>
-                        <NumberInput onChange={(e) => displayedQuantity = e.target.value} defaultValue={displayedQuantity} />
+                        <NumberInput onChange={(e) => quantity = e.target.value}
+                            defaultValue="0" />
                     </TextRow>
 
                     <TextRow>
-                        <Title>SIZE: </Title>
-                        <NumberInput disabled defaultValue={item.unitVolume} />
+                        <Title>SIZE:</Title>
+                        <NumberInput defaultValue="0" />
                     </TextRow>
 
                     <TextRow>
-                        <Title>TOTAL SPACE: </Title>
-                        <NumberInput disabled defaultValue={item.unitVolume * quantity} />
+                        <Title>EXPIRATION:</Title>
+                        <DateField date={convertDateToHTMLCompliantString(new Date())} />
                     </TextRow>
 
-                    <TextRow>
-                        <Title>{item.itemType === 'book' ? "PUBLISHED: " : "EXPIRATION: "} </Title>
-                        <DateField isDisabled={true} date={inventoryDate} />
-                    </TextRow>
-
-                    <LargeTextInput disabled value={item.description} />
+                    <Title>DESCRIPTION</Title>
+                    <LargeTextInput defaultValue="" />
                 </TextColumn>
             </RecordContainer>
 

@@ -80,6 +80,8 @@ export const themes = {
         deleteButton_BackgroundColor_Hover       : 'rgb(255, 0, 0)',
         deleteButton_BoxShadow                   : 'rgb(3 0 204)',
         
+        saveButton_BackgroundColor_Hover         : 'rgb(17, 198, 0)',
+
         button_TextColor_Hover                   : 'rgb(0, 0, 0)',
         button_BackgroundColor_Hover             : 'rgb(91, 180, 46)',
 

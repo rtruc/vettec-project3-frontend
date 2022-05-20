@@ -8,6 +8,7 @@ export interface State {
     warehouses: Warehouse[];
     currentWarehouse: Warehouse | null;
     activeRecord: Inventory | null;
+    mode: string;
     filters: Map<string, inventoryFilter>;
     // dateRange: {earlier: string, later: string};
 }
@@ -18,6 +19,7 @@ export const initialState: State = {
     // currentlySelectedWarehouse: new Warehouse(0, "", new Location(0, "", "", ""), 0),
     currentWarehouse: null,
     activeRecord: null,
+    mode: "",
     filters: new Map<string, inventoryFilter>(),
     // dateRange: {earlier: "earlier", later: "later"}
 }

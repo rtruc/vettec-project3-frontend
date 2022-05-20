@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import { NavBar } from "./NavBar";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../../redux/state";
 import { NavBarButton } from "./NavBarButton";
+import { displayAddInventoryCard } from "../../../redux/actions/actions";
 
 const ColumnBundle = styled.div`
     display: flex;
@@ -87,6 +88,8 @@ export const BottomNavBar = () => {
         warehouseID = currentWarehouse.warehouseID;
     }
 
+    const dispatch = useDispatch();
+
     return (
         <NavBar position={style}>
 
@@ -157,10 +160,10 @@ export const BottomNavBar = () => {
 
 
             </Row>
-            <NavBarButton>+</NavBarButton>
+            {/* <NavBarButton>+</NavBarButton> */}
 
             {/* //TODO: ADD NEW INVENTORY ENTRY*/}
-            {/* <NavBarButton onClick={() => dispatch(addTask(pathname))}>+</NavBarButton> */}
+            <NavBarButton onClick={() => dispatch(displayAddInventoryCard())}>+</NavBarButton>
 
         </NavBar>
     )

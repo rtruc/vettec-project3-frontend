@@ -1,9 +1,5 @@
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
-import { toggleDateFilter, updateDateFilter } from "../../../redux/actions/actions";
-import { DateFilterPicker } from "./DateFilterPicker";
-import { CheckBox } from "../Buttons/CheckBox";
-import { State } from "../../../redux/state";
+import { useDispatch } from "react-redux";
 
 
 const DateFilterDiv = styled.form`
@@ -31,7 +27,7 @@ export const DateFilter = () => {
                 {/* <DateFilterPicker required defaultValue={earlier} */}
                     {/* onChange={(e) => dispatch(updateDateFilter(e.target.value, 'earlier'))} /> */}
             </DateFilterPickerColumn>
-            <CheckBox clickEvent={() => dispatch(toggleDateFilter())} />
+            {/* <CheckBox clickEvent={() => dispatch(toggleDateFilter())} /> */}
         </DateFilterDiv>
 
     )
