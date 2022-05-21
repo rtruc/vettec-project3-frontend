@@ -7,10 +7,7 @@ import { State } from "../redux/state";
 
 export const InventoryPage = () => {
 
-    const {filters, inventory, activeRecord, mode} = useSelector((state: State) => state);
-    // filters.set("pageFilter", todoFilter);
-    
-    // console.log("MODE:", mode)
+    const {activeRecord, mode} = useSelector((state: State) => state);
 
     return (
         <>
