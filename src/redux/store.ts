@@ -6,7 +6,7 @@ import { initialState } from "./state";
 
 const initState = initialState;
 
-// initState.inventory = JSON.parse(JSON.stringify(testInventory));
+initState.inventory = JSON.parse(JSON.stringify(testInventory));
 
 getNullImages();
 

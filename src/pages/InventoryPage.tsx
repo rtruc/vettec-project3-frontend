@@ -11,7 +11,6 @@ export const InventoryPage = () => {
 
     return (
         <>
-
             {activeRecord && mode === "DISPLAY_RECORD" ? <ItemDisplayCard record={activeRecord}/> :  
                                                           null}
             {mode === "ADD_RECORD" ? <AddItemDisplayCard /> :  

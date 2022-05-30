@@ -1,11 +1,9 @@
 import { useDispatch, useSelector } from "react-redux"
 import styled from "styled-components"
 import { theme } from "../../../css/theme"
-import { updateTypeFilter } from "../../../redux/actions/actions"
+import { updateBrandFilter, updateTypeFilter } from "../../../redux/actions/actions"
 import { State } from "../../../redux/state"
 import { CheckBox } from "../../Generics/Buttons/CheckBox"
-import { BrandFilterCheckBox } from "../../Generics/Buttons/CompanyFilterCheckBox copy"
-import { TypeFilterCheckBox } from "../../Generics/Buttons/TypeFilterCheckBox"
 import { FilterNumberField } from "./FilterNumberField"
 
 const SidebarDiv = styled.div`
@@ -67,44 +65,53 @@ interface SidebarProps {
 
 export const Sidebar: React.FC<SidebarProps> = () => {
 
-    let { inventory, currentWarehouse } = useSelector((state: State) => state);
-
-    // const dispatch = useDispatch();
+    let { inventory } = useSelector((state: State) => state);
 
     let brandNames: string[] = [];
     for (const record of inventory) {
         if (!brandNames.includes(record.item.brand.brandName)) {
-            brandNames.push(record.item.brand.brandName)
+            brandNames.push(record.item.brand.brandName);
         }
     }
     brandNames.sort()
+
+    let types: string[] =[];
+    for(const record of inventory) {
+        if (!types.includes(record.item.itemType)) {
+            types.push(record.item.itemType);
+        }
+    }
+
+    const dispatch = useDispatch();
 
 
     return (
         <SidebarDiv>
             <Header>FILTERS</Header>
-
             <Column>
+
                 <SubHeader>Type</SubHeader>
-                {currentWarehouse ? <>
-                    <Row>
-                        <TypeFilterCheckBox type="beer" />
-                        <FilterTitle>Beverage</FilterTitle>
-                    </Row>
-                    <Row>
-                        <TypeFilterCheckBox type="book" />
-                        <FilterTitle>Book</FilterTitle>
-                    </Row>
-                </> : null}
+                {
+                    types.map((type) => {
+                        return (
+                            <Row key={type}>
+                                {/* <TypeFilterCheckBox type={type} /> */}
+                                <CheckBox clickEvent={(e) => dispatch(updateTypeFilter(type, e.target.checked))} />
+                                <FilterTitle>{(type.charAt(0).toUpperCase() + type.slice(1))}</FilterTitle>
+                            </Row>
+                        )
+                    })
+                }
 
                 <SubHeader>Brand</SubHeader>
                 {
                     brandNames.map((companyName) => {
                         return (
                             <Row key={companyName}>
-                                <BrandFilterCheckBox type={companyName} />
+                                {/* <BrandFilterCheckBox type={companyName} /> */}
+                                <CheckBox clickEvent={(e) => dispatch(updateBrandFilter(companyName, e.target.checked))} />
                                 {/* <FilterTitle>{(companyName.split(" "))[0].substring(0,10)}</FilterTitle> */}
-                                <FilterTitle>{(companyName.substring(0, 10))}</FilterTitle>
+                                <FilterTitle>{(companyName.substring(0, 12))}</FilterTitle>
                             </Row>
                         )
                     })

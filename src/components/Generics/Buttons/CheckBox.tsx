@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { theme } from "../../../css/theme";
 
-const CheckBoxDiv = styled.input.attrs({ type: 'checkbox' })`
+export const CheckBoxDiv = styled.input.attrs({ type: 'checkbox' })`
     /* Add if not using autoprefixer */
     /* -webkit-appearance: none; */
     /* Remove most all native input styles */
@@ -57,16 +57,16 @@ const CheckBoxDiv = styled.input.attrs({ type: 'checkbox' })`
 `
 
 interface CheckBoxProps {
+    clickEvent: (e: any) => {};
     isComplete?: boolean;
-    clickEvent?: () => {};
 }
 
-export const CheckBox: React.FC<CheckBoxProps> = ({isComplete, clickEvent}) => {
+export const CheckBox: React.FC<CheckBoxProps> = ({clickEvent, isComplete}) => {
 
     return (
         <>
-            {isComplete ? <CheckBoxDiv defaultChecked onClick={clickEvent} /> :
-                          <CheckBoxDiv onClick={clickEvent}/>}
+            {isComplete ? <CheckBoxDiv defaultChecked onClick={e => clickEvent(e)} /> :
+                          <CheckBoxDiv onClick={e => clickEvent(e)}/>}
         </>
     )
 }
