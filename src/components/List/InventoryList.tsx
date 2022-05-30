@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { State } from "../../redux/state";
 import { Inventory } from "../../model/inventory";
-import { MiniItemDisplayCard } from "../InventoryItem/MiniItemDisplayCard";
+import { MiniItemDisplayCard } from "../InventoryItem/ItemDisplayCard_Mini";
 import { inventoryFilter } from "../../util/inventoryFilters";
 
 const ListDiv = styled.div`

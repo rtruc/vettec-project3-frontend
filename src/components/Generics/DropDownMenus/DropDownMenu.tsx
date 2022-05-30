@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const DropDownMenuStyle = styled.select`
+export const DropDownMenu = styled.select`
     height: 25px;
 
     padding-left: 5px;

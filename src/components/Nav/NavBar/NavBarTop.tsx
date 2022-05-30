@@ -3,13 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { updateInventory } from "../../../redux/actions/actions";
 import { State } from "../../../redux/state";
-import { SortMenu } from "../../Generics/DropDownMenus/SortMenu";
-import { WarehouseMenu } from "../../Generics/DropDownMenus/WarehouseMenu";
+import { DropDownMenuSort } from "../../Generics/DropDownMenus/DropDownMenuSort";
+import { DropDownMenuWarehouse } from "../../Generics/DropDownMenus/DropDownMenuWarehouse";
 import { SearchForm } from "../../Generics/SearchForm";
 import { Title } from "../../Generics/Text/Title";
 import { NavBar } from "./NavBar";
-import { NavBarBundle } from "./NavBarBundle";
-import { NavBarButton } from "./NavBarButton";
+// import { NavBarBundle } from "./NavBarBundle";
+import { NavBarButton } from "../../Generics/Buttons/TextButton";
 
 
 const ColumnCenterJustified = styled.div`
@@ -25,8 +25,15 @@ const ColumnCenterJustified = styled.div`
     /* height: 45px; */
     /* justify-content:end; */
 `
+const NavBarBundle = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 100%;
+`
 
-export const TopBar = () => {
+
+export const NavBarTop = () => {
     const { warehouses, currentWarehouse } = useSelector((state: State) => state);
     const dispatch = useDispatch();
 
@@ -54,7 +61,7 @@ export const TopBar = () => {
 
                 <NavBarBundle>
                     <Title>Warehouse:</Title>
-                    <WarehouseMenu>
+                    <DropDownMenuWarehouse>
                         {warehouses.map((warehouse) => {
                             return (
                                 < option key={warehouse.warehouseID}
@@ -62,13 +69,13 @@ export const TopBar = () => {
                                     {warehouse.warehouseName}</option>
                             )
                         })}
-                    </WarehouseMenu>
+                    </DropDownMenuWarehouse>
                     <NavBarButton onClick={() => refreshInventory()}> ↻ </NavBarButton>
                 </NavBarBundle>
 
                 <NavBarBundle>
                     <Title>Sort:</Title>
-                    <SortMenu />
+                    <DropDownMenuSort />
                 </NavBarBundle>
 
                 <SearchForm />

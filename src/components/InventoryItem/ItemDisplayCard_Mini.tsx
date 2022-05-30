@@ -14,7 +14,7 @@ const MiniRecordContainer = styled.div`
 
     position:relative;
     
-    background-color: ${theme.task_BackgroundColor};
+    background-color: ${theme.item_BackgroundColor};
     min-width: 300px;
     max-width: 300px;
     max-height: 200px;
@@ -30,10 +30,10 @@ const MiniRecordContainer = styled.div`
     // WEBKIT DOESN'T APPLY BORDER-RADIUS TO OUTLINES...
     // USING HARD DROP SHADOW INSTEAD
     border-radius:5px;
-    box-shadow: 0 0 0 .75pt ${theme.task_BorderShadowColor};
+    box-shadow: 0 0 0 .75pt ${theme.item_BorderShadowColor};
 
     &:hover, &:focus{
-        box-shadow: 0 0 0 1.75pt ${theme.task_BorderShadowColor_HoverFocus};
+        box-shadow: 0 0 0 1.75pt ${theme.item_BorderShadowColor_HoverFocus};
     }
 `
 

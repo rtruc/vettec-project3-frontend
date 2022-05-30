@@ -1,10 +1,8 @@
-import axios from "axios";
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { theme } from "../../../css/theme";
-import { cancelChange, deleteCurrentItem } from "../../../redux/actions/actions";
-import { State } from "../../../redux/state";
+import { theme } from "../../../../css/theme";
+import { cancelChange, deleteCurrentItem } from "../../../../redux/actions/actions";
 
 
 const CancelButtonDiv = styled.button`
@@ -15,11 +13,11 @@ const CancelButtonDiv = styled.button`
     cursor: pointer;
 
 
-    background-color: ${theme.deleteButton_BackgroundColor};
+    background-color: ${theme.button_BackgroundColor};
     transition-duration: 0.4s;
     &:hover {
-        background-color: ${theme.deleteButton_BackgroundColor_Hover};
-        color: ${theme.deleteButton_TextColor_Hover};
+        background-color: ${theme.button_BackgroundColor_Hover_Warning};
+        color: ${theme.button_TextColor_Hover_Warning};
     }
 
     border: none;

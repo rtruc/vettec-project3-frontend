@@ -13,7 +13,7 @@ const DueDateDiv = styled.input.attrs({type: 'date'})`
     font-family: 'Lato', sans-serif;
     font-size:inherit;
 
-    color: ${theme.task_TextColor};
+    color: ${theme.textColor_Dark};
 
     height: 20px;
 

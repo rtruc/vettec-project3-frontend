@@ -1,4 +1,3 @@
-import { Company } from "../../model/company";
 import { Inventory } from "../../model/inventory";
 import { Warehouse } from "../../model/warehouse";
 

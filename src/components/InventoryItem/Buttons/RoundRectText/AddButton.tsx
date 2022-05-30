@@ -1,22 +1,24 @@
 import axios from "axios";
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { theme } from "../../../css/theme";
-import { dismissLargeItemView, updateInventory } from "../../../redux/actions/actions";
-import { testAddItem } from "../../../util/inventoryTestData";
+import { theme } from "../../../../css/theme";
+import { dismissLargeItemView, updateInventory } from "../../../../redux/actions/actions";
+import { testAddItem } from "../../../../util/inventoryTestData";
 
 
 const AddButtonDiv = styled.button`
-    margin:10px;
+    margin-top:10px;
+    margin-left:10px;
+    margin-right:10px;
 
     cursor: pointer;
 
-    background-color: ${theme.deleteButton_BackgroundColor};
+    background-color: ${theme.button_BackgroundColor};
     transition-duration: 0.4s;
     &:hover {
-        background-color: ${theme.saveButton_BackgroundColor_Hover};
-        color: ${theme.deleteButton_TextColor_Hover};
+        background-color: ${theme.button_BackgroundColor_Hover};
+        color: ${theme.button_TextColor_Hover_Warning};
     }
 
     border: none;

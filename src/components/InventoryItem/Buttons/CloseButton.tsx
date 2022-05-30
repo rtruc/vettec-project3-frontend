@@ -20,15 +20,15 @@ const CloseButtonDiv = styled.button`
 
     font-weight: 100;
     font-size: 10px;
-    color: ${theme.deleteButton_TextColor};
+    /* color: ${theme.button_TextColor}; */
 
     width: 14px;
     height: 14px;
 
-    box-shadow: 0px 0px 0px 0.5px ${theme.deleteButton_BoxShadow};
+    box-shadow: 0px 0px 0px 0.5px ${theme.button_BoxShadow};
     
     margin: 0px 5px;
-    background-color: ${theme.deleteButton_BackgroundColor};
+    background-color: ${theme.button_BackgroundColor};
 
     transition-duration: 0.4s;
     

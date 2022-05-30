@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
-import { AddItemDisplayCard } from "../components/InventoryItem/AddItemDisplayCard";
-import { ItemDisplayCard } from "../components/InventoryItem/ItemDisplayCard";
+import { AddItemDisplayCard } from "../components/InventoryItem/ItemDisplayCard_Add";
+import { ItemDisplayCard } from "../components/InventoryItem/ItemDisplayCard_Large";
 import { InventoryList } from "../components/List/InventoryList";
 import { State } from "../redux/state";
 

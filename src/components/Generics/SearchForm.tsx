@@ -43,8 +43,8 @@ const SearchField = styled.input`
 
     &:focus {
         background-image: none;
-        color: ${theme.navbar_Text};
-        background-color: ${theme.focus_color};
+        color: ${theme.textColor_Dark};
+        /* background-color: ${theme.focus_color}; */
         outline: none;
     }
 

@@ -1,22 +1,21 @@
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { clearInventory, updateInventory, updateSelectedWarehouse } from "../../../redux/actions/actions";
-import { DropDownMenuStyle } from "./DropDownMenuStyle";
+import { DropDownMenu } from "./DropDownMenu";
 
 
 interface DropDownMenuProps {
     value?: string | number | readonly string[] | undefined;
-    // selectionEvent?: (arg0: number | string) => {};
     children?: React.ReactNode;
 }
 
 
-export const WarehouseMenu: React.FC<DropDownMenuProps> = ({ children }) => {
+export const DropDownMenuWarehouse: React.FC<DropDownMenuProps> = ({ children }) => {
 
     const dispatch = useDispatch();
 
     return (
-        <DropDownMenuStyle onChange={({ target }) => {
+        <DropDownMenu onChange={({ target }) => {
             if (target.value === "") {
                 dispatch(clearInventory())
             }
@@ -34,6 +33,6 @@ export const WarehouseMenu: React.FC<DropDownMenuProps> = ({ children }) => {
 
             <option value=""></option>
             {children}
-        </DropDownMenuStyle>
+        </DropDownMenu>
     )
 }

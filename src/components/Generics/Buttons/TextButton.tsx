@@ -23,15 +23,12 @@ export const NavBarButton = styled.button`
     font-size:30px;
 
     text-decoration: none;
-    /* background-color: ${theme.navBar_BackgroundColor}; */
     background-color: transparent;
-    color: ${theme.navbar_Text};
+    color: ${theme.textColor_Dark};
 
     transition: all .2s ease-out 100ms;
 
-    /* HIGHLIGHTS PLUS SIGN LIKE PAGE LINKS */
     &:hover {
-        /* background-color: ${theme.hover_Color}; */
-        color: ${theme.hover_Color};
+        color: ${theme.button_TextColor_Hover_NavBar};
     }
 `;

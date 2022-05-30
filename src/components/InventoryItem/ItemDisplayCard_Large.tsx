@@ -4,12 +4,11 @@ import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { theme } from "../../css/theme";
 import { Inventory } from "../../model/inventory";
-import { dismissLargeItemView, updateInventory, updateInventoryQuantity } from "../../redux/actions/actions";
+import { dismissLargeItemView, updateInventoryQuantity } from "../../redux/actions/actions";
 import { CloseButton } from "./Buttons/CloseButton";
-import { DeleteButton } from "./Buttons/DeleteButton";
-import { SaveButton } from "./Buttons/SaveButton";
+import { DeleteButton } from "./Buttons/RoundRectText/DeleteButton";
+import { SaveButton } from "./Buttons/RoundRectText/SaveButton";
 import { DateField } from "./Fields/DatePicker";
-import { MiniItemDisplayCardProps } from "./MiniItemDisplayCard";
 
 
 const ShadowBox = styled.div`
@@ -46,12 +45,12 @@ const RecordContainer = styled.div`
 
     font-size:20px;
     
-    background-color: ${theme.task_BackgroundColor};
+    background-color: ${theme.item_BackgroundColor};
     
     // WEBKIT DOESN'T APPLY BORDER-RADIUS TO OUTLINES...
     // USING HARD DROP SHADOW INSTEAD
     border-radius:10px;
-    box-shadow: 0 0 0 .75pt ${theme.task_BorderShadowColor};
+    box-shadow: 0 0 0 .75pt ${theme.item_BorderShadowColor};
 `
 
 const ImageColumn = styled.div`

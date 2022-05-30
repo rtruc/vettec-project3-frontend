@@ -4,7 +4,6 @@ import { theme } from "../../../css/theme"
 import { updateBrandFilter, updateTypeFilter } from "../../../redux/actions/actions"
 import { State } from "../../../redux/state"
 import { CheckBox } from "../../Generics/Buttons/CheckBox"
-import { FilterNumberField } from "./FilterNumberField"
 
 const SidebarDiv = styled.div`
     display:flex;
@@ -95,7 +94,6 @@ export const Sidebar: React.FC<SidebarProps> = () => {
                     types.map((type) => {
                         return (
                             <Row key={type}>
-                                {/* <TypeFilterCheckBox type={type} /> */}
                                 <CheckBox clickEvent={(e) => dispatch(updateTypeFilter(type, e.target.checked))} />
                                 <FilterTitle>{(type.charAt(0).toUpperCase() + type.slice(1))}</FilterTitle>
                             </Row>
@@ -108,9 +106,7 @@ export const Sidebar: React.FC<SidebarProps> = () => {
                     brandNames.map((companyName) => {
                         return (
                             <Row key={companyName}>
-                                {/* <BrandFilterCheckBox type={companyName} /> */}
                                 <CheckBox clickEvent={(e) => dispatch(updateBrandFilter(companyName, e.target.checked))} />
-                                {/* <FilterTitle>{(companyName.split(" "))[0].substring(0,10)}</FilterTitle> */}
                                 <FilterTitle>{(companyName.substring(0, 12))}</FilterTitle>
                             </Row>
                         )

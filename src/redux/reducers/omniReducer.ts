@@ -1,14 +1,12 @@
 import { AnyAction } from "redux";
-import { convertDateToHTMLCompliantString, generateID } from "../../util/taskData";
 import { brandFilter, textFilter, typeFilter } from "../../util/inventoryFilters";
 import { Task } from "../../model/task";
-import { initialState, State } from "../state";
+import { initialState } from "../state";
 import { Inventory } from "../../model/inventory";
-import { stat } from "fs";
 
 
 
-export const todoReducer = (state = initialState, action: AnyAction) => {
+export const omniReducer = (state = initialState, action: AnyAction) => {
 
     switch (action.type) {
 

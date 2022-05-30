@@ -10,10 +10,10 @@ const DefaultTitleDiv = styled.input.attrs({type: 'text'})`
     font-family: inherit;
     font-size:1.45em;
     font-weight:900;
-    color: ${theme.task_TextColor};
+    color: ${theme.textColor_Dark};
 
     &::placeholder {
-        color: ${theme.task_PlaceholderText};
+        color: ${theme.item_PlaceholderText};
     }
 
     &:focus {
@@ -22,7 +22,7 @@ const DefaultTitleDiv = styled.input.attrs({type: 'text'})`
 `
 
 const NewTitleDiv = styled(DefaultTitleDiv)`
-    color:${theme.task_PlaceholderText};
+    color:${theme.item_PlaceholderText};
 `
 
 interface EditableTextProps {

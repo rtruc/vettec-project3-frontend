@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { NavBar } from "./NavBar";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../../redux/state";
-import { NavBarButton } from "./NavBarButton";
+import { NavBarButton } from "../../Generics/Buttons/TextButton";
 import { displayAddInventoryCard } from "../../../redux/actions/actions";
 
 const ColumnBundle = styled.div`
@@ -52,8 +52,8 @@ const Data = styled.div`
 `
 
 
-export const BottomNavBar = () => {
-    const { inventory, currentWarehouse: currentWarehouse } = useSelector((state: State) => state);
+export const NavBarBottom = () => {
+    const { inventory, currentWarehouse } = useSelector((state: State) => state);
     const style = `bottom`;
 
     let warehouseID: number | null = null;
@@ -65,7 +65,6 @@ export const BottomNavBar = () => {
     let beerCount = 0;
     let beerSpace = 0;
     let itemCount = 0;
-    let percentFull = 0.0;
 
     if (currentWarehouse) {
         maxStorageCapacity = currentWarehouse.maxStorageCapacity;

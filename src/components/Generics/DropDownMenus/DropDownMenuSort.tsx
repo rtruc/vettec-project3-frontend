@@ -1,7 +1,6 @@
-import axios from "axios";
 import { useDispatch } from "react-redux";
-import { clearInventory, sortInventory, updateInventory } from "../../../redux/actions/actions";
-import { DropDownMenuStyle } from "./DropDownMenuStyle";
+import { sortInventory } from "../../../redux/actions/actions";
+import { DropDownMenu } from "./DropDownMenu";
 
 
 interface SortMenuProps {
@@ -9,12 +8,12 @@ interface SortMenuProps {
 }
 
 
-export const SortMenu: React.FC<SortMenuProps> = ({ }) =>{
+export const DropDownMenuSort: React.FC<SortMenuProps> = () =>{
 
     const dispatch = useDispatch();
 
     return (
-        <DropDownMenuStyle onChange={({target}) => dispatch(sortInventory(target.value))}>
+        <DropDownMenu onChange={({target}) => dispatch(sortInventory(target.value))}>
             <option value="SORT_INV_ASC">Inv Order ↑</option>
             <option value="SORT_INV_DES">Inv Order ↓</option>
             <option value="SORT_TITLE_ASC">Title ↑</option>
@@ -31,6 +30,6 @@ export const SortMenu: React.FC<SortMenuProps> = ({ }) =>{
             <option value="SORT_SIZE_DES">Size ↓</option>
             <option value="SORT_SPACE_ASC">Total Space ↑</option>
             <option value="SORT_SPACE_DES">Total Space ↓</option>
-        </DropDownMenuStyle>
+        </DropDownMenu>
     )
 }
