@@ -42,21 +42,13 @@ export const omniReducer = (state = initialState, action: AnyAction) => {
             return {...state};
         }
 
-        case "DISMISS_LARGE_ITEM": {
-            // if(state.activeRecord) {
-                state.activeRecord = null;
-                state.mode = "";
-                return {...state};
-            // }
-            // return state;
-        }
-
         case "DISPLAY_ADD_ITEM": {
             state.mode = "ADD_RECORD";
             return {...state};
         }
 
-        case "CANCEL_CHANGE": {
+
+        case "DISMISS_CARD": {
             state.mode = "";
             state.activeRecord = null;
             return {...state};

@@ -1,3 +1,7 @@
+import { Inventory } from "../model/inventory"
+import { Warehouse } from "../model/warehouse"
+import { convertDateToHTMLCompliantString } from "./taskData"
+
 export const testAddItem =
 {
     "warehouse": {
@@ -6,10 +10,11 @@ export const testAddItem =
     "item": {
         "itemID": 25
     },
-    "quantity": 69,
+    "quantity": 9,
     "inventoryDate": "1999-04-20"
 }
 
+// export const newRecord = new Inventory(-1, new Warehouse(-1, "-1", "-1", ), -1, 0, convertDateToHTMLCompliantString(new Date()))
 
 export const testInventory = [
     {

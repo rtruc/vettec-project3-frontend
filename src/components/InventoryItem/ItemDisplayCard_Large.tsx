@@ -3,11 +3,13 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { theme } from "../../css/theme";
+import { Brand } from "../../model/brand";
 import { Inventory } from "../../model/inventory";
-import { dismissLargeItemView, updateInventoryQuantity } from "../../redux/actions/actions";
-import { CloseButton } from "./Buttons/CloseButton";
-import { DeleteButton } from "./Buttons/RoundRectText/DeleteButton";
-import { SaveButton } from "./Buttons/RoundRectText/SaveButton";
+import { Item } from "../../model/item";
+import { deleteCurrentItem, dismissInventoryCard, updateInventoryQuantity } from "../../redux/actions/actions";
+import { convertDateToHTMLCompliantString } from "../../util/taskData";
+import { CloseButton } from "../Generics/Buttons/CloseButton";
+import { RoundRectButton } from "../Generics/Buttons/RoundRectButton";
 import { DateField } from "./Fields/DatePicker";
 
 
@@ -149,12 +151,18 @@ export interface ItemDisplayCardProps {
 export const ItemDisplayCard: React.FC<ItemDisplayCardProps> = ({ record }) => {
 
     const { item, quantity, inventoryDate } = record;
+    // const item = (record?.item)
+    // const item = record?.item || new Item(-1, "", "", new Brand(-1, "", ))
+    // const quantity = record?.quantity || 0
+    // const inventoryDate = record?.inventoryDate || convertDateToHTMLCompliantString(new Date())
     let displayedQuantity: number | string = quantity;
     // console.log(record.item.imageURL);
 
     const dispatch = useDispatch();
 
-    const clickedSaveButton = () => {
+    const closeClicked = () => dispatch(dismissInventoryCard())
+
+    const saveClicked = () => {
         if(displayedQuantity !== quantity) {
             let duplicate = JSON.parse(JSON.stringify(record));
             duplicate.quantity = displayedQuantity;
@@ -163,18 +171,15 @@ export const ItemDisplayCard: React.FC<ItemDisplayCardProps> = ({ record }) => {
             axios.put(`${process.env.REACT_APP_REST_URL}/inventories/${record.inventoryID}`, duplicate)
                  .then(() => dispatch(updateInventoryQuantity(record.inventoryID, duplicate.quantity)))
                  .catch(error => console.log("FAILED UPDATING QUANTITY: ", error ))
-
-            // axios.put(`${process.env.REACT_APP_REST_URL}/inventories/${record.inventoryID}`, duplicate)
-            //      .then(() => axios.get(`${ process.env.REACT_APP_REST_URL}/warehouses/${record.warehouse.warehouseID}`)
-            //                       .then(({data}) => dispatch(updateInventory(data)))
-            //                       )
-            //      .then(() => dispatch(dismissLargeItemView()))
-            //      .catch(error => console.log("FAILED UPDATING QUANTITY: ", error ))
-                 
         } else {
-            dispatch(dismissLargeItemView())
-
+            dispatch(dismissInventoryCard())
         }
+    }
+
+    const deleteClicked = () => {
+        axios.delete(`${process.env.REACT_APP_REST_URL}/inventories/${record.inventoryID}`)
+             .then(({data}) => dispatch(deleteCurrentItem(data)))
+             .catch( error => console.log("DELETE FAILED: ", error));
     }
 
 
@@ -186,12 +191,12 @@ export const ItemDisplayCard: React.FC<ItemDisplayCardProps> = ({ record }) => {
         <ShadowBox>
 
             <RecordContainer>
-                <CloseButton />
+                <CloseButton onClick={closeClicked} buttonModifier="caution"> X </CloseButton>
 
                 <ImageColumn>
                     <Image alt={record.item.itemName} src={imageURL} />
-                    <SaveButton clickEvent={clickedSaveButton}  />
-                    <DeleteButton />
+                    <RoundRectButton onClick={saveClicked} > SAVE </RoundRectButton>
+                    <RoundRectButton onClick={deleteClicked} buttonModifier="caution"> DELETE </RoundRectButton>
                 </ImageColumn>
 
                 <TextColumn>

@@ -1,7 +1,6 @@
 import { useDispatch } from "react-redux";
-import styled from "styled-components"
+import styled, { StyledComponent } from "styled-components"
 import { theme } from "../../../css/theme";
-import { cancelChange } from "../../../redux/actions/actions";
 
 
 const CloseButtonDiv = styled.button`
@@ -38,15 +37,32 @@ const CloseButtonDiv = styled.button`
     }
 `
 
+const CloseButtonDiv_Caution = styled(CloseButtonDiv)`
+        &:hover {
+        background-color: ${theme.button_BackgroundColor_Hover_Warning};
+        color: ${theme.button_TextColor_Hover_Warning};
+    }
+`
+
 export interface CloseButtonProps {
+    onClick: () => any;
+    buttonModifier?: string;
+    children?: React.ReactNode;
 }
 
-export const CloseButton: React.FC<CloseButtonProps> = () => {
-    const dispatch = useDispatch();
+export const CloseButton: React.FC<CloseButtonProps> = ({ onClick, buttonModifier, children }) => {
+
+    let CloseButton: StyledComponent<"button", any, {}, never>;
+    if(buttonModifier === 'caution')
+        CloseButton = CloseButtonDiv_Caution;
+    else
+        CloseButton = CloseButtonDiv;
 
     return (
         <>
-            <CloseButtonDiv onClick={() => dispatch(cancelChange())}>X</CloseButtonDiv> 
+            <CloseButton onClick={() => onClick()}>
+                {children}
+            </CloseButton>
         </>
     )
 }

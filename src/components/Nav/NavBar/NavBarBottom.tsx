@@ -120,7 +120,7 @@ export const NavBarBottom = () => {
 
                 <Spacer />
 
-                <ColumnBundle>
+                {/* <ColumnBundle>
                     <ColumnRightJustified>
                         <Title>Beer Count:</Title>
                         <Title>Book Count:</Title>
@@ -129,11 +129,11 @@ export const NavBarBottom = () => {
                         <Data>{currentWarehouse ? beerCount : ""}</Data>
                         <Data>{currentWarehouse ? bookCount : ""}</Data>
                     </ColumnLeftJustified>
-                </ColumnBundle>
+                </ColumnBundle> */}
 
-                <Spacer />
+                {/* <Spacer /> */}
 
-                <ColumnBundle>
+                {/* <ColumnBundle>
                     <ColumnRightJustified>
                         <Title>Beer Space:</Title>
                         <Title>Book Space:</Title>
@@ -142,7 +142,7 @@ export const NavBarBottom = () => {
                         <Data>{currentWarehouse ? beerSpace : ""}</Data>
                         <Data>{currentWarehouse ? bookSpace : ""}</Data>
                     </ColumnLeftJustified>
-                </ColumnBundle>
+                </ColumnBundle> */}
 
                 <Spacer />
 

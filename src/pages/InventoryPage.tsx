@@ -3,6 +3,7 @@ import { AddItemDisplayCard } from "../components/InventoryItem/ItemDisplayCard_
 import { ItemDisplayCard } from "../components/InventoryItem/ItemDisplayCard_Large";
 import { InventoryList } from "../components/List/InventoryList";
 import { State } from "../redux/state";
+// import { newRecord } from "../util/inventoryTestData";
 
 
 export const InventoryPage = () => {
@@ -13,8 +14,8 @@ export const InventoryPage = () => {
         <>
             {activeRecord && mode === "DISPLAY_RECORD" ? <ItemDisplayCard record={activeRecord}/> :  
                                                           null}
-            {mode === "ADD_RECORD" ? <AddItemDisplayCard /> :  
-                            null}
+            {/* {mode === "ADD_RECORD" ? <AddItemDisplayCard record={newRecord} /> :   */}
+                                      {/* null} */}
             <InventoryList />
 
         </>

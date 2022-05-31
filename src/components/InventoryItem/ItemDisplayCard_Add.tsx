@@ -3,15 +3,12 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { theme } from "../../css/theme";
-import { Inventory } from "../../model/inventory";
-import { dismissLargeItemView, updateInventoryQuantity } from "../../redux/actions/actions";
+import { dismissInventoryCard, updateInventory } from "../../redux/actions/actions";
 import { convertDateToHTMLCompliantString } from "../../util/taskData";
-import { CancelButton } from "./Buttons/RoundRectText/CancelButton";
-import { CloseButton } from "./Buttons/CloseButton";
-import { DeleteButton } from "./Buttons/RoundRectText/DeleteButton";
-import { AddButton } from "./Buttons/RoundRectText/AddButton";
 import { DateField } from "./Fields/DatePicker";
-import { MiniItemDisplayCardProps } from "./ItemDisplayCard_Mini";
+import { testAddItem } from "../../util/inventoryTestData";
+import { RoundRectButton } from "../Generics/Buttons/RoundRectButton";
+import { Inventory } from "../../model/inventory";
 
 
 const ShadowBox = styled.div`
@@ -146,18 +143,31 @@ const Image = styled.img`
 const baseURL = `${process.env.REACT_APP_PHOTO_URL}/`
 
 export interface AddItemDisplayCard {
-
+    record: Inventory;
 }
 
-export const AddItemDisplayCard: React.FC<AddItemDisplayCard> = ({ }) => {
+export const AddItemDisplayCard: React.FC<AddItemDisplayCard> = ({ record }) => {
 
 
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
+
+    const cancelClicked = () => dispatch(dismissInventoryCard());
+    
+    function addClicked(): void {
+        const newItem = testAddItem;
+
+        axios.post(`${process.env.REACT_APP_REST_URL}/inventories/`, newItem)
+        .then(() => axios.get(`${ process.env.REACT_APP_REST_URL}/warehouses/${newItem.warehouse.warehouseID}`)
+                         .then(({data}) => dispatch(updateInventory(data)))
+                         .catch(() => console.log("UPDATE INVENTORY FAILED")))
+                         .then(() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }))
+        .then(() => dispatch(dismissInventoryCard()))
+        .catch(() => console.log("POST FAILED"))
+    }
+
 
     // TODO: READ FORM, VALIDATE DATA, POST, SAVE, UPDATE VIEW
-    const clickedSaveButton = () => {
 
-    }
 
     let quantity: number | string;
 
@@ -168,8 +178,8 @@ export const AddItemDisplayCard: React.FC<AddItemDisplayCard> = ({ }) => {
 
                 <ImageColumn>
                     <Image alt={"BEER"} src={baseURL + "generic_beer.jpg"} />
-                    <CancelButton />
-                    <AddButton />
+                    <RoundRectButton onClick={addClicked}> ADD </RoundRectButton>
+                    <RoundRectButton onClick={cancelClicked} buttonModifier="caution"> CANCEL </RoundRectButton>
                 </ImageColumn>
 
                 <TextColumn>
