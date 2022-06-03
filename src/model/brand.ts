@@ -1,5 +1,5 @@
-import { Company } from "./company";
-import { Location } from "./location";
+import { blankCompany, Company } from "./company";
+import { blankLocation, Location } from "./location";
 
 export class Brand {
     brandID: number;
@@ -17,3 +17,5 @@ export class Brand {
         this.location = location;
     }
 }
+
+export const blankBrand = new Brand(-1, "", blankCompany, blankLocation);

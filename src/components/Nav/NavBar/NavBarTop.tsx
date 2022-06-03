@@ -6,7 +6,7 @@ import { State } from "../../../redux/state";
 import { DropDownMenuSort } from "../../Generics/DropDownMenus/DropDownMenuSort";
 import { DropDownMenuWarehouse } from "../../Generics/DropDownMenus/DropDownMenuWarehouse";
 import { SearchForm } from "../../Generics/SearchForm";
-import { Title } from "../../Generics/Text/Title";
+import { Title } from "./Text/Title";
 import { NavBar } from "./NavBar";
 // import { NavBarBundle } from "./NavBarBundle";
 import { NavBarButton } from "../../Generics/Buttons/TextButton";
@@ -64,9 +64,10 @@ export const NavBarTop = () => {
                     <DropDownMenuWarehouse>
                         {warehouses.map((warehouse) => {
                             return (
-                                < option key={warehouse.warehouseID}
-                                    value={warehouse.warehouseID}>
-                                    {warehouse.warehouseName}</option>
+                                < option key   = {warehouse.warehouseID}
+                                         value = {warehouse.warehouseID}>
+                                    {warehouse.warehouseName}
+                                </option>
                             )
                         })}
                     </DropDownMenuWarehouse>

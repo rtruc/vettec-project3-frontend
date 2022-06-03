@@ -5,6 +5,8 @@ import { theme } from "../../css/theme";
 import { Inventory } from "../../model/inventory";
 import { displayLargeItemView } from "../../redux/actions/actions";
 import { DateField } from "./Fields/DatePicker";
+import { NumberInput } from "./Fields/Number";
+import { TextInput } from "./Fields/TextInput";
 
 
 const MiniRecordContainer = styled.div`
@@ -66,34 +68,9 @@ const Title = styled.h5`
     margin:0;
 `
 
-const TextInput = styled.input.attrs({ type: 'text' })`
-    background-color: inherit;
-    border: none;
-    cursor: pointer;
-
-    font-family: 'Lato', sans-serif;
-    font-size:13px;
-
-    display:flex;
-    flex-grow:100;
-    :disabled {
-        color: black;
-    }
-`
 
 
-const NumberInput = styled.input.attrs({ type: 'number' })`
-    background-color: inherit;
-    border: none;
-    cursor: pointer;
-    font-size:13px;
-    
-    width: 40px;
-    font-family: 'Lato', sans-serif;
-    :disabled{
-        color:black;
-    }
-`
+
 
 const Image = styled.img`
     max-height:100px;

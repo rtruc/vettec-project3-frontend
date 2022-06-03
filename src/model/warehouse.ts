@@ -1,4 +1,4 @@
-import { Location } from "./location";
+import { blankLocation, Location } from "./location";
 
 export class Warehouse {
     warehouseID: number;
@@ -13,3 +13,5 @@ export class Warehouse {
         this.maxStorageCapacity = maxStorageCapacity;
     }
 }
+
+export const blankWarehouse = new Warehouse(-1, "", blankLocation, -1);

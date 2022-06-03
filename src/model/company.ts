@@ -1,4 +1,4 @@
-import { Location } from "./location";
+import { blankLocation, Location } from "./location";
 
 export class Company {
 	
@@ -12,3 +12,5 @@ export class Company {
         this.location =location;
     }
 }
+
+export const blankCompany = new Company(-1, "", blankLocation);

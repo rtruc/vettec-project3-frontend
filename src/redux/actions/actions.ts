@@ -1,4 +1,5 @@
 import { Inventory } from "../../model/inventory";
+import { Item } from "../../model/item";
 import { Warehouse } from "../../model/warehouse";
 
 
@@ -9,6 +10,7 @@ export const clearInventory   = () => ({ type: 'CLEAR_LOCAL_INVENTORY'})
 export const updateWarehouses = (warehouses: Warehouse[]) => ({ type: 'UPDATE_WAREHOUSES', warehouses: warehouses})
 export const updateSelectedWarehouse = (warehouseID: number) => ({ type: 'UPDATE_SELECTED_WAREHOUSE', warehouseID: warehouseID})
 
+export const updateItems = (items: Item[]) => ({ type: 'UPDATE_ITEMS', items: items})
 
 export const displayLargeItemView = (inventory: Inventory) => ({type: 'DISPLAY_LARGE_ITEM', inventory: inventory})
 export const displayAddInventoryCard = () => ({type: 'DISPLAY_ADD_ITEM'})

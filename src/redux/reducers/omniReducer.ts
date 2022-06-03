@@ -10,23 +10,25 @@ export const omniReducer = (state = initialState, action: AnyAction) => {
 
     switch (action.type) {
 
+
+
         case "UPDATE_INVENTORY": {
             state.inventory = action.inventory;
             // state.filters.clear();
             // state.currentlySelectedWarehouse = state.inventory[0].warehouse;
             return {...state};
         }
-
-        case "CLEAR_LOCAL_INVENTORY": {
-            state.inventory = [];
-            state.currentWarehouse = initialState.currentWarehouse;
-            return {...state}
-        }
-
         case "UPDATE_WAREHOUSES": {
             state.warehouses = action.warehouses;
             return {...state};
         }
+        case "UPDATE_ITEMS": {
+            state.items = action.items;
+            return {...state};
+        }
+        
+
+
 
         case "UPDATE_SELECTED_WAREHOUSE": {
             state.currentWarehouse = 
@@ -35,6 +37,11 @@ export const omniReducer = (state = initialState, action: AnyAction) => {
             return {...state};
         }
 
+        case "CLEAR_LOCAL_INVENTORY": {
+            state.inventory = [];
+            state.currentWarehouse = initialState.currentWarehouse;
+            return {...state}
+        }
 
         case "DISPLAY_LARGE_ITEM": {
             state.activeRecord = action.inventory;
@@ -53,6 +60,9 @@ export const omniReducer = (state = initialState, action: AnyAction) => {
             state.activeRecord = null;
             return {...state};
         }
+
+
+
 
         case "ADD_INV_ITEM": {
             state.mode = "";
@@ -85,6 +95,8 @@ export const omniReducer = (state = initialState, action: AnyAction) => {
         }
 
 
+
+
         case 'UPDATE_TYPE_FILTER': {
             if(action.isActive) {
                 state.filters.set(action.filterType, typeFilter(action.filterType));
@@ -101,7 +113,6 @@ export const omniReducer = (state = initialState, action: AnyAction) => {
             }
             return {...state}
         }
-
         case 'SEARCH_TEXT': {
             if (action.searchText.length > 0) {
                 // state.filters.searchFilter = textFilter(action.searchText);
@@ -113,6 +124,7 @@ export const omniReducer = (state = initialState, action: AnyAction) => {
                 return { ...state };
             }
         }
+
 
 
 

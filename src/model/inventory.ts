@@ -1,5 +1,6 @@
-import { Item } from "./item";
-import { Warehouse } from "./warehouse";
+import { blankItem, Item } from "./item";
+import { blankLocation, Location } from "./location";
+import { blankWarehouse, Warehouse } from "./warehouse";
 
 export class Inventory {
 
@@ -19,3 +20,5 @@ export class Inventory {
         this.inventoryDate = inventoryDate
     }
 }
+
+export const blankRecord = new Inventory(-1, blankWarehouse, blankItem, -1, "");

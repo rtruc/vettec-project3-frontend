@@ -18,3 +18,5 @@ export class Location {
         this.country = country;
     }
 }
+
+export const blankLocation = new Location(-1, "", "", "");

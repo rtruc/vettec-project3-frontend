@@ -1,4 +1,4 @@
-import { Brand } from "./brand";
+import { blankBrand, Brand } from "./brand";
 
 export class Item {
     itemID: number;
@@ -22,3 +22,5 @@ export class Item {
         this.imageURL    = imageURL;
     }
 }
+
+export const blankItem = new Item(-1, "", "", blankBrand, 0, "", "generic_beer.jpg");

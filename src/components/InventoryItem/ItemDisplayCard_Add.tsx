@@ -1,175 +1,60 @@
 import axios from "axios";
-import React from "react";
-import { useDispatch } from "react-redux";
-import styled from "styled-components";
-import { theme } from "../../css/theme";
-import { dismissInventoryCard, updateInventory } from "../../redux/actions/actions";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { dismissInventoryCard, updateInventory, updateItems } from "../../redux/actions/actions";
 import { convertDateToHTMLCompliantString } from "../../util/taskData";
 import { DateField } from "./Fields/DatePicker";
 import { testAddItem } from "../../util/inventoryTestData";
 import { RoundRectButton } from "../Generics/Buttons/RoundRectButton";
-import { Inventory } from "../../model/inventory";
+import { DropDownMenu } from "../Generics/DropDownMenus/DropDownMenu";
+import { State } from "../../redux/state";
+import { blankItem } from "../../model/item";
+import { NumberInput } from "./Fields/Number";
+import { TextInput } from "./Fields/TextInput";
+import { RecordContainer } from "./Groupings/RecordContainer";
+import { ShadowBox } from "./Groupings/ShadowBox";
+import { ImageColumn } from "./Fields/ImageColumn";
+import { TextColumn } from "./Groupings/TextColumn";
+import { TextRow } from "./Groupings/TextRow";
+import { EntryMultiLine } from "./Fields/EntryMultiLine";
+import { FieldTitle } from "./Fields/FieldTitle";
+import { ItemImage } from "./Fields/ItemImage";
 
-
-const ShadowBox = styled.div`
-    background:rgba(0, 0, 0, 0.455);
-
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0px;
-    left: 0px;
-
-    z-index:10;
-
-    pointer-events: none;
-    transition: background-color 0.25s ease-in-out;
-
-    pointer-events: fill;
-`
-
-const RecordContainer = styled.div`
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    margin-top: -200px;
-    margin-left: -400px;
-    width: 800px;
-    height: 400px;
-
-    z-index: 11;
-
-    display:flex;
-    flex-direction: row;
-    align-items:flex-start;
-
-    font-size:20px;
-    
-    background-color: ${theme.item_BackgroundColor};
-    
-    // WEBKIT DOESN'T APPLY BORDER-RADIUS TO OUTLINES...
-    // USING HARD DROP SHADOW INSTEAD
-    border-radius:10px;
-    box-shadow: 0 0 0 .75pt ${theme.item_BorderShadowColor};
-`
-
-const ImageColumn = styled.div`
-    display: flex;
-    flex-direction: column;
-`
-
-const TextColumn = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-content: space-between;
-    gap: 2px;
-    flex-grow: 100;
-    height: 400px;
-    margin-top: 15px;
-    margin-right: 15px;
-`
-
-const TextRow = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-`
-const OuterRow = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-`
-
-
-
-const Title = styled.h4`
-    margin:0;
-    margin-right: 10px;
-`
-
-const TextInput = styled.input.attrs({ type: 'text' })`
-    background-color: inherit;
-    border: none;
-    /* cursor: pointer; */
-
-    font-family: 'Lato', sans-serif;
-    font-size:inherit;
-
-    display:flex;
-    flex-grow:100;
-    :disabled {
-        color: black;
-    }
-`
-
-// const LargeTextInput = styled.input.attrs({ type: 'textarea'})`
-const LargeTextInput = styled.textarea`
-    height:200px;
-    /* display:flex; */
-    /* flex-grow: 80; */
-    background-color:inherit;
-    /* border:none; */
-    font-family: 'Lato', sans-serif;
-    /* font-weight:bolder; */
-    font-size:inherit;
-    color:black;
-    resize: none;
-`
-
-
-const NumberInput = styled.input.attrs({ type: 'number' })`
-    background-color: inherit;
-    border: none;
-    /* cursor: pointer; */
-    font-size:inherit;
-    
-    width: 80px;
-    font-family: 'Lato', sans-serif;
-    :disabled{
-        color:black;
-    }
-`
-
-const Image = styled.img`
-    max-height:300px;
-    display:flex;
-    flex-grow:0;
-    
-    margin-top:15px;
-    margin-right:15px;
-    margin-left:20px;
-    border-radius: 10px;
-`
 const baseURL = `${process.env.REACT_APP_PHOTO_URL}/`
 
 export interface AddItemDisplayCard {
-    record: Inventory;
+    
 }
 
-export const AddItemDisplayCard: React.FC<AddItemDisplayCard> = ({ record }) => {
-
-
+export const AddItemDisplayCard: React.FC<AddItemDisplayCard> = () => {
     const dispatch = useDispatch();
+    const { items } = useSelector((state: State) => state)
 
     const cancelClicked = () => dispatch(dismissInventoryCard());
-    
+
     function addClicked(): void {
         const newItem = testAddItem;
 
         axios.post(`${process.env.REACT_APP_REST_URL}/inventories/`, newItem)
-        .then(() => axios.get(`${ process.env.REACT_APP_REST_URL}/warehouses/${newItem.warehouse.warehouseID}`)
-                         .then(({data}) => dispatch(updateInventory(data)))
-                         .catch(() => console.log("UPDATE INVENTORY FAILED")))
-                         .then(() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }))
-        .then(() => dispatch(dismissInventoryCard()))
-        .catch(() => console.log("POST FAILED"))
+             .then(() => 
+                axios.get(`${process.env.REACT_APP_REST_URL}/warehouses/${newItem.warehouse.warehouseID}`)
+                    .then(({ data }) => dispatch(updateInventory(data)))
+                    .catch(() => console.log("UPDATE INVENTORY FAILED")))
+            .then(() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }))
+            .then(() => dispatch(dismissInventoryCard()))
+            .catch(() => console.log("POST FAILED"))
     }
 
 
-    // TODO: READ FORM, VALIDATE DATA, POST, SAVE, UPDATE VIEW
 
 
-    let quantity: number | string;
+    // TODO: GET LIST OF ITEMS
+    // BUILD DROPDOWN MENU
+    // UPDATE FIELDS BASED UPON SELECTED ITEM
+    // BUILD AND SEND INVENTORY RECORD WHEN ADD CLICKED
+
+    let [item, setItem] = useState(blankItem)
+    let [quantity, setQuantity] = useState(0);
 
     return (
         <ShadowBox>
@@ -177,44 +62,64 @@ export const AddItemDisplayCard: React.FC<AddItemDisplayCard> = ({ record }) => 
             <RecordContainer>
 
                 <ImageColumn>
-                    <Image alt={"BEER"} src={baseURL + "generic_beer.jpg"} />
+                    <ItemImage alt={"BEER"} src={baseURL + item.imageURL} />
                     <RoundRectButton onClick={addClicked}> ADD </RoundRectButton>
                     <RoundRectButton onClick={cancelClicked} buttonModifier="caution"> CANCEL </RoundRectButton>
                 </ImageColumn>
 
                 <TextColumn>
                     <TextRow>
-                        <Title>TITLE:</Title>
-                        <TextInput defaultValue="" />
+                        <FieldTitle>ITEM:</FieldTitle>
+                        {/* <TextInput defaultValue="" /> */}
+                        <DropDownMenu onChange={({ target }) => setItem(items.find(i => i.itemID === parseInt(target.value)) || blankItem)}>
+                            <option value={""}></option>
+                            {items.map((i) => {
+                                return (
+                                    <option key={i.itemID}
+                                        value={i.itemID}>
+                                        {i.itemName}
+                                    </option>
+                                )
+                            })}
+                        </DropDownMenu>
                     </TextRow>
 
                     <TextRow>
-                        <Title>BREWERY:</Title>
-                        <TextInput defaultValue="" />
+                        <FieldTitle>{item.itemType === 'book' ? "AUTHOR: " : "BREWERY: "} </FieldTitle>
+                        <TextInput disabled defaultValue={item.brand.brandName} />
                     </TextRow>
 
                     <TextRow>
-                        <Title>QUANTITY: </Title>
-                        <NumberInput onChange={(e) => quantity = e.target.value}
-                            defaultValue="0" />
+                        <FieldTitle>QUANTITY: </FieldTitle>
+                        <NumberInput onChange={(e) => setQuantity(parseInt(e.target.value))}
+                            defaultValue={quantity} />
+                        {/* <NumberInput onChange={(e) => quantity = e.target.value}
+                            defaultValue="0" /> */}
                     </TextRow>
 
                     <TextRow>
-                        <Title>SIZE:</Title>
-                        <NumberInput defaultValue="0" />
+                        <FieldTitle>SIZE:</FieldTitle>
+                        <EntryMultiLine>{item.unitVolume}</EntryMultiLine>
                     </TextRow>
 
                     <TextRow>
-                        <Title>EXPIRATION:</Title>
+                        <FieldTitle>TOTAL SPACE:</FieldTitle>
+                        <EntryMultiLine>{item.unitVolume * quantity}</EntryMultiLine>
+
+                    </TextRow>
+
+                    <TextRow>
+                        <FieldTitle>EXPIRATION:</FieldTitle>
                         <DateField date={convertDateToHTMLCompliantString(new Date())} />
                     </TextRow>
 
-                    <Title>DESCRIPTION</Title>
-                    <LargeTextInput defaultValue="" />
+                    <FieldTitle>DESCRIPTION</FieldTitle>
+                    {/* <LargeTextInput disabled value={item.description} /> */}
+                    <EntryMultiLine> {item.description} </EntryMultiLine>
                 </TextColumn>
             </RecordContainer>
 
-        </ShadowBox>
+        </ShadowBox >
 
     )
 }
