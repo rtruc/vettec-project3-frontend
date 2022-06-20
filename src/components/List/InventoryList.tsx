@@ -7,10 +7,13 @@ import { inventoryFilter } from "../../util/inventoryFilters";
 
 const ListDiv = styled.div`
     display: flex;
+
     flex-direction: row;
     flex-wrap: wrap;
+    
     align-items: center;
-    justify-content: center;
+    /* justify-content: center; */
+    /* margin: 0 auto; */
 
     margin-left: 180px;
     margin-right: 10px;
@@ -31,14 +34,14 @@ export const InventoryList: React.FC = () => {
 
     let { inventory, filters } = useSelector((state: State) => state);
 
-    let workingSet:  Inventory[] = inventory;
+    let workingSet: Inventory[] = inventory;
     let filteredSet: Inventory[] = [];
 
     filters.forEach((filter: inventoryFilter) => {
         filteredSet = [];
         filteredSet.push(...workingSet.filter(task => filter(task)));
         workingSet = filteredSet;
-    } )
+    })
 
     return (
         <ListDiv>

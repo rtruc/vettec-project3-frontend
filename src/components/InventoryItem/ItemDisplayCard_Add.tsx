@@ -1,8 +1,8 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { dismissInventoryCard, updateInventory, updateItems } from "../../redux/actions/actions";
-import { convertDateToHTMLCompliantString } from "../../util/taskData";
+import { dismissInventoryCard, updateInventory } from "../../redux/actions/actions";
+import { convertDateToHTMLCompliantString } from "../../util/dateHelpers";
 import { DateField } from "./Fields/DatePicker";
 import { testAddItem } from "../../util/inventoryTestData";
 import { RoundRectButton } from "../Generics/Buttons/RoundRectButton";
@@ -46,11 +46,7 @@ export const AddItemDisplayCard: React.FC<AddItemDisplayCard> = () => {
     }
 
 
-
-
     // TODO: GET LIST OF ITEMS
-    // BUILD DROPDOWN MENU
-    // UPDATE FIELDS BASED UPON SELECTED ITEM
     // BUILD AND SEND INVENTORY RECORD WHEN ADD CLICKED
 
     let [item, setItem] = useState(blankItem)
@@ -93,8 +89,6 @@ export const AddItemDisplayCard: React.FC<AddItemDisplayCard> = () => {
                         <FieldTitle>QUANTITY: </FieldTitle>
                         <NumberInput onChange={(e) => setQuantity(parseInt(e.target.value))}
                             defaultValue={quantity} />
-                        {/* <NumberInput onChange={(e) => quantity = e.target.value}
-                            defaultValue="0" /> */}
                     </TextRow>
 
                     <TextRow>

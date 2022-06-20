@@ -10,10 +10,6 @@ const SearchFormDiv = styled.div`
         align-items:center;
 
         margin-right: 10px
-        /* position: absolute; */
-        /* left: 10px; */
-        /* right: 5px; */
-        /* top: 9px; */
 `
 
 const SearchField = styled.input`

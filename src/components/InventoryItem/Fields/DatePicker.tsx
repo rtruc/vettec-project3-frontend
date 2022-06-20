@@ -1,11 +1,7 @@
-import { useDispatch } from "react-redux";
 import styled from "styled-components";
-// import { editDate } from "../../../redux/actions/actions";
-import { convertDateToHTMLCompliantString, convertDateToJSONCompliantString, discardTime } from "../../../util/taskData";
-import { Task } from "../../../model/task";
 import { theme } from "../../../css/theme";
 
-const DueDateDiv = styled.input.attrs({type: 'date'})`
+const DueDateDiv = styled.input.attrs({ type: 'date' })`
     background-color: inherit;
     border: none;
     /* cursor: pointer; */
@@ -36,15 +32,12 @@ interface DateProps {
     isDisabled?: boolean;
 }
 
-export const DateField: React.FC<DateProps> = ({date, isDisabled = false}) => {
+export const DateField: React.FC<DateProps> = ({ date, isDisabled = false }) => {
 
     return (
-            // <DueDateDiv required defaultValue={convertDateToHTMLCompliantString(date)} 
-            //             onBlur={e => changedDueDate(e.target.value)}/> 
-            <>
-            {isDisabled ? <DueDateDiv required disabled defaultValue={date}/> : 
-                          <DueDateDiv required defaultValue={date}/> }
-            </>
-            // <DueDateDiv required defaultValue={date}/> 
+        <>
+            {isDisabled ? <DueDateDiv required disabled defaultValue={date} /> :
+                          <DueDateDiv required defaultValue={date} />}
+        </>
     )
 }

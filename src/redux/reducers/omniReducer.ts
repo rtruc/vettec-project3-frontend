@@ -1,34 +1,30 @@
 import { AnyAction } from "redux";
 import { brandFilter, textFilter, typeFilter } from "../../util/inventoryFilters";
-import { Task } from "../../model/task";
 import { initialState } from "../state";
 import { Inventory } from "../../model/inventory";
 
 
+// TODO: REFACTOR - Split this monstrosity up
 
 export const omniReducer = (state = initialState, action: AnyAction) => {
 
     switch (action.type) {
 
-
-
         case "UPDATE_INVENTORY": {
             state.inventory = action.inventory;
-            // state.filters.clear();
-            // state.currentlySelectedWarehouse = state.inventory[0].warehouse;
             return {...state};
         }
+
         case "UPDATE_WAREHOUSES": {
             state.warehouses = action.warehouses;
             return {...state};
         }
+
         case "UPDATE_ITEMS": {
             state.items = action.items;
             return {...state};
         }
         
-
-
 
         case "UPDATE_SELECTED_WAREHOUSE": {
             state.currentWarehouse = 
@@ -83,10 +79,6 @@ export const omniReducer = (state = initialState, action: AnyAction) => {
 
         case "UPDATE_INV_QUANTITY": {
             if(state.activeRecord){
-                // const recordUpdate = state.activeRecord;
-                // const index = state.inventory.indexOf(recordUpdate);
-                // state.inventory[index] = recordUpdate;
-
                 const index = state.inventory.indexOf(state.activeRecord);
                 state.inventory[index].quantity = action.quantity;
                 state.activeRecord = null;
@@ -235,15 +227,4 @@ function sortInventoryByTotalSpace(i1: Inventory, i2: Inventory) {
         return 1;
     }
     return 0;
-}
-
-
-
-function findTaskNumberIndexByID(tasks: Task[], _id: String): number {
-    for (let i in tasks) {
-        if (tasks[i]._id === _id) {
-            return parseInt(i);
-        }
-    }
-    return -1;
 }

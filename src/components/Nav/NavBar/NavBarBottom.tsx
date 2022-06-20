@@ -60,10 +60,10 @@ export const NavBarBottom = () => {
     let maxStorageCapacity = 0;
     let currentStorage = 0;
     let location = "";
-    let bookCount = 0;
-    let bookSpace = 0;
-    let beerCount = 0;
-    let beerSpace = 0;
+    // let bookCount = 0;
+    // let bookSpace = 0;
+    // let beerCount = 0;
+    // let beerSpace = 0;
     let itemCount = 0;
 
     if (currentWarehouse) {
@@ -72,13 +72,13 @@ export const NavBarBottom = () => {
             const currentItemsTotalSpace = inventory[i].item.unitVolume * inventory[i].quantity;
             currentStorage += currentItemsTotalSpace;
             itemCount++;
-            if (inventory[i].item.itemType === "book") {
-                bookCount++;
-                bookSpace += inventory[i].item.unitVolume * inventory[i].quantity;
-            } else {
-                beerCount++;
-                beerSpace += inventory[i].item.unitVolume * inventory[i].quantity;;
-            }
+            // if (inventory[i].item.itemType === "book") {
+                // bookCount++;
+                // bookSpace += inventory[i].item.unitVolume * inventory[i].quantity;
+            // } else {
+                // beerCount++;
+                // beerSpace += inventory[i].item.unitVolume * inventory[i].quantity;;
+            // }
         }
 
         location = currentWarehouse.location.city + ", "
@@ -94,6 +94,7 @@ export const NavBarBottom = () => {
 
             <Row>
 
+                <ColumnBundle>
                 <ColumnBundle>
                     <ColumnRightJustified>
                         <Title>Current Capacity:</Title>
@@ -156,12 +157,11 @@ export const NavBarBottom = () => {
                         <Data>{currentWarehouse ? warehouseID : ""}</Data>
                     </ColumnLeftJustified>
                 </ColumnBundle>
+                </ColumnBundle>
 
 
             </Row>
-            {/* <NavBarButton>+</NavBarButton> */}
 
-            {/* //TODO: ADD NEW INVENTORY ENTRY*/}
             <NavBarButton onClick={() => dispatch(displayAddInventoryCard())}>+</NavBarButton>
 
         </NavBar>
