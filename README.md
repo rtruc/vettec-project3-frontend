@@ -1,5 +1,5 @@
 # [Inventory Management System - Frontend](https://github.com/rtruc/vettec-project3-frontend/)
-Developed full stack CRUD app using *Spring Boot* and *React*.
+Full stack CRUD app using *Spring Boot* and *React*.
 - Allows user to create, read, update, delete, filter, search and sort items.
 - All changes saved to a remote *MySQL* database through *Spring Data JPA*.
 - Frontend implemented using *React*, *Redux*, *TypeScript*, *Axios* and *Styled Components*.
