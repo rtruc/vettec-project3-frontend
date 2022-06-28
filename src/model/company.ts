@@ -1,16 +1,16 @@
-import { blankLocation, Location } from "./location";
+// import { blankLocation, Location } from "./location";
 
-export class Company {
-	
-	companyID: number;
-	companyName: string;
-	location: Location;
+// export class Company {
+export {}	
+// 	companyID: number;
+// 	companyName: string;
+// 	location: Location;
 
-    constructor(companyID: number, companyName: string, location: Location) {
-        this.companyID = companyID;
-        this.companyName = companyName;
-        this.location =location;
-    }
-}
+//     constructor(companyID: number, companyName: string, location: Location) {
+//         this.companyID = companyID;
+//         this.companyName = companyName;
+//         this.location =location;
+//     }
+// }
 
-export const blankCompany = new Company(-1, "", blankLocation);
+// export const blankCompany = new Company(-1, "", blankLocation);

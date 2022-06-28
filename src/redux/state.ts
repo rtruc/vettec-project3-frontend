@@ -3,14 +3,14 @@ import { Inventory } from "../model/inventory";
 import { Warehouse } from "../model/warehouse";
 import { Brand } from "../model/brand";
 import { Item } from "../model/item";
-import { Company } from "../model/company";
+// import { Company } from "../model/company";
 
 export interface State {
     inventory: Inventory[];
     warehouses: Warehouse[];
     items: Item[];
     brands: Brand[];
-    companies: Company[];
+    // companies: Company[];
     locations: Location[];
 
     currentWarehouse: Warehouse | null;
@@ -25,7 +25,7 @@ export const initialState: State = {
     warehouses: [],
     items: [],
     brands: [],
-    companies: [],
+    // companies: [],
     locations: [],
 
     currentWarehouse: null,

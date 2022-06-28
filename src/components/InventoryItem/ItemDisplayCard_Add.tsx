@@ -2,20 +2,16 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { dismissInventoryCard, updateInventory } from "../../redux/actions/actions";
-import { convertDateToHTMLCompliantString } from "../../util/dateHelpers";
-import { DateField } from "./Fields/DatePicker";
-import { testAddItem } from "../../util/inventoryTestData";
 import { RoundRectButton } from "../Generics/Buttons/RoundRectButton";
 import { DropDownMenu } from "../Generics/DropDownMenus/DropDownMenu";
 import { State } from "../../redux/state";
 import { blankItem } from "../../model/item";
-import { NumberInput } from "./Fields/Number";
-import { TextInput } from "./Fields/TextInput";
 import { RecordContainer } from "./Groupings/RecordContainer";
 import { ShadowBox } from "./Groupings/ShadowBox";
-import { ImageColumn } from "./Fields/ImageColumn";
 import { TextColumn } from "./Groupings/TextColumn";
 import { TextRow } from "./Groupings/TextRow";
+import { NumberInput } from "./Fields/Number";
+import { ImageColumn } from "./Fields/ImageColumn";
 import { EntryMultiLine } from "./Fields/EntryMultiLine";
 import { FieldTitle } from "./Fields/FieldTitle";
 import { ItemImage } from "./Fields/ItemImage";
@@ -36,26 +32,25 @@ export const AddItemDisplayCard: React.FC<AddItemDisplayCard> = () => {
 
     function addClicked(): void {
         let newRecord = blankRecord;
-        newRecord.warehouse.warehouseID = currentWarehouse?.warehouseID || -1;
+        newRecord.warehouseID = currentWarehouse?.warehouseID || -1;
         newRecord.item.itemID = item.itemID;
         newRecord.quantity = quantity;
 
-
-        if(item === blankItem || quantity < 1) {
+        if(item === blankItem || quantity < 1 || newRecord.warehouseID === -1) {
             return;
         }
 
+        // console.log(newRecord);
+
         axios.post(`${process.env.REACT_APP_REST_URL}/inventories/`, newRecord)
              .then(() =>
-                axios.get(`${process.env.REACT_APP_REST_URL}/warehouses/${newRecord.warehouse.warehouseID}`)
+                axios.get(`${process.env.REACT_APP_REST_URL}/warehouses/${newRecord.warehouseID}`)
                      .then(({ data }) => dispatch(updateInventory(data)))
                      .catch(() => console.log("UPDATE INVENTORY FAILED")))
              .then(() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }))
              .then(() => dispatch(dismissInventoryCard()))
              .catch(() => console.log("POST FAILED"))
     }
-
-    // BUILD AND SEND INVENTORY RECORD WHEN ADD CLICKED
 
     let [item, setItem] = useState(blankItem)
     let [quantity, setQuantity] = useState(0);
@@ -69,7 +64,6 @@ export const AddItemDisplayCard: React.FC<AddItemDisplayCard> = () => {
                 <ImageColumn>
                     <ItemImage alt={"BEER"} src={baseURL + item.imageURL} />
                     <RoundRectButton onClick={addClicked}> ADD </RoundRectButton>
-                    {/* <RoundRectButton onClick={() => {}}> ADD </RoundRectButton> */}
                     <RoundRectButton onClick={cancelClicked} buttonModifier="caution"> CANCEL </RoundRectButton>
                 </ImageColumn>
 

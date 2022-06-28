@@ -18,7 +18,7 @@ export const dismissInventoryCard = () => ({type: 'DISMISS_CARD'})
 
 
 export const deleteCurrentItem = (data: any) => ({type: 'DELETE_INV_ITEM', data: data})
-export const addInventoryItem = (newItem: Inventory) => ({type: 'ADD_INV_ITEM', newItem: newItem})
+// export const addInventoryItem = (newItem: Inventory) => ({type: 'ADD_INV_ITEM', newItem: newItem})
 export const updateInventoryQuantity = (inventoryID: number, quantity: number ) => ({type: 'UPDATE_INV_QUANTITY', inventoryID: inventoryID, quantity: quantity})
 
 

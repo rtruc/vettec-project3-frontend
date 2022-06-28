@@ -30,6 +30,7 @@ export const omniReducer = (state = initialState, action: AnyAction) => {
             state.currentWarehouse = 
                             state.warehouses.find(warehouse => warehouse.warehouseID === action.warehouseID) 
                             || null;
+            state.filters.clear();
             return {...state};
         }
 
@@ -60,13 +61,11 @@ export const omniReducer = (state = initialState, action: AnyAction) => {
 
 
 
-        case "ADD_INV_ITEM": {
-            state.mode = "";
-            
-            console.log("Saved through the power of imagination");
-
-            return {...state};
-        }
+        // case "ADD_INV_ITEM": {
+        //     state.mode = "";
+        //     console.log("Saved through the power of imagination");
+        //     return {...state};
+        // }
 
         case "DELETE_INV_ITEM": {
             if(state.activeRecord){

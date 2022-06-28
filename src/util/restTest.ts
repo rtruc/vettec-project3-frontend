@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Brand } from "../model/brand";
-import { Company } from "../model/company";
+// import { Company } from "../model/company";
 import { Inventory } from "../model/inventory";
 import { Item } from "../model/item";
 import { Location } from "../model/location";
@@ -45,10 +45,10 @@ axios.get(`${process.env.REACT_APP_REST_URL}/locations`)
     .then(() => console.log(locations))
 
 // COMPANY
-let companies: Company[];
-axios.get(`${process.env.REACT_APP_REST_URL}/companies`)
-    .then(({data}) => companies = data)
-    .then(() => console.log(companies))
+// let companies: Company[];
+// axios.get(`${process.env.REACT_APP_REST_URL}/companies`)
+//     .then(({data}) => companies = data)
+//     .then(() => console.log(companies))
 
 // WAREHOUSE
 let warehouses: Warehouse[];

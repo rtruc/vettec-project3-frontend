@@ -30,20 +30,3 @@ export function textFilter(searchString: string): inventoryFilter {
     }
     return txtFilter;
 }     
-
-
-// export const todoFilter: todoFilter      = (task) => task.isComplete === false;
-// export const completedFilter: todoFilter = (task) => task.isComplete === true;
-// export const allFilter: todoFilter       = (task) => true;
-
-// export function dateFilter(earlier: string, later: string): todoFilter {
-    
-//     if (earlier > later) {
-//         const swapper = later;
-//         later = earlier;
-//         earlier = swapper;
-//     }
-
-//     const dtFilter: todoFilter = (task) => earlier <= task.date && task.date <= later;
-//     return dtFilter;
-// }
