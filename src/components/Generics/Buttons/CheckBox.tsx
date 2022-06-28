@@ -45,6 +45,11 @@ export const CheckBoxDiv = styled.input.attrs({ type: 'checkbox' })`
         /* outline: max(2px, 0.15em) solid currentColor; */
         /* outline-offset: max(2px, 0.15em); */
     }
+    
+    transition: border 250ms;
+    &:hover {
+        border: 0.15em solid ${theme.button_TextColor_Hover_NavBar};
+    }
 
     &:disabled {
         --form-control-color: var(--form-control-disabled);

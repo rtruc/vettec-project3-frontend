@@ -11,9 +11,9 @@ const ListDiv = styled.div`
     flex-direction: row;
     flex-wrap: wrap;
     
-    align-items: center;
-    /* justify-content: center; */
-    /* margin: 0 auto; */
+    /* align-items: center; */
+    justify-content: center;
+    margin: 0 auto;
 
     margin-left: 180px;
     margin-right: 10px;

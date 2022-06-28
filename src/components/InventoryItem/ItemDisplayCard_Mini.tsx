@@ -5,9 +5,6 @@ import { theme } from "../../css/theme";
 import { Inventory } from "../../model/inventory";
 import { displayLargeItemView } from "../../redux/actions/actions";
 import { DateField } from "./Fields/DatePicker";
-import { NumberInput } from "./Fields/Number";
-import { TextInput } from "./Fields/TextInput";
-
 
 const MiniRecordContainer = styled.div`
     display:flex;
@@ -55,22 +52,21 @@ const TextRow = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-`
-const OuterRow = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+    margin-bottom:2px;
 `
 
-
-
-const Title = styled.h5`
+const Title = styled.h4`
     margin:0;
+    margin-right: 3px;
 `
-
-
-
-
+const EntrySingleLine = styled.span`
+    white-space: nowrap;
+    overflow:hidden;
+    max-width: 166px;
+    text-overflow:ellipsis;
+    /* word-wrap:break-word; */
+    /* overflow-x: scroll; */
+`
 
 const Image = styled.img`
     max-height:100px;
@@ -95,9 +91,9 @@ export const MiniItemDisplayCard: React.FC<MiniItemDisplayCardProps> = ({ record
 
     const dispatch = useDispatch();
 
-    const imageURL = item.imageURL !== null   ? baseURL + item.imageURL : 
-                     item.itemType === "book" ? baseURL + "generic_book.jpg" : 
-                                                baseURL + "generic_beer.jpg";
+    const imageURL = item.imageURL !== null   ? baseURL + item.imageURL      :
+                     item.itemType === "book" ? baseURL + "generic_book.jpg" :
+                     baseURL + "generic_beer.jpg";
 
     return (
 
@@ -109,31 +105,34 @@ export const MiniItemDisplayCard: React.FC<MiniItemDisplayCardProps> = ({ record
             <TextColumn>
                 <TextRow>
                     <Title>{item.itemType === 'book' ? "TITLE: " : "NAME: "} </Title>
-                    <TextInput disabled defaultValue={item.itemName} />
+                    <EntrySingleLine> {item.itemName} </EntrySingleLine>
                 </TextRow>
 
                 <TextRow>
                     <Title>{item.itemType === 'book' ? "AUTHOR: " : "BREWERY: "} </Title>
-                    <TextInput disabled defaultValue={item.brand.brandName} />
+                    <EntrySingleLine> {item.brand.brandName}</EntrySingleLine>
                 </TextRow>
 
                 <TextRow>
                     <Title>QUANTITY: </Title>
-                    <NumberInput disabled defaultValue={quantity} />
-
-                    <Title>SIZE: </Title>
-                    <NumberInput disabled defaultValue={item.unitVolume} />
+                    <EntrySingleLine>{quantity}</EntrySingleLine>
                 </TextRow>
+
+                <TextRow>
+                    <Title>SIZE: </Title>
+                    <EntrySingleLine>{item.unitVolume}</EntrySingleLine>
+                </TextRow>
+
 
                 <TextRow>
                     <Title>TOTAL SPACE: </Title>
-                    <NumberInput disabled defaultValue={item.unitVolume * quantity} />
+                    <EntrySingleLine>{item.unitVolume * quantity}</EntrySingleLine>
                 </TextRow>
 
-                <TextRow>
+                {/* <TextRow>
                     <Title>{item.itemType === 'book' ? "PUBLISHED: " : "EXPIRATION: "} </Title>
                     <DateField isDisabled={true} date={inventoryDate} />
-                </TextRow>
+                </TextRow> */}
             </TextColumn>
 
         </MiniRecordContainer>

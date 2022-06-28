@@ -41,14 +41,14 @@ export interface RoundRectButtonProps {
 export const RoundRectButton: React.FC<RoundRectButtonProps> = ({ onClick, buttonModifier, children }) => {
 
     let RoundRectButton: StyledComponent<"button", any, {}, never>;
-    if(buttonModifier === 'caution')
+    if (buttonModifier === 'caution')
         RoundRectButton = RoundRectButtonDiv_Caution;
     else
         RoundRectButton = RoundRectButtonDiv;
 
     return (
-        <RoundRectButton onClick={() => onClick()}>
-            {children}
-        </RoundRectButton>
+            <RoundRectButton onClick={() => onClick()}>
+                {children}
+            </RoundRectButton>
     )
 }

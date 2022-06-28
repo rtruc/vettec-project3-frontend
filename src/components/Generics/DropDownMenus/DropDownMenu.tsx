@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { theme } from "../../../css/theme";
 
 export const DropDownMenu = styled.select`
     height: 25px;
@@ -14,5 +15,9 @@ export const DropDownMenu = styled.select`
 
     &:focus {
         outline: none;
+    }
+    transition: outline 125ms;
+    &:hover {
+        outline: 0.15em solid ${theme.button_TextColor_Hover_NavBar};
     }
 `

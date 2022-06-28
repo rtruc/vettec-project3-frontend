@@ -10,6 +10,7 @@ export const TextInput = styled.input.attrs({ type: 'text' })`
 
     display:flex;
     flex-grow:100;
+    max-width:160px;
     :disabled {
         color: black;
     }

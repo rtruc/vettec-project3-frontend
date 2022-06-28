@@ -12,4 +12,7 @@ font-family: 'Lato', sans-serif;
 :disabled{
     color:black;
 }
+::-webkit-inner-spin-button{
+    opacity: 1;
+}
 `

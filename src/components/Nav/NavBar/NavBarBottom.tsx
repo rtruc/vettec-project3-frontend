@@ -37,7 +37,7 @@ const Row = styled.div`
     height: 50px;
 
     flex-grow: 100;
-    justify-content: space-between;
+    justify-content: left;
     
     /* gap:10px; */
     /* justify-content: flex-start; */
@@ -60,10 +60,6 @@ export const NavBarBottom = () => {
     let maxStorageCapacity = 0;
     let currentStorage = 0;
     let location = "";
-    // let bookCount = 0;
-    // let bookSpace = 0;
-    // let beerCount = 0;
-    // let beerSpace = 0;
     let itemCount = 0;
 
     if (currentWarehouse) {
@@ -72,19 +68,12 @@ export const NavBarBottom = () => {
             const currentItemsTotalSpace = inventory[i].item.unitVolume * inventory[i].quantity;
             currentStorage += currentItemsTotalSpace;
             itemCount++;
-            // if (inventory[i].item.itemType === "book") {
-                // bookCount++;
-                // bookSpace += inventory[i].item.unitVolume * inventory[i].quantity;
-            // } else {
-                // beerCount++;
-                // beerSpace += inventory[i].item.unitVolume * inventory[i].quantity;;
-            // }
         }
 
+        warehouseID = currentWarehouse.warehouseID;
         location = currentWarehouse.location.city + ", "
             + currentWarehouse.location.state + " - "
             + currentWarehouse.location.country;
-        warehouseID = currentWarehouse.warehouseID;
     }
 
     const dispatch = useDispatch();
@@ -94,7 +83,6 @@ export const NavBarBottom = () => {
 
             <Row>
 
-                <ColumnBundle>
                 <ColumnBundle>
                     <ColumnRightJustified>
                         <Title>Current Capacity:</Title>
@@ -121,30 +109,6 @@ export const NavBarBottom = () => {
 
                 <Spacer />
 
-                {/* <ColumnBundle>
-                    <ColumnRightJustified>
-                        <Title>Beer Count:</Title>
-                        <Title>Book Count:</Title>
-                    </ColumnRightJustified>
-                    <ColumnLeftJustified>
-                        <Data>{currentWarehouse ? beerCount : ""}</Data>
-                        <Data>{currentWarehouse ? bookCount : ""}</Data>
-                    </ColumnLeftJustified>
-                </ColumnBundle> */}
-
-                {/* <Spacer /> */}
-
-                {/* <ColumnBundle>
-                    <ColumnRightJustified>
-                        <Title>Beer Space:</Title>
-                        <Title>Book Space:</Title>
-                    </ColumnRightJustified>
-                    <ColumnLeftJustified>
-                        <Data>{currentWarehouse ? beerSpace : ""}</Data>
-                        <Data>{currentWarehouse ? bookSpace : ""}</Data>
-                    </ColumnLeftJustified>
-                </ColumnBundle> */}
-
                 <Spacer />
 
                 <ColumnBundle>
@@ -157,8 +121,8 @@ export const NavBarBottom = () => {
                         <Data>{currentWarehouse ? warehouseID : ""}</Data>
                     </ColumnLeftJustified>
                 </ColumnBundle>
-                </ColumnBundle>
 
+                <Spacer />
 
             </Row>
 

@@ -21,4 +21,4 @@ export class Inventory {
     }
 }
 
-export const blankRecord = new Inventory(-1, blankWarehouse, blankItem, -1, "");
+export const blankRecord = new Inventory(-1, blankWarehouse, blankItem, -1, "1999-04-20");

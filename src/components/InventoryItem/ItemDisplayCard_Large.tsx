@@ -1,5 +1,5 @@
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Inventory } from "../../model/inventory";
 import { deleteCurrentItem, dismissInventoryCard, updateInventoryQuantity } from "../../redux/actions/actions";
@@ -9,13 +9,12 @@ import { RecordContainer } from "./Groupings/RecordContainer";
 import { ShadowBox } from "./Groupings/ShadowBox";
 import { TextColumn } from "./Groupings/TextColumn";
 import { TextRow } from "./Groupings/TextRow";
-import { DateField } from "./Fields/DatePicker";
 import { ImageColumn } from "./Fields/ImageColumn";
 import { NumberInput } from "./Fields/Number";
-import { TextInput } from "./Fields/TextInput";
 import { EntryMultiLine } from "./Fields/EntryMultiLine";
 import { FieldTitle } from "./Fields/FieldTitle";
 import { ItemImage } from "./Fields/ItemImage";
+import { EntrySingleLine } from "./Fields/EntrySingleLine";
 
 const baseURL = `${process.env.REACT_APP_PHOTO_URL}/`
 
@@ -25,9 +24,9 @@ export interface ItemDisplayCardProps {
 
 export const ItemDisplayCard: React.FC<ItemDisplayCardProps> = ({ record }) => {
 
-    const { item, quantity, inventoryDate } = record;
+    const { item, quantity } = record;
 
-    let displayedQuantity: number | string = quantity;
+    let [displayedQuantity, setDisplayedQuantity] = useState(quantity);
 
     const dispatch = useDispatch();
 
@@ -73,35 +72,29 @@ export const ItemDisplayCard: React.FC<ItemDisplayCardProps> = ({ record }) => {
                 <TextColumn>
                     <TextRow>
                         <FieldTitle>{item.itemType === 'book' ? "TITLE: " : "NAME: "} </FieldTitle>
-                        <TextInput disabled defaultValue={item.itemName} />
+                        <EntrySingleLine>{item.itemName}</EntrySingleLine>
                     </TextRow>
 
                     <TextRow>
                         <FieldTitle>{item.itemType === 'book' ? "AUTHOR: " : "BREWERY: "} </FieldTitle>
-                        <TextInput disabled defaultValue={item.brand.brandName} />
-                    </TextRow>
-
-                    <TextRow>
-                        <FieldTitle>QUANTITY: </FieldTitle>
-                        <NumberInput onChange={(e) => displayedQuantity = e.target.value} defaultValue={displayedQuantity} />
+                        <EntrySingleLine>{item.brand.brandName}</EntrySingleLine>
                     </TextRow>
 
                     <TextRow>
                         <FieldTitle>SIZE: </FieldTitle>
-                        <NumberInput disabled defaultValue={item.unitVolume} />
+                        <EntrySingleLine>{item.unitVolume}</EntrySingleLine>
+                    </TextRow>
+
+                    <TextRow>
+                        <FieldTitle>QUANTITY: </FieldTitle>
+                        <NumberInput onChange={(e) => setDisplayedQuantity(parseInt(e.target.value))} defaultValue={displayedQuantity} />
                     </TextRow>
 
                     <TextRow>
                         <FieldTitle>TOTAL SPACE: </FieldTitle>
-                        <NumberInput disabled defaultValue={item.unitVolume * quantity} />
+                        <EntrySingleLine>{item.unitVolume * displayedQuantity}</EntrySingleLine>
                     </TextRow>
 
-                    <TextRow>
-                        <FieldTitle>{item.itemType === 'book' ? "PUBLISHED: " : "EXPIRATION: "} </FieldTitle>
-                        <DateField isDisabled={true} date={inventoryDate} />
-                    </TextRow>
-
-                    {/* <LargeTextInput disabled value={item.description} /> */}
                     <FieldTitle>DESCRIPTION</FieldTitle>
                     <EntryMultiLine> {item.description} </EntryMultiLine>
 
