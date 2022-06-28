@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/vettec-project3-frontend/static/css/main.0bd53f3c.css",
+    "main.js": "/vettec-project3-frontend/static/js/main.3d76d60d.js",
+    "static/media/githubIcon.png": "/vettec-project3-frontend/static/media/githubIcon.7955cd3501f7e0e106db.png",
+    "index.html": "/vettec-project3-frontend/index.html",
+    "main.0bd53f3c.css.map": "/vettec-project3-frontend/static/css/main.0bd53f3c.css.map",
+    "main.3d76d60d.js.map": "/vettec-project3-frontend/static/js/main.3d76d60d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0bd53f3c.css",
+    "static/js/main.3d76d60d.js"
+  ]
+}
