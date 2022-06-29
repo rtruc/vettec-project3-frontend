@@ -1,11 +1,11 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { dismissInventoryCard, updateInventory } from "../../redux/actions/actions";
+import { dismissInventoryRecordCard, updateStateInvRecords, updateStateItems } from "../../redux/actions/actions";
 import { RoundRectButton } from "../Generics/Buttons/RoundRectButton";
 import { DropDownMenu } from "../Generics/DropDownMenus/DropDownMenu";
 import { State } from "../../redux/state";
-import { blankItem } from "../../model/item";
+import { blankItem, Item } from "../../model/item";
 import { RecordContainer } from "./Groupings/RecordContainer";
 import { ShadowBox } from "./Groupings/ShadowBox";
 import { TextColumn } from "./Groupings/TextColumn";
@@ -16,7 +16,10 @@ import { EntryMultiLine } from "./Fields/EntryMultiLine";
 import { FieldTitle } from "./Fields/FieldTitle";
 import { ItemImage } from "./Fields/ItemImage";
 import { EntrySingleLine } from "./Fields/EntrySingleLine";
-import { blankRecord } from "../../model/inventory";
+import { blankRecord } from "../../model/inventoryRecord";
+import itemService from "../../services/item.service";
+import { Warehouse } from "../../model/warehouse";
+import inventoryRecordService from "../../services/inventoryRecord.service";
 
 const baseURL = `${process.env.REACT_APP_PHOTO_URL}/`
 
@@ -26,9 +29,10 @@ export interface AddItemDisplayCard {
 
 export const AddItemDisplayCard: React.FC<AddItemDisplayCard> = () => {
     const dispatch = useDispatch();
-    const { items } = useSelector((state: State) => state)
 
-    const cancelClicked = () => dispatch(dismissInventoryCard());
+    const { items, activeWarehouse: currentWarehouse } = useSelector((state: State) => state)
+
+    const cancelClicked = () => dispatch(dismissInventoryRecordCard());
 
     function addClicked(): void {
         let newRecord = blankRecord;
@@ -42,19 +46,20 @@ export const AddItemDisplayCard: React.FC<AddItemDisplayCard> = () => {
 
         // console.log(newRecord);
 
-        axios.post(`${process.env.REACT_APP_REST_URL}/inventories/`, newRecord)
+        // axios.post(`${process.env.REACT_APP_REST_URL}/inventoryRecords/`, newRecord)
+        inventoryRecordService.postNewInventoryRecord(newRecord)
              .then(() =>
                 axios.get(`${process.env.REACT_APP_REST_URL}/warehouses/${newRecord.warehouseID}`)
-                     .then(({ data }) => dispatch(updateInventory(data)))
-                     .catch(() => console.log("UPDATE INVENTORY FAILED")))
+                     .then(({ data }) => dispatch(updateStateInvRecords(data)))
+                     .catch(() => console.log("UPDATE INVENTORY RECORD FAILED")))
              .then(() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }))
-             .then(() => dispatch(dismissInventoryCard()))
+             .then(() => dispatch(dismissInventoryRecordCard()))
              .catch(() => console.log("POST FAILED"))
     }
 
     let [item, setItem] = useState(blankItem)
     let [quantity, setQuantity] = useState(0);
-    const {currentWarehouse} = useSelector((state: State) => state);
+    // const {currentWarehouse} = useSelector((state: State) => state);
 
     return (
         <ShadowBox>

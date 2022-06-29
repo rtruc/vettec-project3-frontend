@@ -64,10 +64,10 @@ interface SidebarProps {
 
 export const Sidebar: React.FC<SidebarProps> = () => {
 
-    let { inventory } = useSelector((state: State) => state);
+    let { inventoryRecords } = useSelector((state: State) => state);
 
     let brandNames: string[] = [];
-    for (const record of inventory) {
+    for (const record of inventoryRecords) {
         if (!brandNames.includes(record.item.brand.brandName)) {
             brandNames.push(record.item.brand.brandName);
         }
@@ -75,7 +75,7 @@ export const Sidebar: React.FC<SidebarProps> = () => {
     brandNames.sort()
 
     let types: string[] =[];
-    for(const record of inventory) {
+    for(const record of inventoryRecords) {
         if (!types.includes(record.item.itemType)) {
             types.push(record.item.itemType);
         }

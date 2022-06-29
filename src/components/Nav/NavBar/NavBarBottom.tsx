@@ -3,7 +3,7 @@ import { NavBar } from "./NavBar";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../../redux/state";
 import { NavBarButton } from "../../Generics/Buttons/TextButton";
-import { displayAddInventoryCard } from "../../../redux/actions/actions";
+import { displayAddInventoryRecordCard } from "../../../redux/actions/actions";
 
 const ColumnBundle = styled.div`
     display: flex;
@@ -53,7 +53,7 @@ const Data = styled.div`
 
 
 export const NavBarBottom = () => {
-    const { inventory, currentWarehouse } = useSelector((state: State) => state);
+    const { inventoryRecords: inventory, activeWarehouse: currentWarehouse } = useSelector((state: State) => state);
     const style = `bottom`;
 
     let warehouseID: number | null = null;
@@ -126,7 +126,7 @@ export const NavBarBottom = () => {
 
             </Row>
 
-            <NavBarButton onClick={() => dispatch(displayAddInventoryCard())}>+</NavBarButton>
+            <NavBarButton onClick={() => dispatch(displayAddInventoryRecordCard())}>+</NavBarButton>
 
         </NavBar>
     )

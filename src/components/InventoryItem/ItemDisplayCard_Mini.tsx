@@ -2,8 +2,8 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { theme } from "../../css/theme";
-import { Inventory } from "../../model/inventory";
-import { displayLargeItemView } from "../../redux/actions/actions";
+import { InventoryRecord } from "../../model/inventoryRecord";
+import { displayLargeInventoryRecordView } from "../../redux/actions/actions";
 import { DateField } from "./Fields/DatePicker";
 
 const MiniRecordContainer = styled.div`
@@ -81,7 +81,7 @@ const Image = styled.img`
 const baseURL = `${process.env.REACT_APP_PHOTO_URL}/`
 
 export interface MiniItemDisplayCardProps {
-    record: Inventory;
+    record: InventoryRecord;
 }
 
 
@@ -98,7 +98,7 @@ export const MiniItemDisplayCard: React.FC<MiniItemDisplayCardProps> = ({ record
     return (
 
 
-        <MiniRecordContainer onClick={() => dispatch(displayLargeItemView(record))}>
+        <MiniRecordContainer onClick={() => dispatch(displayLargeInventoryRecordView(record))}>
 
             <Image alt={record.item.itemName} src={imageURL} />
 

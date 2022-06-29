@@ -1,8 +1,6 @@
 import { blankItem, Item } from "./item";
-// import { blankLocation, Location } from "./location";
-// import { blankWarehouse, Warehouse } from "./warehouse";
 
-export class Inventory {
+export class InventoryRecord {
 
     inventoryID: number;
     // warehouse: Warehouse;
@@ -24,4 +22,4 @@ export class Inventory {
     }
 }
 
-export const blankRecord = new Inventory(-1, -1, blankItem, -1, "1999-04-20");
+export const blankRecord = new InventoryRecord(-1, -1, blankItem, -1, "1999-04-20");

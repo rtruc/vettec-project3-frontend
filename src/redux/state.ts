@@ -1,34 +1,34 @@
 import { inventoryFilter} from "../util/inventoryFilters";
-import { Inventory } from "../model/inventory";
+import { InventoryRecord } from "../model/inventoryRecord";
 import { Warehouse } from "../model/warehouse";
 import { Brand } from "../model/brand";
 import { Item } from "../model/item";
 // import { Company } from "../model/company";
 
 export interface State {
-    inventory: Inventory[];
+    inventoryRecords: InventoryRecord[];
     warehouses: Warehouse[];
     items: Item[];
     brands: Brand[];
     // companies: Company[];
     locations: Location[];
 
-    currentWarehouse: Warehouse | null;
-    activeRecord: Inventory | null;
+    activeWarehouse: Warehouse | null;
+    activeRecord: InventoryRecord | null;
     mode: string;
 
     filters: Map<string, inventoryFilter>;
 }
 
 export const initialState: State = {
-    inventory: [], 
+    inventoryRecords: [], 
     warehouses: [],
     items: [],
     brands: [],
     // companies: [],
     locations: [],
 
-    currentWarehouse: null,
+    activeWarehouse: null,
     activeRecord: null,
     mode: "",
 

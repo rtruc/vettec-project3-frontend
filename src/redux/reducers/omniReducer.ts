@@ -1,7 +1,7 @@
 import { AnyAction } from "redux";
 import { brandFilter, textFilter, typeFilter } from "../../util/inventoryFilters";
 import { initialState } from "../state";
-import { Inventory } from "../../model/inventory";
+import { InventoryRecord } from "../../model/inventoryRecord";
 
 
 // TODO: REFACTOR - Split this monstrosity up
@@ -10,48 +10,58 @@ export const omniReducer = (state = initialState, action: AnyAction) => {
 
     switch (action.type) {
 
-        case "UPDATE_INVENTORY": {
-            state.inventory = action.inventory;
+        case "UPDATE_STATE_RECORDS": {
+            state.inventoryRecords = action.inventoryRecords;
+            return {...state};
+        }
+        case "CLEAR_STATE_RECORDS": {
+            state.inventoryRecords = [];
+            state.activeWarehouse = initialState.activeWarehouse;
+            return {...state}
+        }
+
+        case "UPDATE_STATE_RECORD": {
+            const index = state.inventoryRecords.indexOf(action.record);
+            state.inventoryRecords[index] = action.record;
+            
+            return {...state}
+        }
+        case "DELETE_STATE_RECORD": {
+            const index = state.inventoryRecords.indexOf(action.record);
+            state.inventoryRecords.splice(index, 1);
+
             return {...state};
         }
 
-        case "UPDATE_WAREHOUSES": {
+
+        case "UPDATE_STATE_WAREHOUSES": {
             state.warehouses = action.warehouses;
             return {...state};
         }
-
-        case "UPDATE_ITEMS": {
-            state.items = action.items;
-            return {...state};
-        }
-        
-
         case "UPDATE_SELECTED_WAREHOUSE": {
-            state.currentWarehouse = 
+            state.activeWarehouse = 
                             state.warehouses.find(warehouse => warehouse.warehouseID === action.warehouseID) 
                             || null;
             state.filters.clear();
             return {...state};
         }
 
-        case "CLEAR_LOCAL_INVENTORY": {
-            state.inventory = [];
-            state.currentWarehouse = initialState.currentWarehouse;
-            return {...state}
+
+        case "UPDATE_STATE_ITEMS": {
+            state.items = action.items;
+            return {...state};
         }
+    
 
         case "DISPLAY_LARGE_ITEM": {
-            state.activeRecord = action.inventory;
+            state.activeRecord = action.inventoryRecord;
             state.mode = "DISPLAY_RECORD";
             return {...state};
         }
-
         case "DISPLAY_ADD_ITEM": {
             state.mode = "ADD_RECORD";
             return {...state};
         }
-
-
         case "DISMISS_CARD": {
             state.mode = "";
             state.activeRecord = null;
@@ -59,35 +69,15 @@ export const omniReducer = (state = initialState, action: AnyAction) => {
         }
 
 
-
-
-        // case "ADD_INV_ITEM": {
-        //     state.mode = "";
-        //     console.log("Saved through the power of imagination");
-        //     return {...state};
-        // }
-
-        case "DELETE_INV_ITEM": {
-            if(state.activeRecord){
-                const index = state.inventory.indexOf(state.activeRecord);
-                state.inventory.splice(index, 1);
-                state.activeRecord = null;
+        case 'SEARCH_TEXT': {
+            if (action.searchText.length > 0) {
+                state.filters.set("textFilter", textFilter(action.searchText.toLowerCase()));
+                return { ...state };
+            } else {
+                state.filters.delete("textFilter");
+                return { ...state };
             }
-            return {...state};
         }
-
-        case "UPDATE_INV_QUANTITY": {
-            if(state.activeRecord){
-                const index = state.inventory.indexOf(state.activeRecord);
-                state.inventory[index].quantity = action.quantity;
-                state.activeRecord = null;
-            }
-            return {...state}
-        }
-
-
-
-
         case 'UPDATE_TYPE_FILTER': {
             if(action.isActive) {
                 state.filters.set(action.filterType, typeFilter(action.filterType));
@@ -104,85 +94,73 @@ export const omniReducer = (state = initialState, action: AnyAction) => {
             }
             return {...state}
         }
-        case 'SEARCH_TEXT': {
-            if (action.searchText.length > 0) {
-                // state.filters.searchFilter = textFilter(action.searchText);
-                state.filters.set("textFilter", textFilter(action.searchText.toLowerCase()));
-                return { ...state };
-            } else {
-                // delete state.filters.searchFilter;    
-                state.filters.delete("textFilter");
-                return { ...state };
-            }
-        }
-
-
 
 
         case "SORT_INV_ASC": {
-            state.inventory.sort((i1, i2) => sortInventoryByProperty(i1, i2, "inventoryID"))
+            state.inventoryRecords.sort((i1, i2) => sortInventoryByProperty(i1, i2, "inventoryID"))
             return {...state};
         }
         case "SORT_INV_DES": {
-            state.inventory.sort((i1, i2) => sortInventoryByProperty(i2, i1, "inventoryID"))
+            state.inventoryRecords.sort((i1, i2) => sortInventoryByProperty(i2, i1, "inventoryID"))
             return {...state};
         }
         case "SORT_AMT_ASC": {
-            state.inventory.sort((i1, i2) => sortInventoryByProperty(i1, i2, "quantity"))
+            state.inventoryRecords.sort((i1, i2) => sortInventoryByProperty(i1, i2, "quantity"))
             return {...state};
         }
         case "SORT_AMT_DES": {
-            state.inventory.sort((i1, i2) => sortInventoryByProperty(i2, i1, "quantity"))
+            state.inventoryRecords.sort((i1, i2) => sortInventoryByProperty(i2, i1, "quantity"))
             return {...state};
         }
         case "SORT_SPACE_ASC": {
-            state.inventory.sort((i1, i2) => sortInventoryByTotalSpace(i1, i2))
+            state.inventoryRecords.sort((i1, i2) => sortInventoryByTotalSpace(i1, i2))
             return {...state};
         }
         case "SORT_SPACE_DES": {
-            state.inventory.sort((i1, i2) => sortInventoryByTotalSpace(i2, i1))
+            state.inventoryRecords.sort((i1, i2) => sortInventoryByTotalSpace(i2, i1))
             return {...state};
         }
         case "SORT_TITLE_ASC": {
-            state.inventory.sort((i1, i2) => sortInventoryByItemProperty(i1, i2, "itemName"))
+            state.inventoryRecords.sort((i1, i2) => sortInventoryByItemProperty(i1, i2, "itemName"))
             return {...state};
         }
         case "SORT_TITLE_DES": {
-            state.inventory.sort((i1, i2) => sortInventoryByItemProperty(i2, i1, "itemName"))
+            state.inventoryRecords.sort((i1, i2) => sortInventoryByItemProperty(i2, i1, "itemName"))
             return {...state};
         }
         case "SORT_TYPE_ASC": {
-            state.inventory.sort((i1, i2) => sortInventoryByItemProperty(i1, i2, "itemType"))
+            state.inventoryRecords.sort((i1, i2) => sortInventoryByItemProperty(i1, i2, "itemType"))
             return {...state};
         }
         case "SORT_TYPE_DES": {
-            state.inventory.sort((i1, i2) => sortInventoryByItemProperty(i2, i1, "itemType"))
+            state.inventoryRecords.sort((i1, i2) => sortInventoryByItemProperty(i2, i1, "itemType"))
             return {...state};
         }
         case "SORT_SIZE_ASC": {
-            state.inventory.sort((i1, i2) => sortInventoryByItemProperty(i1, i2, "unitVolume"))
+            state.inventoryRecords.sort((i1, i2) => sortInventoryByItemProperty(i1, i2, "unitVolume"))
             return {...state};
         }
         case "SORT_SIZE_DES": {
-            state.inventory.sort((i1, i2) => sortInventoryByItemProperty(i2, i1, "unitVolume"))
+            state.inventoryRecords.sort((i1, i2) => sortInventoryByItemProperty(i2, i1, "unitVolume"))
             return {...state};
         }
         case "SORT_BRAND_ASC": {
-            state.inventory.sort((i1, i2) => sortInventoryByItemBrandProperty(i1, i2, "brandName"))
+            state.inventoryRecords.sort((i1, i2) => sortInventoryByItemBrandProperty(i1, i2, "brandName"))
             return {...state};
         }
         case "SORT_BRAND_DES": {
-            state.inventory.sort((i1, i2) => sortInventoryByItemBrandProperty(i2, i1, "brandName"))
+            state.inventoryRecords.sort((i1, i2) => sortInventoryByItemBrandProperty(i2, i1, "brandName"))
             return {...state};
         }
         case "SORT_DATE_ASC": {
-            state.inventory.sort((i1, i2) => sortInventoryByProperty(i1, i2, "inventoryDate"))
+            state.inventoryRecords.sort((i1, i2) => sortInventoryByProperty(i1, i2, "inventoryDate"))
             return {...state};
         }
         case "SORT_DATE_DES": {
-            state.inventory.sort((i1, i2) => sortInventoryByProperty(i2, i1, "inventoryDate"))
+            state.inventoryRecords.sort((i1, i2) => sortInventoryByProperty(i2, i1, "inventoryDate"))
             return {...state};
         }
+
 
         default:
             console.log("DEFAULT REDUCER TRIGGERED");
@@ -191,7 +169,7 @@ export const omniReducer = (state = initialState, action: AnyAction) => {
 }
 
 
-function sortInventoryByProperty(i1: Inventory, i2: Inventory, property: string) {
+function sortInventoryByProperty(i1: InventoryRecord, i2: InventoryRecord, property: string) {
     if (i1[property] < i2[property]) {
         return -1;
     }
@@ -200,7 +178,7 @@ function sortInventoryByProperty(i1: Inventory, i2: Inventory, property: string)
     }
     return 0;
 }
-function sortInventoryByItemProperty(i1: Inventory, i2: Inventory, property: string) {
+function sortInventoryByItemProperty(i1: InventoryRecord, i2: InventoryRecord, property: string) {
     if (i1.item[property] < i2.item[property]) {
         return -1;
     }
@@ -209,7 +187,7 @@ function sortInventoryByItemProperty(i1: Inventory, i2: Inventory, property: str
     }
     return 0;
 }
-function sortInventoryByItemBrandProperty(i1: Inventory, i2: Inventory, property: string) {
+function sortInventoryByItemBrandProperty(i1: InventoryRecord, i2: InventoryRecord, property: string) {
     if (i1.item.brand[property] < i2.item.brand[property]) {
         return -1;
     }
@@ -218,7 +196,7 @@ function sortInventoryByItemBrandProperty(i1: Inventory, i2: Inventory, property
     }
     return 0;
 }
-function sortInventoryByTotalSpace(i1: Inventory, i2: Inventory) {
+function sortInventoryByTotalSpace(i1: InventoryRecord, i2: InventoryRecord) {
     if (i1.quantity * i1.item.unitVolume < i2.quantity * i2.item.unitVolume ) {
         return -1;
     }

@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { sortInventory } from "../../../redux/actions/actions";
+import { sortStateInvRecords } from "../../../redux/actions/actions";
 import { DropDownMenu } from "./DropDownMenu";
 
 
@@ -13,7 +13,7 @@ export const DropDownMenuSort: React.FC<SortMenuProps> = () =>{
     const dispatch = useDispatch();
 
     return (
-        <DropDownMenu onChange={({target}) => dispatch(sortInventory(target.value))}>
+        <DropDownMenu onChange={({target}) => dispatch(sortStateInvRecords(target.value))}>
             <option value="SORT_INV_ASC">Inv Order ↑</option>
             <option value="SORT_INV_DES">Inv Order ↓</option>
             <option value="SORT_TITLE_ASC">Title ↑</option>

@@ -1,8 +1,8 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Inventory } from "../../model/inventory";
-import { deleteCurrentItem, dismissInventoryCard, updateInventoryQuantity } from "../../redux/actions/actions";
+import { InventoryRecord } from "../../model/inventoryRecord";
+import { deleteStateInvRecord, dismissInventoryRecordCard, updateStateInvRecord } from "../../redux/actions/actions";
 import { CloseButton } from "../Generics/Buttons/CloseButton";
 import { RoundRectButton } from "../Generics/Buttons/RoundRectButton";
 import { RecordContainer } from "./Groupings/RecordContainer";
@@ -15,11 +15,12 @@ import { EntryMultiLine } from "./Fields/EntryMultiLine";
 import { FieldTitle } from "./Fields/FieldTitle";
 import { ItemImage } from "./Fields/ItemImage";
 import { EntrySingleLine } from "./Fields/EntrySingleLine";
+import inventoryRecordService from "../../services/inventoryRecord.service";
 
 const baseURL = `${process.env.REACT_APP_PHOTO_URL}/`
 
 export interface ItemDisplayCardProps {
-    record: Inventory;
+    record: InventoryRecord;
 }
 
 export const ItemDisplayCard: React.FC<ItemDisplayCardProps> = ({ record }) => {
@@ -30,25 +31,27 @@ export const ItemDisplayCard: React.FC<ItemDisplayCardProps> = ({ record }) => {
 
     const dispatch = useDispatch();
 
-    const closeClicked = () => dispatch(dismissInventoryCard())
+    const closeClicked = () => dispatch(dismissInventoryRecordCard())
 
     const saveClicked = () => {
         if(displayedQuantity !== quantity) {
-            let duplicate = JSON.parse(JSON.stringify(record));
-            duplicate.quantity = displayedQuantity;
-            console.log(JSON.stringify(duplicate));
+            record.quantity = displayedQuantity;
 
-            axios.put(`${process.env.REACT_APP_REST_URL}/inventories/${record.inventoryID}`, duplicate)
-                 .then(() => dispatch(updateInventoryQuantity(record.inventoryID, duplicate.quantity)))
+            inventoryRecordService.putInventoryRecord(record)
+                 .then(() => dispatch(updateStateInvRecord(record)))
+                 .then(() => dispatch(dismissInventoryRecordCard()))
                  .catch(error => console.log("FAILED UPDATING QUANTITY: ", error ))
         } else {
-            dispatch(dismissInventoryCard())
+            dispatch(dismissInventoryRecordCard())
         }
     }
 
     const deleteClicked = () => {
-        axios.delete(`${process.env.REACT_APP_REST_URL}/inventories/${record.inventoryID}`)
-             .then(({data}) => dispatch(deleteCurrentItem(data)))
+        // axios.delete(`${process.env.REACT_APP_REST_URL}/inventoryRecords/${record.inventoryID}`)
+        inventoryRecordService.deleteInventoryRecord(record.inventoryID)
+            //  .then(({data}) => dispatch(deleteStateInvRecord(data)))
+             .then(() => dispatch(deleteStateInvRecord(record)))
+             .then(() => dispatch(dismissInventoryRecordCard()))
              .catch( error => console.log("DELETE FAILED: ", error));
     }
 

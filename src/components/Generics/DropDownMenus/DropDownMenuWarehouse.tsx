@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { clearInventory, updateInventory, updateSelectedWarehouse } from "../../../redux/actions/actions";
+import { clearStateInvRecords, updateStateInvRecords, updateActiveWarehouse } from "../../../redux/actions/actions";
+import warehouseService from "../../../services/warehouse.service";
 import { DropDownMenu } from "./DropDownMenu";
 
 
@@ -17,16 +18,17 @@ export const DropDownMenuWarehouse: React.FC<DropDownMenuProps> = ({ children })
     return (
         <DropDownMenu onChange={({ target }) => {
             if (target.value === "") {
-                dispatch(clearInventory())
+                dispatch(clearStateInvRecords())
             }
             else {
                 const warehouseID: number = parseInt(target.value);
 
-                dispatch(clearInventory())
-                dispatch(updateSelectedWarehouse(warehouseID));
-                axios.get(`${ process.env.REACT_APP_REST_URL}/warehouses/${warehouseID}`)
-                     .then(({data}) => dispatch(updateInventory(data)))
-                //  .then((target.value) => dispatch(updateSelectedWarehouse(value)))
+                dispatch(clearStateInvRecords())
+                // dispatch(updateSelectedWarehouse(warehouseID));
+                
+                warehouseService.getWarehouseInventoryRecords(warehouseID)
+                     .then(data => dispatch(updateStateInvRecords(data)))
+                     .then(() => dispatch(updateActiveWarehouse(warehouseID)))
             }
         }
         }

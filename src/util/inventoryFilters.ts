@@ -1,7 +1,7 @@
-import { Inventory } from "../model/inventory";
+import { InventoryRecord } from "../model/inventoryRecord";
 
 export interface inventoryFilter {
-    (item: Inventory): boolean;
+    (item: InventoryRecord): boolean;
 }
 
 export function typeFilter(type:string): inventoryFilter {

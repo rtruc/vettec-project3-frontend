@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { State } from "../../redux/state";
-import { Inventory } from "../../model/inventory";
+import { InventoryRecord } from "../../model/inventoryRecord";
 import { MiniItemDisplayCard } from "../InventoryItem/ItemDisplayCard_Mini";
 import { inventoryFilter } from "../../util/inventoryFilters";
 
@@ -32,10 +32,10 @@ const ListDiv = styled.div`
 
 export const InventoryList: React.FC = () => {
 
-    let { inventory, filters } = useSelector((state: State) => state);
+    let { inventoryRecords: inventory, filters } = useSelector((state: State) => state);
 
-    let workingSet: Inventory[] = inventory;
-    let filteredSet: Inventory[] = [];
+    let workingSet: InventoryRecord[] = inventory;
+    let filteredSet: InventoryRecord[] = [];
 
     filters.forEach((filter: inventoryFilter) => {
         filteredSet = [];

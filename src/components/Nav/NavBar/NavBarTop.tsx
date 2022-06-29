@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { updateInventory } from "../../../redux/actions/actions";
+import { updateStateInvRecords } from "../../../redux/actions/actions";
 import { State } from "../../../redux/state";
 import { DropDownMenuSort } from "../../Generics/DropDownMenus/DropDownMenuSort";
 import { DropDownMenuWarehouse } from "../../Generics/DropDownMenus/DropDownMenuWarehouse";
@@ -34,13 +34,13 @@ const NavBarBundle = styled.div`
 
 
 export const NavBarTop = () => {
-    const { warehouses, currentWarehouse } = useSelector((state: State) => state);
+    const { warehouses, activeWarehouse: currentWarehouse } = useSelector((state: State) => state);
     const dispatch = useDispatch();
 
     const refreshInventory = () => {
-        dispatch(updateInventory([]));
+        dispatch(updateStateInvRecords([]));
         axios.get(`${ process.env.REACT_APP_REST_URL}/warehouses/${currentWarehouse?.warehouseID}`)
-             .then(({data}) => dispatch(updateInventory(data)))
+             .then(({data}) => dispatch(updateStateInvRecords(data)))
              .catch((error) => console.log("WAREHOUSE UPDATE FAILED", error))
     }
 
@@ -48,8 +48,6 @@ export const NavBarTop = () => {
         <>
             <NavBar position="top">
                 <NavBarBundle>
-                    {/* //TODO: WIRE BUTTON TO REVEAL/DISMISS SIDEBAR */}
-                    {/* <NavBarButton> ≡ </NavBarButton> */}
 
                     <ColumnCenterJustified>
                         <Title>Amazin' Beers </Title>
