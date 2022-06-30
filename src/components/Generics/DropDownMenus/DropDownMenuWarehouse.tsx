@@ -1,6 +1,5 @@
-import axios from "axios";
 import { useDispatch } from "react-redux";
-import { clearStateInvRecords, updateStateInvRecords, updateActiveWarehouse } from "../../../redux/actions/actions";
+import { updateStateInvRecords, updateActiveWarehouse } from "../../../redux/actions/actions";
 import warehouseService from "../../../services/warehouse.service";
 import { DropDownMenu } from "./DropDownMenu";
 
@@ -18,17 +17,17 @@ export const DropDownMenuWarehouse: React.FC<DropDownMenuProps> = ({ children })
     return (
         <DropDownMenu onChange={({ target }) => {
             if (target.value === "") {
-                dispatch(clearStateInvRecords())
-            }
-            else {
+                dispatch(updateActiveWarehouse(null));
+                dispatch(updateStateInvRecords([]));
+            } else {
                 const warehouseID: number = parseInt(target.value);
 
-                dispatch(clearStateInvRecords())
-                // dispatch(updateSelectedWarehouse(warehouseID));
+                // TODO: Loading indicator to cover server latency
                 
-                warehouseService.getWarehouseInventoryRecords(warehouseID)
+                warehouseService.getInventoryRecordsForSelectedWarehouse(warehouseID)
                      .then(data => dispatch(updateStateInvRecords(data)))
                      .then(() => dispatch(updateActiveWarehouse(warehouseID)))
+                     .catch(error => console.log("FAILED SELECTING NEW WAREHOUSE", error));
             }
         }
         }

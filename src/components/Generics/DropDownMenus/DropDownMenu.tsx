@@ -13,6 +13,9 @@ export const DropDownMenu = styled.select`
 
     border: none;
 
+    background-color:${theme.item_BackgroundColor_lighter};
+    /* background-color:purple; */
+
     &:focus {
         outline: none;
     }

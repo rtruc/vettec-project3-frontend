@@ -31,6 +31,7 @@ const SearchField = styled.input`
     transition: 
         background-color 0.3s ease-in-out,
         color 0.3s ease-in-out;
+    background-color: ${theme.item_BackgroundColor_lighter};
 
     /* &:hover {
         background-color: ${theme.searchBox_BackgroundColor_Hover};

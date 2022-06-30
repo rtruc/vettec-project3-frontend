@@ -6,7 +6,7 @@ import { Warehouse } from "../../model/warehouse";
 
 export const updateStateInvRecords = (inventoryRecords: InventoryRecord[]) =>
                                      ({ type: 'UPDATE_STATE_RECORDS', inventoryRecords })
-export const clearStateInvRecords = () => ({ type: 'CLEAR_STATE_RECORDS' })
+// export const clearStateInvRecords = () => ({ type: 'CLEAR_STATE_RECORDS' })
 
 export const updateStateInvRecord = (record: InventoryRecord) => 
                                     ({ type: 'UPDATE_STATE_RECORD', record })
@@ -18,7 +18,7 @@ export const sortStateInvRecords = (type: string) => ({ type })
 
 export const updateStateWarehouses = (warehouses: Warehouse[]) => 
                                      ({ type: 'UPDATE_STATE_WAREHOUSES', warehouses })
-export const updateActiveWarehouse = (warehouseID: number) => 
+export const updateActiveWarehouse = (warehouseID: number | null) => 
                                        ({ type: 'UPDATE_SELECTED_WAREHOUSE', warehouseID })
 
 

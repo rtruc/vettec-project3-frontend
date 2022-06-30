@@ -7,7 +7,7 @@ class InventoryRecordService {
              .catch( error => console.log("INVENTORY RECORD POST FAILED"));
     }
 
-    putInventoryRecord(record: InventoryRecord) {
+    putInventoryRecordUpdate(record: InventoryRecord) {
         return axios.put(`${process.env.REACT_APP_REST_URL}/inventoryRecords/${record.inventoryID}`, record)
                     .catch( error => console.log("FAILED INVENTORY PUT REQUEST: ", error));
 

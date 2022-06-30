@@ -46,6 +46,7 @@ export const CheckBoxDiv = styled.input.attrs({ type: 'checkbox' })`
         /* outline-offset: max(2px, 0.15em); */
     }
     
+    border: .02em solid ${theme.button_TextColor_Hover_NavBar};
     transition: border 250ms;
     &:hover {
         border: 0.15em solid ${theme.button_TextColor_Hover_NavBar};
@@ -59,6 +60,7 @@ export const CheckBoxDiv = styled.input.attrs({ type: 'checkbox' })`
     }
     
     accent-color: ${theme.active_Color};
+    background-color: ${theme.item_BackgroundColor_lighter};
 `
 
 interface CheckBoxProps {

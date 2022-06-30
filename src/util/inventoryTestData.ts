@@ -1,16 +1,16 @@
-export const testAddItem =
-{
-    "warehouse": {
-        "warehouseID": 1
-    },
-    "item": {
-        "itemID": 25
-    },
-    "quantity": 9,
-    "inventoryDate": "1999-04-20"
-}
+// export const testAddItem =
+// {
+//     "warehouse": {
+//         "warehouseID": 1
+//     },
+//     "item": {
+//         "itemID": 25
+//     },
+//     "quantity": 9,
+//     "inventoryDate": "1999-04-20"
+// }
 
-export const testInventory = [
+export const testInventoryRecords = [
     {
         "inventoryID": 1,
         "warehouse": {

@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { InventoryRecord } from "../../model/inventoryRecord";
@@ -37,7 +36,7 @@ export const ItemDisplayCard: React.FC<ItemDisplayCardProps> = ({ record }) => {
         if(displayedQuantity !== quantity) {
             record.quantity = displayedQuantity;
 
-            inventoryRecordService.putInventoryRecord(record)
+            inventoryRecordService.putInventoryRecordUpdate(record)
                  .then(() => dispatch(updateStateInvRecord(record)))
                  .then(() => dispatch(dismissInventoryRecordCard()))
                  .catch(error => console.log("FAILED UPDATING QUANTITY: ", error ))
@@ -47,9 +46,7 @@ export const ItemDisplayCard: React.FC<ItemDisplayCardProps> = ({ record }) => {
     }
 
     const deleteClicked = () => {
-        // axios.delete(`${process.env.REACT_APP_REST_URL}/inventoryRecords/${record.inventoryID}`)
         inventoryRecordService.deleteInventoryRecord(record.inventoryID)
-            //  .then(({data}) => dispatch(deleteStateInvRecord(data)))
              .then(() => dispatch(deleteStateInvRecord(record)))
              .then(() => dispatch(dismissInventoryRecordCard()))
              .catch( error => console.log("DELETE FAILED: ", error));

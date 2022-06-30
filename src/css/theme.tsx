@@ -33,8 +33,8 @@ export const themes                              = {
         
         // button_BackgroundColor_Success             : 'rgb(17, 198, 0)',
 
-
         item_BackgroundColor                     : 'rgb(190, 231, 255)',
+        item_BackgroundColor_lighter             : 'rgb(224, 243, 255)',
         item_BorderShadowColor                   : 'rgb(196, 224, 237)',
         item_BorderShadowColor_HoverFocus        : 'rgb(112, 157, 255)',
         item_PlaceholderText                     : 'rgb(128,128,128)'

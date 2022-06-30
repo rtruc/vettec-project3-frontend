@@ -14,11 +14,11 @@ export const omniReducer = (state = initialState, action: AnyAction) => {
             state.inventoryRecords = action.inventoryRecords;
             return {...state};
         }
-        case "CLEAR_STATE_RECORDS": {
-            state.inventoryRecords = [];
-            state.activeWarehouse = initialState.activeWarehouse;
-            return {...state}
-        }
+        // case "CLEAR_STATE_RECORDS": {
+        //     state.inventoryRecords = [];
+        //     state.activeWarehouse = initialState.activeWarehouse;
+        //     return {...state}
+        // }
 
         case "UPDATE_STATE_RECORD": {
             const index = state.inventoryRecords.indexOf(action.record);

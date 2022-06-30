@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { updateStateInvRecords } from "../../../redux/actions/actions";
@@ -10,6 +9,7 @@ import { Title } from "./Text/Title";
 import { NavBar } from "./NavBar";
 // import { NavBarBundle } from "./NavBarBundle";
 import { NavBarButton } from "../../Generics/Buttons/TextButton";
+import warehouseService from "../../../services/warehouse.service";
 
 
 const ColumnCenterJustified = styled.div`
@@ -39,8 +39,8 @@ export const NavBarTop = () => {
 
     const refreshInventory = () => {
         dispatch(updateStateInvRecords([]));
-        axios.get(`${ process.env.REACT_APP_REST_URL}/warehouses/${currentWarehouse?.warehouseID}`)
-             .then(({data}) => dispatch(updateStateInvRecords(data)))
+        warehouseService.getInventoryRecordsForSelectedWarehouse(currentWarehouse?.warehouseID || -1)
+             .then(records => dispatch(updateStateInvRecords(records)))
              .catch((error) => console.log("WAREHOUSE UPDATE FAILED", error))
     }
 

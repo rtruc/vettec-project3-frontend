@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { dismissInventoryRecordCard, updateStateInvRecords, updateStateItems } from "../../redux/actions/actions";
@@ -20,6 +19,7 @@ import { blankRecord } from "../../model/inventoryRecord";
 import itemService from "../../services/item.service";
 import { Warehouse } from "../../model/warehouse";
 import inventoryRecordService from "../../services/inventoryRecord.service";
+import warehouseService from "../../services/warehouse.service";
 
 const baseURL = `${process.env.REACT_APP_PHOTO_URL}/`
 
@@ -30,36 +30,32 @@ export interface AddItemDisplayCard {
 export const AddItemDisplayCard: React.FC<AddItemDisplayCard> = () => {
     const dispatch = useDispatch();
 
-    const { items, activeWarehouse: currentWarehouse } = useSelector((state: State) => state)
+    const { items, activeWarehouse } = useSelector((state: State) => state)
 
     const cancelClicked = () => dispatch(dismissInventoryRecordCard());
 
-    function addClicked(): void {
+    function addRecordClicked(): void {
         let newRecord = blankRecord;
-        newRecord.warehouseID = currentWarehouse?.warehouseID || -1;
+        newRecord.warehouseID = activeWarehouse?.warehouseID || -1;
         newRecord.item.itemID = item.itemID;
         newRecord.quantity = quantity;
 
-        if(item === blankItem || quantity < 1 || newRecord.warehouseID === -1) {
+        if (item === blankItem || quantity < 1 || newRecord.warehouseID === -1) {
             return;
         }
 
-        // console.log(newRecord);
-
-        // axios.post(`${process.env.REACT_APP_REST_URL}/inventoryRecords/`, newRecord)
         inventoryRecordService.postNewInventoryRecord(newRecord)
-             .then(() =>
-                axios.get(`${process.env.REACT_APP_REST_URL}/warehouses/${newRecord.warehouseID}`)
-                     .then(({ data }) => dispatch(updateStateInvRecords(data)))
-                     .catch(() => console.log("UPDATE INVENTORY RECORD FAILED")))
-             .then(() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }))
-             .then(() => dispatch(dismissInventoryRecordCard()))
-             .catch(() => console.log("POST FAILED"))
+            .then(() =>
+                warehouseService.getInventoryRecordsForSelectedWarehouse(newRecord.warehouseID)
+                    .then( records  => dispatch(updateStateInvRecords(records)))
+                    .catch(() => console.log("UPDATE INVENTORY RECORD FAILED")))
+            .then(() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }))
+            .then(() => dispatch(dismissInventoryRecordCard()))
+            .catch(() => console.log("POST FAILED"))
     }
 
     let [item, setItem] = useState(blankItem)
     let [quantity, setQuantity] = useState(0);
-    // const {currentWarehouse} = useSelector((state: State) => state);
 
     return (
         <ShadowBox>
@@ -68,7 +64,7 @@ export const AddItemDisplayCard: React.FC<AddItemDisplayCard> = () => {
 
                 <ImageColumn>
                     <ItemImage alt={"BEER"} src={baseURL + item.imageURL} />
-                    <RoundRectButton onClick={addClicked}> ADD </RoundRectButton>
+                    <RoundRectButton onClick={addRecordClicked}> ADD </RoundRectButton>
                     <RoundRectButton onClick={cancelClicked} buttonModifier="caution"> CANCEL </RoundRectButton>
                 </ImageColumn>
 
