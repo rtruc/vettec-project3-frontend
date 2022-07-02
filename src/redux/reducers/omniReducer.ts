@@ -35,7 +35,9 @@ export const omniReducer = (state = initialState, action: AnyAction) => {
 
 
         case "UPDATE_STATE_WAREHOUSES": {
-            state.warehouses = action.warehouses;
+            if(action.warehouses) {
+                state.warehouses = action.warehouses;
+            }
             return {...state};
         }
         case "UPDATE_SELECTED_WAREHOUSE": {

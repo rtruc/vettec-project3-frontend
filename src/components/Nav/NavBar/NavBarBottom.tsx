@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { NavBar } from "./NavBar";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../../redux/state";
-import { NavBarButton } from "../../Generics/Buttons/TextButton";
+import { NavBarButton, NavBarButton_Inactive } from "../../Generics/Buttons/NavBarButton";
 import { displayAddInventoryRecordCard } from "../../../redux/actions/actions";
 
 const ColumnBundle = styled.div`
@@ -53,7 +53,7 @@ const Data = styled.div`
 
 
 export const NavBarBottom = () => {
-    const { inventoryRecords: inventory, activeWarehouse: currentWarehouse } = useSelector((state: State) => state);
+    const { inventoryRecords: inventory, activeWarehouse } = useSelector((state: State) => state);
     const style = `bottom`;
 
     let warehouseID: number | null = null;
@@ -62,18 +62,18 @@ export const NavBarBottom = () => {
     let location = "";
     let itemCount = 0;
 
-    if (currentWarehouse) {
-        maxStorageCapacity = currentWarehouse.maxStorageCapacity;
+    if (activeWarehouse) {
+        maxStorageCapacity = activeWarehouse.maxStorageCapacity;
         for (let i = 0; i < inventory.length; i++) {
             const currentItemsTotalSpace = inventory[i].item.unitVolume * inventory[i].quantity;
             currentStorage += currentItemsTotalSpace;
             itemCount++;
         }
 
-        warehouseID = currentWarehouse.warehouseID;
-        location = currentWarehouse.location.city + ", "
-            + currentWarehouse.location.state + " - "
-            + currentWarehouse.location.country;
+        warehouseID = activeWarehouse.warehouseID;
+        location = activeWarehouse.location.city + ", "
+            + activeWarehouse.location.state + " - "
+            + activeWarehouse.location.country;
     }
 
     const dispatch = useDispatch();
@@ -89,8 +89,8 @@ export const NavBarBottom = () => {
                         <Title>Max Capacity:</Title>
                     </ColumnRightJustified>
                     <ColumnLeftJustified>
-                        <Data>{currentWarehouse ? currentStorage : ""}</Data>
-                        <Data>{currentWarehouse ? maxStorageCapacity : ""}</Data>
+                        <Data>{activeWarehouse ? currentStorage : ""}</Data>
+                        <Data>{activeWarehouse ? maxStorageCapacity : ""}</Data>
                     </ColumnLeftJustified>
                 </ColumnBundle>
 
@@ -102,8 +102,8 @@ export const NavBarBottom = () => {
                         <Title>Percent Full:</Title>
                     </ColumnRightJustified>
                     <ColumnLeftJustified>
-                        <Data>{currentWarehouse ? itemCount : ""}</Data>
-                        <Data>{currentWarehouse ? (currentStorage / maxStorageCapacity * 100).toFixed(2) + "%" : ""}</Data>
+                        <Data>{activeWarehouse ? itemCount : ""}</Data>
+                        <Data>{activeWarehouse ? (currentStorage / maxStorageCapacity * 100).toFixed(2) + "%" : ""}</Data>
                     </ColumnLeftJustified>
                 </ColumnBundle>
 
@@ -117,8 +117,8 @@ export const NavBarBottom = () => {
                         <Title>ID:</Title>
                     </ColumnRightJustified>
                     <ColumnLeftJustified>
-                        <Data>{currentWarehouse ? location : ""}</Data>
-                        <Data>{currentWarehouse ? warehouseID : ""}</Data>
+                        <Data>{activeWarehouse ? location : ""}</Data>
+                        <Data>{activeWarehouse ? warehouseID : ""}</Data>
                     </ColumnLeftJustified>
                 </ColumnBundle>
 
@@ -126,7 +126,10 @@ export const NavBarBottom = () => {
 
             </Row>
 
-            <NavBarButton onClick={() => dispatch(displayAddInventoryRecordCard())}>+</NavBarButton>
+            {activeWarehouse ? 
+            <NavBarButton onClick={() => dispatch(displayAddInventoryRecordCard())}>+</NavBarButton> :
+            <NavBarButton_Inactive >+</NavBarButton_Inactive> 
+            }
 
         </NavBar>
     )

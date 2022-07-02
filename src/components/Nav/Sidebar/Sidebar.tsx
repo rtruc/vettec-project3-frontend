@@ -74,8 +74,8 @@ export const Sidebar: React.FC<SidebarProps> = () => {
     }
     brandNames.sort()
 
-    let types: string[] =[];
-    for(const record of inventoryRecords) {
+    let types: string[] = [];
+    for (const record of inventoryRecords) {
         if (!types.includes(record.item.itemType)) {
             types.push(record.item.itemType);
         }
@@ -87,33 +87,38 @@ export const Sidebar: React.FC<SidebarProps> = () => {
     return (
         <SidebarDiv>
             <Header>FILTERS</Header>
-            <Column>
+            {inventoryRecords.length > 0 ?
+                <Column>
 
-                <SubHeader>Type</SubHeader>
-                {
-                    types.map((type) => {
-                        return (
-                            <Row key={type}>
-                                <CheckBox clickEvent={(e) => dispatch(updateTypeFilter(type, e.target.checked))} />
-                                <FilterTitle>{(type.charAt(0).toUpperCase() + type.slice(1))}</FilterTitle>
-                            </Row>
-                        )
-                    })
-                }
+                    <SubHeader>Type</SubHeader>
+                    {
+                        types.map((type) => {
+                            return (
+                                <Row key={type}>
+                                    <CheckBox clickEvent={(e) => dispatch(updateTypeFilter(type, e.target.checked))} />
+                                    <FilterTitle>{(type.charAt(0).toUpperCase() + type.slice(1))}</FilterTitle>
+                                </Row>
+                            )
+                        })
+                    }
 
-                <SubHeader>Brand</SubHeader>
-                {
-                    brandNames.map((companyName) => {
-                        return (
-                            <Row key={companyName}>
-                                <CheckBox clickEvent={(e) => dispatch(updateBrandFilter(companyName, e.target.checked))} />
-                                <FilterTitle>{(companyName.substring(0, 12))}</FilterTitle>
-                            </Row>
-                        )
-                    })
-                }
+                    <SubHeader>Brand</SubHeader>
+                    {
+                        brandNames.map((companyName) => {
+                            return (
+                                <Row key={companyName}>
+                                    <CheckBox clickEvent={(e) => dispatch(updateBrandFilter(companyName, e.target.checked))} />
+                                    <FilterTitle>{(companyName.substring(0, 12))}</FilterTitle>
+                                </Row>
+                            )
+                        })
+                    }
 
-            </Column>
+                </Column>
+                :
+                null
+            }
+
 
         </SidebarDiv>
     )

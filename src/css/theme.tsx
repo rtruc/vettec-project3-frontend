@@ -3,7 +3,7 @@ export const themes                              = {
         
         textColor_Dark                           : '#000000',
         textColor_Light                          : '#dadada',
-        textColor_Inactive                       : '#6c6c6c',
+        textColor_Inactive                       : '#00000049',
         textColor_Warning                        : 'rgb(255, 0, 0)',
 
         

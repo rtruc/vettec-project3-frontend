@@ -7,9 +7,9 @@ import { DropDownMenuWarehouse } from "../../Generics/DropDownMenus/DropDownMenu
 import { SearchForm } from "../../Generics/SearchForm";
 import { Title } from "./Text/Title";
 import { NavBar } from "./NavBar";
-// import { NavBarBundle } from "./NavBarBundle";
-import { NavBarButton } from "../../Generics/Buttons/TextButton";
+import { NavBarButton } from "../../Generics/Buttons/NavBarButton";
 import warehouseService from "../../../services/warehouse.service";
+import { DropDownMenu } from "../../Generics/DropDownMenus/DropDownMenu";
 
 
 const ColumnCenterJustified = styled.div`
@@ -22,8 +22,6 @@ const ColumnCenterJustified = styled.div`
     align-items:center;
     justify-content:center;
     margin-right:40px;
-    /* height: 45px; */
-    /* justify-content:end; */
 `
 const NavBarBundle = styled.div`
     display: flex;
@@ -34,14 +32,16 @@ const NavBarBundle = styled.div`
 
 
 export const NavBarTop = () => {
-    const { warehouses, activeWarehouse: currentWarehouse } = useSelector((state: State) => state);
+    const { warehouses, activeWarehouse, inventoryRecords } = useSelector((state: State) => state);
     const dispatch = useDispatch();
 
     const refreshInventory = () => {
         dispatch(updateStateInvRecords([]));
-        warehouseService.getInventoryRecordsForSelectedWarehouse(currentWarehouse?.warehouseID || -1)
-             .then(records => dispatch(updateStateInvRecords(records)))
-             .catch((error) => console.log("WAREHOUSE UPDATE FAILED", error))
+        if (activeWarehouse) {
+            warehouseService.getInventoryRecordsForSelectedWarehouse(activeWarehouse.warehouseID)
+                .then(records => dispatch(updateStateInvRecords(records)))
+                .catch((error) => console.log("WAREHOUSE UPDATE FAILED", error))
+        }
     }
 
     return (
@@ -62,8 +62,8 @@ export const NavBarTop = () => {
                     <DropDownMenuWarehouse>
                         {warehouses.map((warehouse) => {
                             return (
-                                < option key   = {warehouse.warehouseID}
-                                         value = {warehouse.warehouseID}>
+                                < option key={warehouse.warehouseID}
+                                    value={warehouse.warehouseID}>
                                     {warehouse.warehouseName}
                                 </option>
                             )
@@ -74,7 +74,11 @@ export const NavBarTop = () => {
 
                 <NavBarBundle>
                     <Title>Sort:</Title>
-                    <DropDownMenuSort />
+                    {inventoryRecords.length > 0 ?
+                        <DropDownMenuSort />
+                        :
+                        <DropDownMenu />
+                    }
                 </NavBarBundle>
 
                 <SearchForm />
